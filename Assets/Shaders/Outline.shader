@@ -2,7 +2,7 @@
 {
     SubShader
     {
-        Cull Off ZWrite Off ZTest Always
+        Cull Off /*ZWrite Off*/ ZTest Always
 
         Pass
         {

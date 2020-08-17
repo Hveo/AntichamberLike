@@ -65,6 +65,7 @@ Shader "Custom/Internal-DeferredShading" {
                 UNITY_INITIALIZE_OUTPUT(UnityLight, light);
                 UnityDeferredCalculateLightParams(i, wpos, uv, light.dir, atten, fadeDist);
 
+				//_LightColor.rgb *= _LightColor.a > 0.5 ? 1.0 : -1.0;
                 light.color = _LightColor.rgb * atten;
                 half3 hsv = rgb2hsv(light.color);
                 hsv.r = hsv.r - 0.5;
@@ -85,6 +86,7 @@ Shader "Custom/Internal-DeferredShading" {
                 ind.specular = 0;
 
                 half4 res = UNITY_BRDF_PBS(data.diffuseColor, data.specularColor, oneMinusReflectivity, data.smoothness, data.normalWorld, -eyeVec, light, ind);
+				res.rgb *= _LightColor.a > 0.5 ? 1.0 : -1.0;
 
                 return res;
             }

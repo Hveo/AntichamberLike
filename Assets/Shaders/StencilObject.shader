@@ -11,8 +11,6 @@ Shader "Stencils/Viewer"
 		SubShader
 	{
 		Tags { "RenderType" = "Opaque" "Queue" = "Geometry+10"}
-		ZWrite off
-		ZTest Always
 
 		Stencil
 		{
