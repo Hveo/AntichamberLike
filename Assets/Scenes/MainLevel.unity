@@ -1590,6 +1590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 208208170}
   - component: {fileID: 208208171}
+  - component: {fileID: 208208172}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -1672,6 +1673,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &208208172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208208169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 208208171}
+  DistanceBeforeCulling: 30
 --- !u!1001 &255233571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1974,6 +1990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306574571}
   - component: {fileID: 306574572}
+  - component: {fileID: 306574573}
   m_Layer: 0
   m_Name: BlueLight
   m_TagString: Untagged
@@ -2056,6 +2073,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &306574573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306574570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 306574572}
+  DistanceBeforeCulling: 40
 --- !u!1 &313709456 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3170852374886342747, guid: 3b37d0e05f43ae2478a55ab723b53856,
@@ -2530,6 +2562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385598160}
   - component: {fileID: 385598161}
+  - component: {fileID: 385598162}
   m_Layer: 0
   m_Name: OutVerticalDark
   m_TagString: Untagged
@@ -2612,6 +2645,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &385598162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385598159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 385598161}
+  DistanceBeforeCulling: 30
 --- !u!1 &392732047
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 393150931}
   - component: {fileID: 393150932}
+  - component: {fileID: 393150933}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -2797,6 +2846,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &393150933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393150930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 393150932}
+  DistanceBeforeCulling: 30
 --- !u!1 &443865383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,6 +2871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 443865384}
   - component: {fileID: 443865385}
+  - component: {fileID: 443865386}
   m_Layer: 0
   m_Name: GreenLight
   m_TagString: Untagged
@@ -2889,6 +2954,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &443865386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443865383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 443865385}
+  DistanceBeforeCulling: 30
 --- !u!4 &493645792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5773161239053124537, guid: 51369522fb0faf44692e43eff022c15f,
@@ -3544,6 +3624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 603815951}
   - component: {fileID: 603815952}
+  - component: {fileID: 603815953}
   m_Layer: 0
   m_Name: BurnLight
   m_TagString: Untagged
@@ -3626,6 +3707,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &603815953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603815950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 603815952}
+  DistanceBeforeCulling: 30
 --- !u!1 &607114206
 GameObject:
   m_ObjectHideFlags: 0
@@ -9231,6 +9327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 814160433}
   - component: {fileID: 814160432}
+  - component: {fileID: 814160434}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -9313,6 +9410,21 @@ Transform:
   m_Father: {fileID: 1579296846}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814160434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814160431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 814160432}
+  DistanceBeforeCulling: 30
 --- !u!1 &841320049
 GameObject:
   m_ObjectHideFlags: 0
@@ -10424,7 +10536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sharedProfile: {fileID: 11400000, guid: 4ccf89a5edeee4244887bc04c2f24a8e, type: 2}
   isGlobal: 1
-  blendDistance: 0
+  blendDistance: 10
   weight: 1
   priority: 0
 --- !u!114 &963194231
@@ -10515,6 +10627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965377005}
   - component: {fileID: 965377006}
+  - component: {fileID: 965377007}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -10597,6 +10710,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &965377007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965377004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 965377006}
+  DistanceBeforeCulling: 40
 --- !u!33 &972161739 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: 2932703627487684060, guid: bb5461a6031d89c43abab383bf58b01f,
@@ -11287,6 +11415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061482667}
   - component: {fileID: 1061482668}
+  - component: {fileID: 1061482669}
   m_Layer: 0
   m_Name: AquaLight
   m_TagString: Untagged
@@ -11369,6 +11498,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1061482669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061482666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 1061482668}
+  DistanceBeforeCulling: 30
 --- !u!33 &1103920079 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5178661895559278292, guid: a6d1bf48f0c03954fb5bdb6e96d00305,
@@ -16543,6 +16687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1249787796}
   - component: {fileID: 1249787795}
+  - component: {fileID: 1249787797}
   m_Layer: 0
   m_Name: DarkLight
   m_TagString: Untagged
@@ -16625,6 +16770,21 @@ Transform:
   m_Father: {fileID: 889998771}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249787797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249787794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 1249787795}
+  DistanceBeforeCulling: 30
 --- !u!1001 &1297999452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16802,6 +16962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1374410476}
   - component: {fileID: 1374410475}
+  - component: {fileID: 1374410477}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -16884,6 +17045,21 @@ Transform:
   m_Father: {fileID: 1029330090}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374410477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374410474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 1374410475}
+  DistanceBeforeCulling: 30
 --- !u!1 &1389242973
 GameObject:
   m_ObjectHideFlags: 0
@@ -16894,6 +17070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1389242974}
   - component: {fileID: 1389242975}
+  - component: {fileID: 1389242976}
   m_Layer: 0
   m_Name: RedLight
   m_TagString: Untagged
@@ -16976,6 +17153,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1389242976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389242973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 1389242975}
+  DistanceBeforeCulling: 40
 --- !u!1001 &1414560524
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17200,6 +17392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434102281}
   - component: {fileID: 1434102282}
+  - component: {fileID: 1434102283}
   m_Layer: 0
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -17282,6 +17475,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1434102283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434102280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e6cfa7238eeb4b9efcda2b675a489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComponentsToCull:
+  - {fileID: 1434102282}
+  DistanceBeforeCulling: 40
 --- !u!1 &1434692405
 GameObject:
   m_ObjectHideFlags: 0

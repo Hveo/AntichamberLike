@@ -123,7 +123,7 @@
 				// The same operation is applied to the normal below.
 				// https://en.wikipedia.org/wiki/Roberts_cross
 				float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
-				edgeDepth = edgeDepth > depthThreshold ? 1 : 0;
+				edgeDepth = edgeDepth > depthThreshold + 0.1 ? 1 : 0;
 
 				float3 normalFiniteDifference0 = normal1 - normal0;
 				float3 normalFiniteDifference1 = normal3 - normal2;
