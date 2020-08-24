@@ -63,7 +63,7 @@ public class TextPuzzle : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            DoorToOpen.Open();
+            GameMgr.instance.SetStateValue("TextPuzzle", 1);
         }
     }
 }

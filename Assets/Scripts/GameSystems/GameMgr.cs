@@ -60,6 +60,15 @@ public class GameMgr : MonoBehaviour
         }
     }
 
+    public void IncrementStateValue(string StateID)
+    {
+        if (States.ContainsKey(StateID))
+        {
+            States[StateID] += 1;
+            OnEventStateChange(StateID);
+        }
+    }
+
     public void SubscribeToEvent(string StateID, EventListener ev)
     {
         if (!StatesSubscriber.ContainsKey(StateID))
