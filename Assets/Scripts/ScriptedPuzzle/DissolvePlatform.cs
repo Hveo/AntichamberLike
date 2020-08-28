@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DissolvePlatform : MonoBehaviour
 {
+    public AnimatorSetValue AnimatorValueModifier;
+
     Material m_Mat;
     float m_Timer;
     float m_Amount;
@@ -20,6 +22,12 @@ public class DissolvePlatform : MonoBehaviour
             m_Mat = rend.material;
             m_Mat.SetFloat("_Amount", 0.0f);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        AnimatorValueModifier.intParam = 1;
+        AnimatorValueModifier.SetValue();
     }
 
     private void OnTriggerStay(Collider other)
@@ -41,7 +49,10 @@ public class DissolvePlatform : MonoBehaviour
             m_Mat.SetFloat("_Amount", m_Amount);
 
             if (m_Amount >= 1.0f)
+            {
+                Destroy(AnimatorValueModifier.gameObject);
                 Destroy(gameObject);
+            }
         }
     }
 
@@ -49,5 +60,8 @@ public class DissolvePlatform : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         m_Timer = 2.0f;
+
+        AnimatorValueModifier.intParam = 2;
+        AnimatorValueModifier.SetValue();
     }
 }

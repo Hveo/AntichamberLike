@@ -2026,6 +2026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3870be914e6e4f2449e549d41ea710aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AnimatorValueModifier: {fileID: 313709459}
 --- !u!1 &292629018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,7 +2281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimatorObj: {fileID: 313709457}
   ParamType: 0
-  ParameterName: ChangerLetters
+  ParameterName: LetterState
   intParam: 1
   boolParam: 0
   floatParam: 0
