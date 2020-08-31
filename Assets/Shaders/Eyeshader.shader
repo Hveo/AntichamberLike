@@ -86,12 +86,12 @@
                 v.uv.y = sin(angleFromCenter) * uvLength;
                 v.uv += center;
 
-                float2 squeezeDir = (v.uv.x < center.x) ? float2(-squeeze, 0.0) : float2(squeeze, 0.0); //Add a 0 to y Dimension cause we want the squeeze to apply on the x Only.
+                float squeezeDir = (v.uv.x < center.x) ? -squeeze : squeeze;
                 squeezeDir *= radius;
 
                 float2 squeezeAngle = float2(cos(angle), sin(angle)) * squeezeDir;
 
-                if (distance(v.uv + squeezeDir, center) <= radius)
+                if (distance(v.uv + float2(squeezeDir, 0.0), center) <= radius)
                     return invert ? fragColor : color;
 
                 return invert ? color : fragColor;

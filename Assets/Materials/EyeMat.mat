@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Angle: 0
+    - _Angle: 1.5
     - _Bias: 0
     - _BlendOp: 0
     - _Blink: 0
@@ -104,7 +104,7 @@ Material:
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _Squeeze: 0.113
+    - _Squeeze: 0.299
     - _SrcBlend: 5
     - _TextureContrast: 1
     - _USpeed: 0
