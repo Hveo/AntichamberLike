@@ -121,10 +121,11 @@
                 fixed4 pupil = drawCircle(i, _PupilRadius, _PupilOffset, _PupilColor, _Squeeze, _Angle, false);
                 fragColor = pupil;
 
+				//_Blink = lerp(0.0, 1.0, 0.5 + sin(_Time.w * 2.0) * 0.5);
                 fixed4 eyelid = drawEyelid(i, _Squeeze, _Blink);
                 fragColor = eyelid;
-                // apply fog
-                //UNITY_APPLY_FOG(i.fogCoord, col);
+
+
                 return fragColor;
             }
             ENDCG
