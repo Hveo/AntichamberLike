@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public CharacterController Controller
+    {
+        get
+        {
+            if (charController == null)
+                charController = GetComponent<CharacterController>();
+
+            return charController; 
+        }
+        private set { }
+    }
+
     [SerializeField] private string horizontalInputName;
     [SerializeField] private string verticalInputName;
     [SerializeField] private float movementSpeed;
@@ -65,6 +77,11 @@ public class PlayerMove : MonoBehaviour
 
         charController.slopeLimit = 45.0f;
         isJumping = false;
+    }
+
+    public void ToggleJumpAvailability(bool value)
+    {
+        jumpMultiplier = value ? 5.0f : 0.0f;
     }
 
 }

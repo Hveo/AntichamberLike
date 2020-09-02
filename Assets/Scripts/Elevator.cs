@@ -10,7 +10,7 @@ public class Elevator : MonoBehaviour
 
     private float Acceleration;
     private Vector3 m_Destination;
-    private bool m_PlayerOverride;
+    private bool m_PlayerIn;
     private AudioSource m_Audio;
 
     // Start is called before the first frame update
@@ -21,18 +21,27 @@ public class Elevator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (m_Destination != transform.position)
+        Vector3 Direction = m_Destination - transform.position;
+        float magnitude =  Direction.magnitude;
+        
+        if (magnitude > 0.1f)
         {
+            if (m_PlayerIn)
+                GameMgr.instance.Player.transform.parent = transform;
+            else
+                GameMgr.instance.Player.transform.parent = null;
+
             DeactivateEye();
 
-            Acceleration += Time.deltaTime * 1.0f;
-            Acceleration = Mathf.Min(Acceleration, MaxSpeed);
-            transform.position = Vector3.Lerp(transform.position, m_Destination, Acceleration);
+            Acceleration += Time.deltaTime * MaxSpeed;
+            Acceleration = Mathf.Min(Acceleration, magnitude);
+
+            transform.position += (Direction.normalized) * Acceleration * Time.deltaTime;
 
             if (m_Audio)
-                m_Audio.pitch = Mathf.Clamp(Acceleration, 0.0f, 1.5f);
+                m_Audio.pitch = Mathf.Clamp(Acceleration, 0.0f, 1.0f);
         }
     }
 
@@ -40,6 +49,9 @@ public class Elevator : MonoBehaviour
     {
         if (EyeToActivate != null)
         {
+            m_PlayerIn = true;
+            GameMgr.instance.Player.ToggleJumpAvailability(false);
+            
             for (int i = 0; i < EyeToActivate.Length; ++i)
                 EyeToActivate[i].enabled = true;
         }
@@ -47,6 +59,9 @@ public class Elevator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        m_PlayerIn = false;
+        GameMgr.instance.Player.ToggleJumpAvailability(true);
+
         DeactivateEye();
     }
 

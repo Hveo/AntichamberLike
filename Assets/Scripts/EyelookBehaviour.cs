@@ -12,9 +12,13 @@ public class EyelookBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Listener = GetComponent<EventListener>();
+        if (m_Listener == null)
+            m_Listener = GetComponent<EventListener>();
+        
+        if (m_EyeMat == null)
+            m_EyeMat = GetComponent<Renderer>().material;
+        
         m_PlayerCamTransform = Camera.main.transform;
-        m_EyeMat = GetComponent<Renderer>().material;
         Reset();
     }
 
@@ -27,7 +31,9 @@ public class EyelookBehaviour : MonoBehaviour
         if (Vector3.Dot(m_PlayerCamTransform.forward, transform.up) < -0.97)
         {
             m_Timer -= Time.deltaTime;
-            StartCoroutine(EyeActivate());
+
+            if (m_Timer <= 0.0f && m_EyeMat != null)
+                StartCoroutine(EyeActivate());
         }
         else
             Reset();
@@ -36,22 +42,31 @@ public class EyelookBehaviour : MonoBehaviour
 
     public void Reset()
     {
-        m_Timer = 2.0f;
+        m_Timer = 1.0f;
     }
 
     IEnumerator EyeActivate()
     {
-        if (m_EyeMat == null)
-            yield break;
+        yield return StartCoroutine(CloseEye());
+        yield return StartCoroutine(OpenEye());
 
-        float BlinkValue = m_EyeMat.GetFloat("_Blink"); 
+        if (m_Listener != null)
+            m_Listener.ToggleEffectBypass();
+
+        Reset();
+    }
+
+    IEnumerator EyeDisable()
+    {
+        if (m_EyeMat != null)
+            yield return StartCoroutine(OpenEye());
         
-        while (BlinkValue > 0.0f)
-        {
-            BlinkValue = Mathf.MoveTowards(BlinkValue, 0.0f, Time.deltaTime * 1.75f);
-            m_EyeMat.SetFloat("_Blink", BlinkValue);
-            yield return null;
-        }
+        Reset();
+    }
+
+    IEnumerator CloseEye()
+    {
+        float BlinkValue = m_EyeMat.GetFloat("_Blink");
 
         while (BlinkValue < 1.0f)
         {
@@ -59,10 +74,23 @@ public class EyelookBehaviour : MonoBehaviour
             m_EyeMat.SetFloat("_Blink", BlinkValue);
             yield return null;
         }
+    }
 
-        if (m_Listener != null)
-            m_Listener.ToggleEffectBypass();
+    IEnumerator OpenEye()
+    {
+        float BlinkValue = m_EyeMat.GetFloat("_Blink");
 
-        Reset();
+        while (BlinkValue > 0.0f)
+        {
+            BlinkValue = Mathf.MoveTowards(BlinkValue, 0.0f, Time.deltaTime * 1.75f);
+            m_EyeMat.SetFloat("_Blink", BlinkValue);
+            yield return null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        GameMgr.instance.StartCoroutine(OpenEye());
     }
 }
