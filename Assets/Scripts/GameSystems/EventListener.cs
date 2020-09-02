@@ -12,6 +12,7 @@ public struct EventCondition
 
 public class EventListener : MonoBehaviour
 {
+    public bool IgnoreStates;
     public string StateID;
     public EventCondition[] Events;
 
@@ -39,6 +40,17 @@ public class EventListener : MonoBehaviour
         {
             if (Events[i].EventToTrigger != null && m_CurrentValue == Events[i].StateValueToTrigger)
                 Events[i].EventToTrigger.Invoke();
+        }
+    }
+
+    public virtual void ToggleEffectBypass()
+    {
+        if (!IgnoreStates)
+            return;
+
+        for (int i = 0; i < Events.Length; ++i)
+        {
+            Events[i].EventToTrigger.Invoke();
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(AnimatorSetValue))]
-public class AnimatorSetValueCustomInspector : Editor
+public class AnimatorSetValue_CustomInspector : Editor
 {
     public override void OnInspectorGUI()
     {
