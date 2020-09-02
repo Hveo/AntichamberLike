@@ -5,6 +5,7 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     public Transform[] AnchorPoints;
+    public EyelookBehaviour[] EyeToActivate;
 
     private Vector3 m_Velocity;
     private int m_IndexDestination;
@@ -20,5 +21,23 @@ public class Elevator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (EyeToActivate != null)
+        {
+            for (int i = 0; i < EyeToActivate.Length; ++i)
+                EyeToActivate[i].enabled = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (EyeToActivate != null)
+        {
+            for (int i = 0; i < EyeToActivate.Length; ++i)
+                EyeToActivate[i].enabled = false;
+        }
     }
 }
