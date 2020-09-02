@@ -25,7 +25,7 @@ public class Elevator : MonoBehaviour
     {
         Vector3 Direction = m_Destination - transform.position;
         float magnitude =  Direction.magnitude;
-        
+
         if (magnitude > 0.1f)
         {
             if (m_PlayerIn)
@@ -33,7 +33,7 @@ public class Elevator : MonoBehaviour
             else
                 GameMgr.instance.Player.transform.parent = null;
 
-            DeactivateEye();
+            DisableEyes();
 
             Acceleration += Time.deltaTime * MaxSpeed;
             Acceleration = Mathf.Min(Acceleration, magnitude);
@@ -43,18 +43,14 @@ public class Elevator : MonoBehaviour
             if (m_Audio)
                 m_Audio.pitch = Mathf.Clamp(Acceleration, 0.0f, 1.0f);
         }
+        else if (m_PlayerIn)
+            EnableEyes();
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (EyeToActivate != null)
-        {
-            m_PlayerIn = true;
-            GameMgr.instance.Player.ToggleJumpAvailability(false);
-            
-            for (int i = 0; i < EyeToActivate.Length; ++i)
-                EyeToActivate[i].enabled = true;
-        }
+        EnableEyes();
     }
 
     private void OnTriggerExit(Collider other)
@@ -62,10 +58,22 @@ public class Elevator : MonoBehaviour
         m_PlayerIn = false;
         GameMgr.instance.Player.ToggleJumpAvailability(true);
 
-        DeactivateEye();
+        DisableEyes();
     }
 
-    void DeactivateEye()
+    void EnableEyes()
+    {
+        if (EyeToActivate != null)
+        {
+            m_PlayerIn = true;
+            GameMgr.instance.Player.ToggleJumpAvailability(false);
+
+            for (int i = 0; i < EyeToActivate.Length; ++i)
+                EyeToActivate[i].enabled = true;
+        }
+    }
+
+    void DisableEyes()
     {
         if (EyeToActivate != null)
         {
