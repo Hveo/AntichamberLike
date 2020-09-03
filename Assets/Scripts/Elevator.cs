@@ -16,13 +16,19 @@ public class Elevator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Destination = AnchorPoints[1].position;
+        m_Destination = AnchorPoints[0].position;
         m_Audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!m_PlayerIn)
+        {
+            GameMgr.instance.Player.transform.parent = null;
+            MoveTo(GetClosestAnchorPoint());
+        }
+
         Vector3 Direction = m_Destination - transform.position;
         float magnitude =  Direction.magnitude;
 
@@ -30,9 +36,7 @@ public class Elevator : MonoBehaviour
         {
             if (m_PlayerIn)
                 GameMgr.instance.Player.transform.parent = transform;
-            else
-                GameMgr.instance.Player.transform.parent = null;
-
+            
             DisableEyes();
 
             Acceleration += Time.deltaTime * MaxSpeed;
@@ -45,7 +49,6 @@ public class Elevator : MonoBehaviour
         }
         else if (m_PlayerIn)
             EnableEyes();
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,5 +91,23 @@ public class Elevator : MonoBehaviour
         {
             m_Destination = AnchorPoints[AnchorIndex].position;
         }
+    }
+
+    int GetClosestAnchorPoint()
+    {
+        Vector3 playerPos = GameMgr.instance.Player.transform.position;
+        float bestDistance = float.MaxValue;
+        int AnchorPointIndex = 0;
+
+        for (int i = 0; i < AnchorPoints.Length; ++i)
+        {
+            if (bestDistance > Vector3.Distance(AnchorPoints[i].position, playerPos))
+            {
+                bestDistance = Vector3.Distance(AnchorPoints[i].position, playerPos);
+                AnchorPointIndex = i;
+            }
+        }
+
+        return AnchorPointIndex;
     }
 }
