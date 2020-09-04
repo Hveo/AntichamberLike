@@ -33,6 +33,7 @@ public class GameMgr : MonoBehaviour
 
         States = new Dictionary<string, int>();
         StatesSubscriber = new Dictionary<string, List<EventListener>>();
+        LocalizationSystem.LoadLanguageEntries(Language.EN);
     }
 
     void CreateNewState(string StateID, int value)
