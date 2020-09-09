@@ -12,5 +12,25 @@
     <FR>Garder votre objectif en vue et vous l'atteindrez</FR>
     <EN>By watching where you want to go, you should end up reaching your goal</EN>
   </helper_redside>
+  <helper_turnleft>
+    <FR>Tournez à gauche</FR>
+    <EN>Turn Left</EN>
+  </helper_turnleft>
+  <helper_fool>
+    <FR>Donc... vous devez être l'idiot... mmm</FR>
+    <EN>So... you're the fool I guess... huh...</EN>
+  </helper_fool>
+  <helper_angle>
+    <FR>Un problème peut être abordé par différents angles</FR>
+    <EN>A problem can be approached from various angles</EN>
+  </helper_angle>
+  <helper_stairs>
+    <FR>Toutes les solutions ne se présentent pas à nous comme on le voudrait</FR>
+    <EN>Every solutions don't come to us as we would like to</EN>
+  </helper_stairs>
+  <helper_lightmaze>
+    <FR>Tous les feux doivent être au vert</FR>
+    <EN>All the lights shall be green</EN>
+  </helper_lightmaze>
 </data>
 
