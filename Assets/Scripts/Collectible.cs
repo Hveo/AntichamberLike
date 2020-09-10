@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    Material[] m_Mat;
 
     // Start is called before the first frame update
     void Start()
     {
         Renderer[] rends = GetComponentsInChildren<Renderer>();
-        m_Mat = new Material[rends.Length];
 
         for (int i = 0; i < rends.Length; ++i)
         {
-            m_Mat[i] = rends[i].material;
-            m_Mat[i].SetFloat("_Amount", 0.0f);
-            m_Mat[i].SetColor("_Color", Color.magenta);
+            rends[i].material.SetFloat("_Amount", 0.0f);
+            rends[i].material.SetColor("_Color", Color.magenta);
         }
     }
 
@@ -27,24 +24,21 @@ public class Collectible : MonoBehaviour
 
     IEnumerator Collect()
     {
-        float Amount = 0.0f;
-        while (Amount < 1.0f)
+        Renderer[] rends = GetComponentsInChildren<Renderer>();
+
+        for (int i = 0; i < rends.Length; ++i)
         {
-            Amount = Mathf.MoveTowards(Amount, 1.0f, Time.deltaTime * 0.75f);
-
-            for (int i = 0; i < m_Mat.Length; ++i)
-            {
-                m_Mat[i].SetFloat("_Amount", Amount);
-            }
-
-            yield return null;
+            StartCoroutine(GameUtilities.DissolveMesh(rends[i], true, 0.75f));
         }
+
+        while (rends[rends.Length - 1].material.GetFloat("_Amount") < 1.0f)
+            yield return null;
 
         //Move To Secret Lock Chamber And Set State
 
-        for (int i = 0; i < m_Mat.Length; ++i)
+        for (int i = 0; i < rends.Length; ++i)
         {
-            m_Mat[i].SetFloat("_Amount", 0.0f);
+            rends[i].material.SetFloat("_Amount", 0.0f);
         }
     }
 }

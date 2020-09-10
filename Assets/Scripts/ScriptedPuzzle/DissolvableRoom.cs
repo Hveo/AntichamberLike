@@ -36,15 +36,6 @@ public class DissolvableRoom : MonoBehaviour
 
         ResetState();
     }
-
-    bool IsPositionBetweenAB(Vector3 A, Vector3 B, Vector3 PosToTest)
-    {
-        Vector2 A2D = new Vector2(A.x, A.z);
-        Vector2 B2D = new Vector2(B.x, B.z);
-        Vector2 C2D = new Vector2(PosToTest.x, PosToTest.z);
-
-        return (Vector2.Dot((B2D - A2D).normalized, (C2D - B2D)) < 0.0f && Vector3.Dot((A2D - B2D).normalized, (C2D - A2D).normalized) < 0.0f);
-    }
     
     List<Renderer> GatherNeighbours()
     {
@@ -54,7 +45,7 @@ public class DissolvableRoom : MonoBehaviour
         {
             for (int j = 0; j < NeighbourRooms.Length; ++j)
             {
-                if (IsPositionBetweenAB(transform.position, NeighbourRooms[j].transform.position, Walls[i].transform.position))
+                if (GameUtilities.IsPositionBetweenAB(transform.position, NeighbourRooms[j].transform.position, Walls[i].transform.position))
                 {
                     neighbours.Add(Walls[i].GetComponent<Renderer>());
                     break;
@@ -157,6 +148,7 @@ public class DissolvableRoom : MonoBehaviour
         for (int i = 0; i < wallsToOpen.Count; ++i)
             wallsToOpen[i].GetComponent<BoxCollider>().enabled = false;
 
+        LightMazeExit.instance.OnRoomsRotated();
         m_RunningCrt = false;
     }
 
