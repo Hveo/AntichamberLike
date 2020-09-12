@@ -14,11 +14,17 @@ public class Door : MonoBehaviour
 
     AudioSource m_AudioSource;
     Animator m_Animator;
+    Material m_LockMaterial;
 
     private void Start()
     {
         m_AudioSource = GetComponent<AudioSource>();
         m_Animator = GetComponent<Animator>();
+
+        if (DoorRenderer != null)
+        {
+            m_LockMaterial = DoorRenderer.materials[1];
+        }
     }
 
     public void Open()
@@ -52,6 +58,21 @@ public class Door : MonoBehaviour
 
         Material[] mat = DoorRenderer.materials;
         DoorRenderer.materials = new Material[] { mat[0], UnlockedMaterial };
+
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = UnlockSound;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void Lock()
+    {
+        if (DoorRenderer == null)
+            return;
+
+        Material[] mat = DoorRenderer.materials;
+        DoorRenderer.materials = new Material[] { mat[0], m_LockMaterial };
 
         if (m_AudioSource != null)
         {

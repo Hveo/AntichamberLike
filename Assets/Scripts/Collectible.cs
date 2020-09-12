@@ -24,6 +24,7 @@ public class Collectible : MonoBehaviour
 
     IEnumerator Collect()
     {
+        GetComponent<Animator>().enabled = false;
         Renderer[] rends = GetComponentsInChildren<Renderer>();
 
         for (int i = 0; i < rends.Length; ++i)
@@ -35,6 +36,7 @@ public class Collectible : MonoBehaviour
             yield return null;
 
         //Move To Secret Lock Chamber And Set State
+        GameMgr.instance.IncrementStateValue("KeyCollected");
 
         for (int i = 0; i < rends.Length; ++i)
         {
