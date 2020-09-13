@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
+  <menu_start>
+    <FR>Commencer</FR>
+    <EN>Start</EN>
+  </menu_start>
+  <menu_quit>
+    <FR>Quitter</FR>
+    <EN>Back To Desktop</EN>
+  </menu_quit>
+  <menu_settings>
+    <FR>Options</FR>
+    <EN>Settings</EN>
+  </menu_settings>
+  <menu_language>
+    <FR>Langue</FR>
+    <EN>Language</EN>
+  </menu_language>
+  <intro_welcome>
+    <FR>Bienvenue</FR>
+    <EN>Welcome</EN>
+  </intro_welcome>
+  <helper_reinit>
+    <FR>Reinitialiser</FR>
+    <EN>Reset</EN>
+  </helper_reinit>
   <helper_looktwice>
     <FR>Ne jugez rien au premier regard</FR>
     <EN>Don't judge anything you see at first sight</EN>
@@ -32,5 +56,21 @@
     <FR>Tous les feux doivent être au vert</FR>
     <EN>All the lights shall be green</EN>
   </helper_lightmaze>
+  <helper_lighttips>
+    <FR>Votre dernier mouvement doit se passer ici</FR>
+    <EN>If you're not ending with that room, you're doing it wrong</EN>
+  </helper_lighttips>
+  <helper_door>
+    <FR>Garder votre objectif en vue ne doit pas tourner à l'obsession</FR>
+    <EN>Keep your objective in sight but don't become too obsessed with it</EN>
+  </helper_door>
+  <helper_hiddenkey>
+    <FR>L'univers n'a pas à se plier à votre vision du monde pour fonctionner</FR>
+    <EN>There's no obligation for the universe to make sense to you</EN>
+  </helper_hiddenkey>
+  <helper_believe>
+    <FR>Si près de la réussite, il faut continuer à y croire</FR>
+    <EN>So close to succeed, you need to believe</EN>
+  </helper_believe>
 </data>
 

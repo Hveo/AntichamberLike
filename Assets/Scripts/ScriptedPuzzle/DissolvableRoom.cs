@@ -17,6 +17,7 @@ public class DissolvableRoom : MonoBehaviour
     public GameObject[] NeighbourRooms;
     public Light RoomLight;
     public LightColor StartColor;
+    public Renderer LightIndicator;
     public ushort m_ColorIndex
     {
         get;
@@ -128,6 +129,9 @@ public class DissolvableRoom : MonoBehaviour
             RoomLight.color = Color.Lerp(RoomLight.color, color, Time.deltaTime * 2.5f);
             yield return null;
         }
+
+        if (LightIndicator != null)
+            LightIndicator.material.SetColor("_Color", RoomLight.color);
 
         transform.rotation = DesiredRot;
 
