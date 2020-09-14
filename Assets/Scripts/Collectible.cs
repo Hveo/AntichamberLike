@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +34,7 @@ public class Collectible : MonoBehaviour
         while (rends[rends.Length - 1].material.GetFloat("_Amount") < 1.0f)
             yield return null;
 
-        //Move To Secret Lock Chamber And Set State
         GameMgr.instance.IncrementStateValue("KeyCollected");
-
-        for (int i = 0; i < rends.Length; ++i)
-        {
-            rends[i].material.SetFloat("_Amount", 0.0f);
-        }
+        Destroy(gameObject);
     }
 }

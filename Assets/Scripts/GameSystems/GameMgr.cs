@@ -70,11 +70,18 @@ public class GameMgr : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This Function will connect the event listener sent to the StateID. It creates a new entry if the state ID doesn't exist. You can send no listener if you just want the event to be created but not listened to
+    /// </summary>
+    /// <param name="StateID"></param>
+    /// <param name="ev"></param>
     public void SubscribeToEvent(string StateID, EventListener ev)
     {
         if (!StatesSubscriber.ContainsKey(StateID))
         {
-            StatesSubscriber.Add(StateID, new List<EventListener>() { ev });
+            if (ev != null)
+                StatesSubscriber.Add(StateID, new List<EventListener>() { ev });
+            
             CreateNewState(StateID, 0);
             return;
         }
@@ -87,7 +94,10 @@ public class GameMgr : MonoBehaviour
 
     public void OnEventStateChange(string StateID)
     {
-        List<EventListener> Listeners = StatesSubscriber[StateID];
+        List<EventListener> Listeners = new List<EventListener>();
+
+        if (!StatesSubscriber.TryGetValue(StateID, out Listeners))
+            return;
         
         for (int i = 0; i < Listeners.Count; ++i)
         {
