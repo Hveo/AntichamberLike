@@ -79,6 +79,35 @@ public class PlayerMove : MonoBehaviour
         isJumping = false;
     }
 
+    /// <summary>
+    /// Function Coming From Unity Documentation 
+    /// </summary>
+    /// <param name="hit"></param>
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        if (body == null || body.isKinematic)
+        {
+            return;
+        }
+
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3)
+        {
+            return;
+        }
+
+        // we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        // If you know how fast your character is trying to move,
+        // then you can also multiply the push velocity by that.
+
+        // Apply the push
+        body.velocity = pushDir * 2.0f;
+    }
+
     public void ToggleJumpAvailability(bool value)
     {
         jumpMultiplier = value ? 5.0f : 0.0f;
