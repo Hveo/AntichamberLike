@@ -35,13 +35,16 @@ public class PhysicBox : IInteracitble
             transform.parent = null;
             m_body.isKinematic = false;
             IsCarried = false;
+            KeepInteractability = false;
         }
         else
         {
             IsCarried = true;
-            transform.parent = GameMgr.instance.Player.transform;
+            PlayerMove player = GameMgr.instance.Player;
+            transform.parent = player.transform;
+            transform.position = player.transform.position + player.Controller.center + player.transform.forward;
             m_body.isKinematic = true;
-            //SetPositionInFrontOfPlayer;
+            KeepInteractability = true;
         }
     }
 }

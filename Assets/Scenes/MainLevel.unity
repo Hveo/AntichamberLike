@@ -22265,6 +22265,7 @@ MonoBehaviour:
   - {fileID: 1766034638}
   - {fileID: 1442780774}
   ChangeGravity: 0
+  Activator: {fileID: 367058762}
 --- !u!65 &1314016417
 BoxCollider:
   m_ObjectHideFlags: 0

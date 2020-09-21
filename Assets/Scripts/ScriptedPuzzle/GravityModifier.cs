@@ -6,6 +6,7 @@ public class GravityModifier : MonoBehaviour
 {
     public Rigidbody[] Boxes;
     public bool ChangeGravity;
+    public EyelookBehaviour Activator;
 
     int m_GravityState = 0;
     bool m_PlayerIn;
@@ -30,10 +31,13 @@ public class GravityModifier : MonoBehaviour
         m_PlayerIn = true;
         for (int i = 0; i < Boxes.Length; ++i)
             Boxes[i].useGravity = true;
+
+        Activator.enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         m_PlayerIn = false;
+        Activator.enabled = false;
     }
 }

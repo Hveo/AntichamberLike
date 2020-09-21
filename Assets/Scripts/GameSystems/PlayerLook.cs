@@ -62,7 +62,7 @@ public class PlayerLook : MonoBehaviour
                 }
             }
         }
-        else
+        else if (m_CurrentSelection != null && !m_CurrentSelection.KeepInteractability)
         {
             if (m_CurrentSelection != null)
                 m_CurrentSelection.OnStopBeingInteractible();
