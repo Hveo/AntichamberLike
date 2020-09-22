@@ -4,40 +4,50 @@ using UnityEngine;
 
 public class GravityModifier : MonoBehaviour
 {
-    public Rigidbody[] Boxes;
-    public bool ChangeGravity;
+    public PhysicBox[] Boxes;
     public EyelookBehaviour Activator;
 
     int m_GravityState = 0;
-    bool m_PlayerIn;
     // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
-        if (ChangeGravity)
+        Vector3 gravity = m_GravityState == 0 ? -Vector3.up * Physics.gravity.magnitude : Vector3.up * Physics.gravity.magnitude;
+
+        for (int i = 0; i < Boxes.Length; ++i)
         {
-            ChangeGravity = false;
-            m_GravityState = m_GravityState == 0 ? 1 : 0;
-
-            if (m_GravityState == 1)
-                Physics.gravity = new Vector3(0.0f, 9.81f, 0.0f);
+            if (Boxes[i].IsCarried)
+            {
+                GameMgr.instance.Player.Controller.Move(gravity * Time.deltaTime);
+            }
             else
-                Physics.gravity = new Vector3(0.0f, -9.81f, 0.0f);
-
+                Boxes[i].Body.AddForce(gravity);
         }
+    }
+
+    public void ChangeGravity()
+    {
+        m_GravityState = m_GravityState == 0 ? 1 : 0;
+        for (int i = 0; i < Boxes.Length; ++i)
+            Boxes[i].Body.useGravity = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        m_PlayerIn = true;
         for (int i = 0; i < Boxes.Length; ++i)
-            Boxes[i].useGravity = true;
+            Boxes[i].Body.useGravity = true;
 
         Activator.enabled = true;
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        GameMgr.instance.Player.ToggleJumpAvailability(m_GravityState == 0);
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        m_PlayerIn = false;
         Activator.enabled = false;
+        GameMgr.instance.Player.ToggleJumpAvailability(true);
     }
 }

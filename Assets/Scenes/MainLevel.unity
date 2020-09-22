@@ -3951,9 +3951,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6da1ac0215ad64eb7e0c0033fb0f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IgnoreStates: 0
+  IgnoreStates: 1
   StateID: 
-  Events: []
+  Events:
+  - StateValueToTrigger: 0
+    EventToTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1314016416}
+          m_MethodName: ChangeGravity
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &367058762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22256,15 +22271,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314016415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03dd0cdd99b063a48809dc1e5a5ccc16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Boxes:
-  - {fileID: 1766034638}
-  - {fileID: 1442780774}
-  ChangeGravity: 0
+  - {fileID: 1766034642}
+  - {fileID: 1442780778}
   Activator: {fileID: 367058762}
 --- !u!65 &1314016417
 BoxCollider:
