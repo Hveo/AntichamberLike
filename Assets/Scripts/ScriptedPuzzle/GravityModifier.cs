@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class GravityModifier : MonoBehaviour
@@ -16,12 +17,7 @@ public class GravityModifier : MonoBehaviour
 
         for (int i = 0; i < Boxes.Length; ++i)
         {
-            if (Boxes[i].IsCarried)
-            {
-                GameMgr.instance.Player.Controller.Move(gravity * Time.deltaTime);
-            }
-            else
-                Boxes[i].Body.AddForce(gravity);
+            Boxes[i].Body.AddForce(gravity);
         }
     }
 
@@ -34,6 +30,7 @@ public class GravityModifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        this.enabled = true;
         for (int i = 0; i < Boxes.Length; ++i)
             Boxes[i].Body.useGravity = true;
 
@@ -47,6 +44,7 @@ public class GravityModifier : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //this.enabled = false;
         Activator.enabled = false;
         GameMgr.instance.Player.ToggleJumpAvailability(true);
     }

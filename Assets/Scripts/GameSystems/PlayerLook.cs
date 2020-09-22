@@ -46,7 +46,7 @@ public class PlayerLook : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, 2.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
         {
             IInteracitble interactible = hit.transform.GetComponent<IInteracitble>();
             
