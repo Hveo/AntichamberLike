@@ -5,14 +5,14 @@ using UnityEngine;
 public class PortalTeleporter : MonoBehaviour
 {
     public Transform Destination;
-    public CharacterController player;
+    public PlayerMove player;
     bool TeleportPlayer;
     Vector3 previousOffset;
     //Transform ParentObject;
 
     private void Start()
     {
-        player = GameMgr.instance.Player.Controller;
+        player = GameMgr.instance.Player;
         //ParentObject = transform.parent;
     }
 
@@ -27,10 +27,10 @@ public class PortalTeleporter : MonoBehaviour
         rotationDiff += YAngle;
 
         Vector3 posOffset = Quaternion.Euler(0.0f, rotationDiff, 0.0f) * portalToPlayer;
-        player.enabled = false;
+        //player.enabled = false;
         player.transform.rotation = Quaternion.LookRotation(Destination.forward) * Quaternion.AngleAxis(YAngle, Vector3.up);//Rotate(Vector3.up, rotationDiff);
         player.transform.position = Destination.position + posOffset;
-        player.enabled = true;
+        //player.enabled = true;
 
         //previousOffset = player.transform.position - ParentObject.position;
         //TeleportPlayer = true;

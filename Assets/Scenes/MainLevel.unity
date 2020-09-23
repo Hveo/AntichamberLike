@@ -3321,7 +3321,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1977651867}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51369522fb0faf44692e43eff022c15f, type: 3}
 --- !u!1 &324460985 stripped
@@ -32978,7 +32978,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1977651867}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51369522fb0faf44692e43eff022c15f, type: 3}
 --- !u!4 &1906427222 stripped
@@ -33590,8 +33590,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1977651868}
-  - component: {fileID: 1977651867}
   - component: {fileID: 1977651866}
+  - component: {fileID: 1977651869}
+  - component: {fileID: 1977651867}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -33614,34 +33615,10 @@ MonoBehaviour:
   horizontalInputName: Horizontal
   verticalInputName: Vertical
   movementSpeed: 6
-  jumpFallOff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.000045716763
-      value: 1.0026046
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.99731445
-      value: 0.0034179688
-      inSlope: -0.43395874
-      outSlope: -0.43395874
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.04165316
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  jumpMultiplier: 5
+  jumpMultiplier: 2.5
   jumpKey: 32
---- !u!143 &1977651867
-CharacterController:
+--- !u!136 &1977651867
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -33650,13 +33627,9 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.5
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_Height: 2.5
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1977651868
 Transform:
@@ -33665,14 +33638,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977651865}
-  m_LocalRotation: {x: 0, y: 0.014101594, z: -0, w: -0.99990064}
-  m_LocalPosition: {x: 14.332499, y: 29.721933, z: 48.041954}
+  m_LocalRotation: {x: 0, y: 0.99979544, z: -0, w: -0.020227244}
+  m_LocalPosition: {x: 74.26221, y: 4.958191, z: 52.53397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: -361.616, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -537.682, z: 0}
+--- !u!54 &1977651869
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977651865}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1993180306
 GameObject:
   m_ObjectHideFlags: 0
@@ -34827,7 +34816,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1977651867}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51369522fb0faf44692e43eff022c15f, type: 3}
 --- !u!23 &2273912123856242758

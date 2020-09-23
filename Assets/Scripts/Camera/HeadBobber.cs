@@ -7,13 +7,13 @@ public class HeadBobber : MonoBehaviour
     public float BobbingSpeed;
     public float BobbingAmount;
 
-    private CharacterController m_Player;
+    private Rigidbody m_Player;
     private float m_DefaultPosY = 0;
     private float m_Timer = 0;
     // Start is called before the first frame update
     void Start()
     {
-        m_Player = GameMgr.instance.Player.Controller;
+        m_Player = GameMgr.instance.Player.PlayerBody;
         m_DefaultPosY = transform.localPosition.y;
     }
 

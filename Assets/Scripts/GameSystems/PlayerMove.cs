@@ -4,113 +4,86 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public CharacterController Controller
+    public Rigidbody PlayerBody
+    { 
+        get
+        {
+            if (m_PlayerBody == null)
+                m_PlayerBody = GetComponent<Rigidbody>();
+
+            return m_PlayerBody;
+        }
+
+        private set { }
+    }
+
+    public Vector3 Center
     {
         get
         {
-            if (charController == null)
-                charController = GetComponent<CharacterController>();
-
-            return charController; 
+            return GetComponent<CapsuleCollider>().center;
         }
+
         private set { }
     }
 
     [SerializeField] private string horizontalInputName;
     [SerializeField] private string verticalInputName;
     [SerializeField] private float movementSpeed;
+    private float m_JumpMovementFactor;
 
-    private CharacterController charController;
+    private Rigidbody m_PlayerBody;
+    private float m_InitialJumpForce;
 
-    [SerializeField] private AnimationCurve jumpFallOff;
     [SerializeField] private float jumpMultiplier;
     [SerializeField] private KeyCode jumpKey;
 
-
-    private bool isJumping;
-
     private void Awake()
     {
-        charController = GetComponent<CharacterController>();
+        m_InitialJumpForce = jumpMultiplier;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         PlayerMovement();
     }
 
     private void PlayerMovement()
     {
-        float horizInput = Input.GetAxis(horizontalInputName) * movementSpeed;
-        float vertInput = Input.GetAxis(verticalInputName) * movementSpeed;
+        float horizInput = Input.GetAxis(horizontalInputName) * (movementSpeed * m_JumpMovementFactor);
+        float vertInput = Input.GetAxis(verticalInputName) * (movementSpeed * m_JumpMovementFactor);
 
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
 
-        charController.SimpleMove(forwardMovement + rightMovement);
-
         JumpInput();
 
+        float yVel = m_PlayerBody.velocity.y;
+        m_PlayerBody.velocity = (forwardMovement + rightMovement) + (Vector3.up * yVel);
     }
 
     private void JumpInput()
     {
-        if (Input.GetKeyDown(jumpKey) && !isJumping)
-        {
-            isJumping = true;
-            StartCoroutine(JumpEvent());
-        }
-    }
-
-    private IEnumerator JumpEvent()
-    {
-        charController.slopeLimit = 90.0f;
-        float timeInAir = 0.0f;
-
-        do
-        {
-            float jumpForce = jumpFallOff.Evaluate(timeInAir);
-            charController.Move(Vector3.up * jumpForce * jumpMultiplier * Time.deltaTime);
-            timeInAir += Time.deltaTime;
-            yield return null;
-        } while (!charController.isGrounded && charController.collisionFlags != CollisionFlags.Above);
-
-        charController.slopeLimit = 45.0f;
-        isJumping = false;
-    }
-
-    /// <summary>
-    /// Function Coming From Unity Documentation 
-    /// </summary>
-    /// <param name="hit"></param>
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Rigidbody body = hit.collider.attachedRigidbody;
-
-        if (body == null || body.isKinematic)
-        {
+        if (!IsGrounded())
             return;
-        }
 
-        // We dont want to push objects below us
-        if (hit.moveDirection.y < -0.3)
+        m_JumpMovementFactor = 1.0f;
+        Debug.Log("BeforeInput");
+        if (Input.GetKey(jumpKey))
         {
-            return;
+            Debug.Log("Jump");
+            m_PlayerBody.AddForce(Vector3.up * jumpMultiplier, ForceMode.Impulse);
+            m_JumpMovementFactor = 0.5f;
         }
-
-        // we only push objects to the sides never up and down
-        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-
-        // If you know how fast your character is trying to move,
-        // then you can also multiply the push velocity by that.
-
-        // Apply the push
-        body.velocity = pushDir * 2.0f;
     }
 
     public void ToggleJumpAvailability(bool value)
     {
-        jumpMultiplier = value ? 5.0f : 0.0f;
+        jumpMultiplier = value ? m_InitialJumpForce : 0.0f;
     }
 
+    public bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, GetComponent<Collider>().bounds.extents.y + 0.1f);
+    }
 }

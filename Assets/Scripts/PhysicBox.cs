@@ -48,7 +48,7 @@ public class PhysicBox : IInteracitble
             IsCarried = true;
             PlayerMove player = GameMgr.instance.Player;
             transform.parent = player.transform;
-            transform.position = player.transform.position + player.Controller.center + player.transform.forward;
+            transform.position = player.transform.position + player.Center + (player.transform.forward * 2.0f);
             m_Body.isKinematic = true;
             KeepInteractability = true;
         }
