@@ -44,6 +44,9 @@ public class PlayerLook : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
+            return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))

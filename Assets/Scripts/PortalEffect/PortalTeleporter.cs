@@ -5,7 +5,7 @@ using UnityEngine;
 public class PortalTeleporter : MonoBehaviour
 {
     public Transform Destination;
-    public PlayerMove player;
+    public PlayerControl player;
     bool TeleportPlayer;
     Vector3 previousOffset;
     //Transform ParentObject;

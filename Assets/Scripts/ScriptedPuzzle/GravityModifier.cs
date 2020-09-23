@@ -18,6 +18,9 @@ public class GravityModifier : MonoBehaviour
         for (int i = 0; i < Boxes.Length; ++i)
         {
             Boxes[i].Body.AddForce(gravity);
+
+            if (Boxes[i].IsCarried)
+                GameMgr.instance.Player.PlayerBody.AddForce(gravity * 10.0f, ForceMode.Force);
         }
     }
 

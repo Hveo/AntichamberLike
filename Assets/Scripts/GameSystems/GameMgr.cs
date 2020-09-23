@@ -17,7 +17,7 @@ public enum EComparator
 public class GameMgr : MonoBehaviour
 {
     public static GameMgr instance;
-    public PlayerMove Player;
+    public PlayerControl Player;
     public Dictionary<string, int> States;
     public Dictionary<string, List<EventListener>> StatesSubscriber;
 
