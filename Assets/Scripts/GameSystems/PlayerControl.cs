@@ -31,6 +31,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float m_MaxVelocityChange;
     private float m_JumpMovementFactor;
 
+    private AudioSource m_AudioSrc;
     private Rigidbody m_PlayerBody;
     private float m_InitialJumpForce;
 
@@ -39,6 +40,7 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         m_InitialJumpForce = jumpMultiplier;
+        m_AudioSrc = GetComponent<AudioSource>();
     }
 
 
@@ -50,7 +52,6 @@ public class PlayerControl : MonoBehaviour
 
     private void PlayerMovement()
     {
-
         Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         targetVelocity = transform.TransformDirection(targetVelocity);
         targetVelocity *= m_MovementSpeed * m_JumpMovementFactor;
@@ -71,9 +72,13 @@ public class PlayerControl : MonoBehaviour
         {
             m_JumpMovementFactor = Mathf.Lerp(m_JumpMovementFactor, 0.3f, Time.deltaTime);
             m_PlayerBody.AddForce(new Vector3(0, Physics.gravity.y * m_PlayerBody.mass, 0));
+
+            //normalize air falling sound
+            m_AudioSrc.pitch = (m_PlayerBody.velocity.y / 100) * 2.0f;              
             return;
         }
 
+        m_AudioSrc.pitch = Mathf.Lerp(m_AudioSrc.pitch, 0.0f, 2.0f * Time.deltaTime);
         m_JumpMovementFactor = 1.0f;
 
         if (Input.GetButton("Jump"))

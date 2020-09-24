@@ -8,7 +8,6 @@ public class PhysicBox : IInteracitble
 {
     public bool IsCarried { get; private set; }
     public Color HighlightColor;
-
     public Rigidbody Body
     {
         get { return m_Body; }
@@ -16,16 +15,18 @@ public class PhysicBox : IInteracitble
     }
 
 
-    Renderer m_BoxRenderer;
-    Color m_OriginalColor;
-    Rigidbody m_Body;
-    BoxCollider m_Collider;
+    private Renderer m_BoxRenderer;
+    private Color m_OriginalColor;
+    private Rigidbody m_Body;
+    private BoxCollider m_Collider;
+    private AudioSource m_AudioSrc;
 
     private void Start()
     {
         m_Body = GetComponent<Rigidbody>();
         m_BoxRenderer = GetComponent<Renderer>();
         m_Collider = GetComponent<BoxCollider>();
+        m_AudioSrc = GetComponent<AudioSource>();
         m_OriginalColor = m_BoxRenderer.material.GetColor("_Color");
     }
 
@@ -56,6 +57,18 @@ public class PhysicBox : IInteracitble
             m_Collider.enabled = false;
             GameMgr.instance.Player.ToggleCarryObject(gameObject, true);
             KeepInteractability = true;
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        float collisionForce = collision.impulse.magnitude / Time.fixedDeltaTime;
+        collisionForce = Mathf.Min(collisionForce, 1000.0f);
+
+        if (!IsCarried)
+        {
+            m_AudioSrc.volume = (collisionForce - 100.0f) / (1000.0f - 100.0f);
+            m_AudioSrc.Play();
         }
     }
 }

@@ -24,6 +24,7 @@ public class Collectible : MonoBehaviour
     IEnumerator Collect()
     {
         GetComponent<Animator>().enabled = false;
+        GetComponent<AudioSource>().Play();
         Renderer[] rends = GetComponentsInChildren<Renderer>();
 
         for (int i = 0; i < rends.Length; ++i)
