@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StandardBlue
+  m_Name: StandardPurple
   m_Shader: {fileID: 4800000, guid: 4692e6c4787584341a5848a59c611567, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -78,5 +78,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.054832935, b: 1, a: 1}
-    - _EmissionColor: {r: 0.0073928833, g: 0, b: 1, a: 1}
+    - _Color: {r: 0.47868776, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 0.5046811, g: 0, b: 1, a: 1}

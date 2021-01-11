@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d219e3534904148bea6c1eef64673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateToIncrement: KeyCollected
 --- !u!95 &5606521834380665354
 Animator:
   serializedVersion: 3
@@ -235,7 +236,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b96b5ffbda47429488067ac37381342a, type: 2}
+  - {fileID: 2100000, guid: 060fffc6feb6d164d903564221d5469c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -314,7 +315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b96b5ffbda47429488067ac37381342a, type: 2}
+  - {fileID: 2100000, guid: 060fffc6feb6d164d903564221d5469c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
