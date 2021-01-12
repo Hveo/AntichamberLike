@@ -43,6 +43,7 @@ public class LightMazeExit : MonoBehaviour
             {
                 Wall.GetComponent<BoxCollider>().enabled = false;
                 StartCoroutine(GameUtilities.DissolveMesh(Wall.GetComponent<Renderer>(), true, 0.75f));
+                AudioMgr.PlaySound(GameMgr.instance.BuiltInResources.SolvedPuzzleClip);
                 break;
             }
 

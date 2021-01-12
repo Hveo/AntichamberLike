@@ -127,4 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95d219e3534904148bea6c1eef64673d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ClipToPlayOnCollect: {fileID: 8300000, guid: 0d03a686de459884aa7b949319a08117, type: 3}
   StateToIncrement: SecretComplete

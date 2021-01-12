@@ -18,7 +18,7 @@ public class TextPuzzle : MonoBehaviour
 
     private void Start()
     {
-        m_RealText = LocalizationSystem.GetEntry("intro_welcome") + " " + System.Environment.UserName;
+        m_RealText = LocalizationSystem.GetEntry("intro.welcome") + " " + System.Environment.UserName;
         m_TextMesh = GetComponent<TextMeshPro>();
         m_TextMesh.text = m_RealText;
         m_TextMesh.text = new string(m_RealText.ToCharArray().OrderBy(x => Random.value).ToArray());

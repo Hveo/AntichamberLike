@@ -1,76 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-  <menu_start>
+  <menu.start>
     <FR>Commencer</FR>
     <EN>Start</EN>
-  </menu_start>
-  <menu_quit>
+  </menu.start>
+  <menu.quit>
     <FR>Quitter</FR>
     <EN>Back To Desktop</EN>
-  </menu_quit>
-  <menu_settings>
+  </menu.quit>
+  <menu.settings>
     <FR>Options</FR>
     <EN>Settings</EN>
-  </menu_settings>
-  <menu_language>
+  </menu.settings>
+  <menu.language>
     <FR>Langue</FR>
     <EN>Language</EN>
-  </menu_language>
-  <intro_welcome>
+  </menu.language>
+  <settings.music>
+    <FR>Musique</FR>
+    <EN>Music</EN>
+  </settings.music>
+  <settings.effects>
+    <FR>Effets</FR>
+    <EN>Effects</EN>
+  </settings.effects>
+  <intro.welcome>
     <FR>Bienvenue</FR>
     <EN>Welcome</EN>
-  </intro_welcome>
-  <helper_reinit>
+  </intro.welcome>
+  <helper.reinit>
     <FR>Reinitialiser</FR>
     <EN>Reset</EN>
-  </helper_reinit>
-  <helper_looktwice>
+  </helper.reinit>
+  <helper.looktwice>
     <FR>Ne jugez rien au premier regard</FR>
     <EN>Don't judge anything you see at first sight</EN>
-  </helper_looktwice>
-  <helper_greenside>
+  </helper.looktwice>
+  <helper.greenside>
     <FR>Le sage montre la lune, l'idiot regarde le doigt</FR>
     <EN>When the wise man points at the moon, the fool looks at the finger</EN>
-  </helper_greenside>
-  <helper_redside>
+  </helper.greenside>
+  <helper.redside>
     <FR>Garder votre objectif en vue et vous l'atteindrez</FR>
     <EN>By watching where you want to go, you should end up reaching your goal</EN>
-  </helper_redside>
-  <helper_turnleft>
+  </helper.redside>
+  <helper.turnleft>
     <FR>Tournez à gauche</FR>
     <EN>Turn Left</EN>
-  </helper_turnleft>
-  <helper_fool>
+  </helper.turnleft>
+  <helper.fool>
     <FR>Donc... vous devez être l'idiot... mmm</FR>
     <EN>So... you're the fool I guess... huh...</EN>
-  </helper_fool>
-  <helper_angle>
+  </helper.fool>
+  <helper.angle>
     <FR>Un problème peut être abordé par différents angles</FR>
     <EN>A problem can be approached from various angles</EN>
-  </helper_angle>
-  <helper_stairs>
+  </helper.angle>
+  <helper.stairs>
     <FR>Toutes les solutions ne se présentent pas à nous comme on le voudrait</FR>
     <EN>Every solutions don't come to us as we would like to</EN>
-  </helper_stairs>
-  <helper_lightmaze>
+  </helper.stairs>
+  <helper.lightmaze>
     <FR>Tous les feux doivent être au vert</FR>
     <EN>All the lights shall be green</EN>
-  </helper_lightmaze>
-  <helper_lighttips>
+  </helper.lightmaze>
+  <helper.lighttips>
     <FR>Votre dernier mouvement doit se passer ici</FR>
     <EN>If you're not ending with that room, you're doing it wrong</EN>
-  </helper_lighttips>
-  <helper_door>
+  </helper.lighttips>
+  <helper.door>
     <FR>Garder votre objectif en vue ne doit pas tourner à l'obsession</FR>
     <EN>Keep your objective in sight but don't become too obsessed with it</EN>
-  </helper_door>
-  <helper_hiddenkey>
+  </helper.door>
+  <helper.hiddenkey>
     <FR>L'univers n'a pas à se plier à votre vision du monde pour fonctionner</FR>
     <EN>There's no obligation for the universe to make sense to you</EN>
-  </helper_hiddenkey>
-  <helper_believe>
+  </helper.hiddenkey>
+  <helper.believe>
     <FR>Si près de la réussite, il faut continuer à y croire</FR>
     <EN>So close to succeed, you need to believe</EN>
-  </helper_believe>
+  </helper.believe>
+  <helper.fail>
+    <FR>L'échec est le point de départ du succès</FR>
+    <EN>Success always starts with failure</EN>
+  </helper.fail>
 </data>
 

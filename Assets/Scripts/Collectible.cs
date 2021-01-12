@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    public AudioClip ClipToPlayOnCollect;
     public string StateToIncrement;
 
     // Start is called before the first frame update
@@ -25,7 +26,10 @@ public class Collectible : MonoBehaviour
     IEnumerator Collect()
     {
         GetComponent<Animator>().enabled = false;
-        GetComponent<AudioSource>().Play();
+
+        if (ClipToPlayOnCollect != null)
+            AudioMgr.PlaySound(ClipToPlayOnCollect);
+        
         Renderer[] rends = GetComponentsInChildren<Renderer>();
 
         for (int i = 0; i < rends.Length; ++i)

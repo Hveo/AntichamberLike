@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee45d615ab40bc48beaec303d5ea9cb, type: 3}
+  m_Name: BuiltInGameResources
+  m_EditorClassIdentifier: 
+  PlayerObj: {fileID: 4268625764015659817, guid: 380d3ff2f2e602d4595e964feef3b9d5,
+    type: 3}
+  SolvedPuzzleClip: {fileID: 8300000, guid: e0ed1343c8c11604cafbd2690a783660, type: 3}
+  WrongSolutionClip: {fileID: 8300000, guid: eb33e2eedb35dee4984d6fca3a5d8836, type: 3}
+  LevelMusic: {fileID: 8300000, guid: 22003c8d2d8921246a6288f3a5e9b6ef, type: 3}

@@ -17,6 +17,7 @@ public enum EComparator
 public class GameMgr : MonoBehaviour
 {
     public static GameMgr instance;
+    public BuiltInGameResources BuiltInResources;
     public PlayerControl Player;
     public Dictionary<string, int> States;
     public Dictionary<string, List<EventListener>> StatesSubscriber;
@@ -34,6 +35,8 @@ public class GameMgr : MonoBehaviour
         States = new Dictionary<string, int>();
         StatesSubscriber = new Dictionary<string, List<EventListener>>();
         LocalizationSystem.LoadLanguageEntries(Language.EN);
+
+        StartCoroutine(AudioMgr.Init());
     }
 
     void CreateNewState(string StateID, int value)

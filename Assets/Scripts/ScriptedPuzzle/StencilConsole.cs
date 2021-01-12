@@ -9,10 +9,6 @@ public class StencilConsole : MonoBehaviour
     public MeshFilter[] Shape;
     public MeshFilter[] DisplayedObjects;
 
-    public AudioClip SolvedPuzzle;
-    public AudioClip WrongSubmit;
-
-    AudioSource m_AudioSource;
     int[] m_CurrentIndexes;
     int m_UsedIndex;
     bool m_Solved;
@@ -20,7 +16,6 @@ public class StencilConsole : MonoBehaviour
     void Start()
     {
         m_CurrentIndexes = new int[4] { 0, 0, 0, 0 };
-        m_AudioSource = GetComponent<AudioSource>();
 
         if (Shape == null || DisplayedObjects == null)
             return;
@@ -49,19 +44,13 @@ public class StencilConsole : MonoBehaviour
 
         if (m_Solved)
         {
-            if (m_AudioSource != null)
-            {
-                m_AudioSource.clip = SolvedPuzzle;
-                m_AudioSource.Play();
-            }
+            if (GameMgr.instance.BuiltInResources != null)
+                AudioMgr.PlaySound(GameMgr.instance.BuiltInResources.SolvedPuzzleClip);
 
             StartCoroutine(OpenDoor());
         }
-        else if (m_AudioSource != null)
-        {
-            m_AudioSource.clip = WrongSubmit;
-            m_AudioSource.Play();
-        }
+        else if (GameMgr.instance.BuiltInResources != null)
+            AudioMgr.PlaySound(GameMgr.instance.BuiltInResources.WrongSolutionClip);
     }
 
     public void SendManipulatedIndex(int Index)
