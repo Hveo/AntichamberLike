@@ -21233,6 +21233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Object: {fileID: 856952361}
+  ShouldNotLookAt: 1
   LookThreshold: 0.65
   StateID: LookAtDoor
 --- !u!65 &911834082
@@ -48955,6 +48956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6664285626554814232}
   - component: {fileID: 6962275296789591535}
+  - component: {fileID: 6962275296789591534}
   m_Layer: 9
   m_Name: ExitRoom
   m_TagString: Untagged
@@ -48962,6 +48964,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6962275296789591534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6962275296789591533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4616eb3ed20664fa3f20b3537098bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Object: {fileID: 616862145}
+  ShouldNotLookAt: 0
+  LookThreshold: 0.5
+  StateID: TrollWall
 --- !u!65 &6962275296789591535
 BoxCollider:
   m_ObjectHideFlags: 0
