@@ -14,7 +14,7 @@ public class DistanceDissolve : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        m_PlayerTransform = GameMgr.instance.Player.transform;
+        m_PlayerTransform = LevelMgr.instance.Player.transform;
         Renderer[] Rends = GetComponentsInChildren<Renderer>();
         m_MatInstances = new List<Material>(); 
 

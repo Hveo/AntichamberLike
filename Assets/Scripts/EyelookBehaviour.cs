@@ -91,7 +91,7 @@ public class EyelookBehaviour : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        GameMgr.instance.StartCoroutine(OpenEye());
+        LevelMgr.instance.StartCoroutine(OpenEye());
         Reset();
     }
 }

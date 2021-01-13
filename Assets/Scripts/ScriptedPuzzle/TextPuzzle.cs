@@ -65,7 +65,7 @@ public class TextPuzzle : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            GameMgr.instance.SetStateValue("TextPuzzle", 1);
+            LevelMgr.instance.SetStateValue("TextPuzzle", 1);
         }
     }
 }

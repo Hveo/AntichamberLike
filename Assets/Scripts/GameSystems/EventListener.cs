@@ -26,7 +26,7 @@ public class EventListener : MonoBehaviour
 
     public virtual void SubscribeToEvent()
     {
-        GameMgr.instance.SubscribeToEvent(StateID, this);
+        LevelMgr.instance.SubscribeToEvent(StateID, this);
     }
 
     public virtual void OnEventChange()
@@ -34,7 +34,7 @@ public class EventListener : MonoBehaviour
         if (Events == null)
             return;
 
-        m_CurrentValue = GameMgr.instance.GetStateValue(StateID);
+        m_CurrentValue = LevelMgr.instance.GetStateValue(StateID);
 
         for (int i = 0; i < Events.Length; ++i)
         {

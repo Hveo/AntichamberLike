@@ -8,7 +8,7 @@ public class OpenSecretRoom : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameMgr.instance.GetStateValue("KeyCollected") >= 2)
+        if (LevelMgr.instance.GetStateValue("KeyCollected") >= 2)
         {
             AnimatorModifier.SetValue();
             Destroy(gameObject);

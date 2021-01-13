@@ -21,7 +21,7 @@ public class GravityLift : MonoBehaviour
         if (PlayerIn)
         {
             Vector3 gravity = Vector3.up * Physics.gravity.magnitude;
-            GameMgr.instance.Player.PlayerBody.AddForce(gravity * 12.0f, ForceMode.Force);
+            LevelMgr.instance.Player.PlayerBody.AddForce(gravity * 12.0f, ForceMode.Force);
         }
     }
 }

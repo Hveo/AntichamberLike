@@ -6,7 +6,7 @@ using UnityEngine;
 public class TextReplacer : MonoBehaviour
 {
     public LocalizedString LocalizedText;
-    public TextMeshPro TextComponent;
+    public TMP_Text TextComponent;
 
     private void OnEnable()
     {

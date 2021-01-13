@@ -14,7 +14,7 @@ public class DistanceCulling : MonoBehaviour
         if (ComponentsToCull == null)
             return;
 
-        if (Vector3.Distance(GameMgr.instance.Player.transform.position, transform.position) >= DistanceBeforeCulling)
+        if (Vector3.Distance(LevelMgr.instance.Player.transform.position, transform.position) >= DistanceBeforeCulling)
         {
             for (int i = 0; i < ComponentsToCull.Length; ++i)
                 ComponentsToCull[i].enabled = false;

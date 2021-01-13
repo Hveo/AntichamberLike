@@ -56,7 +56,7 @@ public class TriggerStateModifier : MonoBehaviour
 
     void ApplyChanges(EStateChange ValueModification, string StateID, int value = 0)
     {
-        int stateValue = GameMgr.instance.GetStateValue(StateID);
+        int stateValue = LevelMgr.instance.GetStateValue(StateID);
 
         if (stateValue == -99)
             return;
@@ -69,6 +69,6 @@ public class TriggerStateModifier : MonoBehaviour
             default: break;
         }
 
-        GameMgr.instance.SetStateValue(StateID, stateValue);
+        LevelMgr.instance.SetStateValue(StateID, stateValue);
     }
 }

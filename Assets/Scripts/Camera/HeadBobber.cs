@@ -13,7 +13,7 @@ public class HeadBobber : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Player = GameMgr.instance.Player.PlayerBody;
+        m_Player = LevelMgr.instance.Player.PlayerBody;
         m_DefaultPosY = transform.localPosition.y;
     }
 

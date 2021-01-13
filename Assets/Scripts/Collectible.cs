@@ -40,7 +40,7 @@ public class Collectible : MonoBehaviour
         while (rends[rends.Length - 1].material.GetFloat("_Amount") < 1.0f)
             yield return null;
 
-        GameMgr.instance.IncrementStateValue(StateToIncrement);
+        LevelMgr.instance.IncrementStateValue(StateToIncrement);
         Destroy(gameObject);
     }
 }

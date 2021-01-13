@@ -12,7 +12,7 @@ public class PortalTeleporter : MonoBehaviour
 
     private void Start()
     {
-        player = GameMgr.instance.Player;
+        player = LevelMgr.instance.Player;
         //ParentObject = transform.parent;
     }
 

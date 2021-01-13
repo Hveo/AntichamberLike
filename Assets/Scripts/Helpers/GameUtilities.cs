@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public static class GameUtilities
@@ -27,5 +28,11 @@ public static class GameUtilities
             Rend.material.SetFloat("_Amount", Amount);
             yield return null;
         }
+    }
+
+    public static void TeleportPlayerTo(Vector3 Position, Vector3 forward = default(Vector3))
+    {
+        LevelMgr.instance.Player.transform.position = Position;
+        LevelMgr.instance.Player.transform.rotation = Quaternion.LookRotation(forward);
     }
 }

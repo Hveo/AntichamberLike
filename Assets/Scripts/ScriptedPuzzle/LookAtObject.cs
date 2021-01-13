@@ -7,15 +7,17 @@ public class LookAtObject : MonoBehaviour
 {
     public GameObject Object;
     public bool ShouldNotLookAt;
+    public bool DisableOnSuccess;
     public float LookThreshold;
     public string StateID;
 
     private Transform m_PlayerTransform;
+    private bool m_CheckCondition;
 
     private void Start()
     {
-        GameMgr.instance.SetStateValue(StateID, 0);
-        m_PlayerTransform = GameMgr.instance.Player.transform;
+        LevelMgr.instance.SetStateValue(StateID, 0);
+        m_PlayerTransform = LevelMgr.instance.Player.transform;
         enabled = false;
     }
 
@@ -34,9 +36,29 @@ public class LookAtObject : MonoBehaviour
         float LookPercentage = Vector3.Dot(Camera.main.transform.forward, (Object.transform.position - m_PlayerTransform.position).normalized);
 
         if (LookPercentage > LookThreshold)
-            GameMgr.instance.SetStateValue(StateID, ShouldNotLookAt ? 0 : 1);
+        {
+            if (ShouldNotLookAt)
+                LevelMgr.instance.SetStateValue(StateID, 0);
+            else
+            {
+                LevelMgr.instance.SetStateValue(StateID, 1);
+
+                if (DisableOnSuccess)
+                    Destroy(this);
+            }
+        }
         else
-            GameMgr.instance.SetStateValue(StateID, ShouldNotLookAt ? 1 : 0);
+        {
+            if (ShouldNotLookAt)
+            {
+                LevelMgr.instance.SetStateValue(StateID, 1);
+
+                if (DisableOnSuccess)
+                    Destroy(this);
+            }
+            else
+                LevelMgr.instance.SetStateValue(StateID, 0);
+        }
 
     }
 }

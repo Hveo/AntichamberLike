@@ -27,7 +27,7 @@ public class TextureChangeCondition : EventListener
 
     public override void OnEventChange()
     {
-        m_CurrentValue = GameMgr.instance.GetStateValue(StateID);
+        m_CurrentValue = LevelMgr.instance.GetStateValue(StateID);
         for (int i = 0; i < TextureStates.Length; ++i)
         {
             if (CheckCondition(TextureStates[i]))

@@ -44,7 +44,7 @@ public class PhysicBox : IInteracitble
     {
         if (IsCarried)
         {
-            GameMgr.instance.Player.ToggleCarryObject(gameObject, false);
+            LevelMgr.instance.Player.ToggleCarryObject(gameObject, false);
             IsCarried = false;
             KeepInteractability = false;
             m_Body.isKinematic = false;
@@ -55,7 +55,7 @@ public class PhysicBox : IInteracitble
             IsCarried = true;
             m_Body.isKinematic = true;
             m_Collider.enabled = false;
-            GameMgr.instance.Player.ToggleCarryObject(gameObject, true);
+            LevelMgr.instance.Player.ToggleCarryObject(gameObject, true);
             KeepInteractability = true;
         }
     }

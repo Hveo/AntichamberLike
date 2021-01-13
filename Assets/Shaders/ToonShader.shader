@@ -6,6 +6,7 @@
         _Brightness("Brightness", Range(0,1)) = 0.3
         _Strength("Strength", Range(0,1)) = 0.5
         _Color("Color", COLOR) = (1, 1, 1, 1)
+        _ScrollSpeed("ScrollSpeed", vector) = (0, 0, 0 ,0)
         _Detail("Detail", Range(0,1)) = 0.3
     }
     SubShader
@@ -42,6 +43,7 @@
             float _Brightness;
             float _Strength;
             float4 _Color;
+            float2 _ScrollSpeed;
             float _Detail;
 
             float Toon(float3 normal, float3 lightDir)
@@ -55,6 +57,7 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv += _ScrollSpeed * (sin(_Time.x) + 0.5);
                 o.worldNormal = UnityObjectToWorldNormal(v.normal);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;

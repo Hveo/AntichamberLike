@@ -25,7 +25,7 @@ public class Elevator : MonoBehaviour
     {
         if (!m_PlayerIn)
         {
-            GameMgr.instance.Player.transform.parent = null;
+            LevelMgr.instance.Player.transform.parent = null;
             MoveTo(GetClosestAnchorPoint());
         }
 
@@ -35,7 +35,7 @@ public class Elevator : MonoBehaviour
         if (magnitude > 0.1f)
         {
             if (m_PlayerIn)
-                GameMgr.instance.Player.transform.parent = transform;
+                LevelMgr.instance.Player.transform.parent = transform;
             
             DisableEyes();
 
@@ -59,7 +59,7 @@ public class Elevator : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         m_PlayerIn = false;
-        GameMgr.instance.Player.ToggleJumpAvailability(true);
+        LevelMgr.instance.Player.ToggleJumpAvailability(true);
 
         DisableEyes();
     }
@@ -69,7 +69,7 @@ public class Elevator : MonoBehaviour
         if (EyeToActivate != null)
         {
             m_PlayerIn = true;
-            GameMgr.instance.Player.ToggleJumpAvailability(false);
+            LevelMgr.instance.Player.ToggleJumpAvailability(false);
 
             for (int i = 0; i < EyeToActivate.Length; ++i)
                 EyeToActivate[i].enabled = true;
@@ -95,7 +95,7 @@ public class Elevator : MonoBehaviour
 
     int GetClosestAnchorPoint()
     {
-        Vector3 playerPos = GameMgr.instance.Player.transform.position;
+        Vector3 playerPos = LevelMgr.instance.Player.transform.position;
         float bestDistance = float.MaxValue;
         int AnchorPointIndex = 0;
 

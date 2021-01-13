@@ -16,9 +16,12 @@ public class SpawnConditions : EventListener
 
     public override void OnEventChange()
     {
-        m_CurrentValue = GameMgr.instance.GetStateValue(StateID);
+        m_CurrentValue = LevelMgr.instance.GetStateValue(StateID);
         if (CheckCondition())
+        {
             gameObject.SetActive(true);
+            base.OnEventChange();
+        }
         else
             gameObject.SetActive(false);
     }

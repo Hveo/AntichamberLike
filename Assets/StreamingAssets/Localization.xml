@@ -12,10 +12,14 @@
     <FR>Options</FR>
     <EN>Settings</EN>
   </menu.settings>
-  <menu.language>
+  <menu.about>
+    <FR>À propos</FR>
+    <EN>About</EN>
+  </menu.about>
+  <settings.language>
     <FR>Langue</FR>
     <EN>Language</EN>
-  </menu.language>
+  </settings.language>
   <settings.music>
     <FR>Musique</FR>
     <EN>Music</EN>

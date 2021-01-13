@@ -20,7 +20,7 @@ public class GravityModifier : MonoBehaviour
             Boxes[i].Body.AddForce(gravity);
 
             if (Boxes[i].IsCarried)
-                GameMgr.instance.Player.PlayerBody.AddForce(gravity * 10.0f, ForceMode.Force);
+                LevelMgr.instance.Player.PlayerBody.AddForce(gravity * 10.0f, ForceMode.Force);
         }
     }
 
@@ -42,13 +42,13 @@ public class GravityModifier : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        GameMgr.instance.Player.ToggleJumpAvailability(m_GravityState == 0);
+        LevelMgr.instance.Player.ToggleJumpAvailability(m_GravityState == 0);
     }
 
     private void OnTriggerExit(Collider other)
     {
         //this.enabled = false;
         Activator.enabled = false;
-        GameMgr.instance.Player.ToggleJumpAvailability(true);
+        LevelMgr.instance.Player.ToggleJumpAvailability(true);
     }
 }

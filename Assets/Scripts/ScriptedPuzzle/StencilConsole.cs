@@ -44,13 +44,13 @@ public class StencilConsole : MonoBehaviour
 
         if (m_Solved)
         {
-            if (GameMgr.instance.BuiltInResources != null)
-                AudioMgr.PlaySound(GameMgr.instance.BuiltInResources.SolvedPuzzleClip);
+            if (Core.instance.BuiltInResources != null)
+                AudioMgr.PlaySound(Core.instance.BuiltInResources.SolvedPuzzleClip);
 
             StartCoroutine(OpenDoor());
         }
-        else if (GameMgr.instance.BuiltInResources != null)
-            AudioMgr.PlaySound(GameMgr.instance.BuiltInResources.WrongSolutionClip);
+        else if (Core.instance.BuiltInResources != null)
+            AudioMgr.PlaySound(Core.instance.BuiltInResources.WrongSolutionClip);
     }
 
     public void SendManipulatedIndex(int Index)
