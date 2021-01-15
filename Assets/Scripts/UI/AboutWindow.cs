@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ConfirmExitPopup : MonoBehaviour, IUIWindows
+public class AboutWindow : MonoBehaviour, IUIWindows
 {
-    public UnityEngine.UI.Selectable[] Selectables;
-
+    public Selectable[] Selectables;
+    // Start is called before the first frame update
     void Awake()
     {
         FeedButtonsWithEvents();
@@ -17,9 +18,14 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
         UISystem.instance.CloseWindow(gameObject);
     }
 
-    public void Exit()
+    public void OpenLinkedIn()
     {
-        Application.Quit();
+        Application.OpenURL("https://linkedin.com/in/johann-seys-727a3b84");
+    }
+
+    public void OpenPortfolio()
+    {
+        Application.OpenURL("https://johannseys.wixsite.com/portfolio");
     }
 
     public void FeedButtonsWithEvents()
@@ -27,7 +33,7 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
         for (int i = 0; i < Selectables.Length; ++i)
         {
             EventTrigger trigg = Selectables[i].GetComponent<EventTrigger>();
-            
+
             if (trigg != null)
             {
                 GameObject obj = Selectables[i].gameObject;
@@ -45,7 +51,7 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
 
     public void SetDefaultItemSelected()
     {
-        UISystem.instance.SelectItem(Selectables[1].gameObject);
+        UISystem.instance.SelectItem(Selectables[0].gameObject);
     }
 
     public GameObject GetWindowObject()

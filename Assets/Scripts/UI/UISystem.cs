@@ -10,15 +10,15 @@ public class UISystem : MonoBehaviour
 {
     public struct WindowSelectable
     {
-        public GameObject Window;
+        public IUIWindows Window;
         public GameObject ObjectSelected;
     }
 
     public static UISystem instance;
-    public GameObject WindowFocused { get; private set; }
+    public IUIWindows WindowFocused { get; private set; }
 
-    private Stack<WindowSelectable> WindowStack;
-    private GameObject ConfirmPopup;
+    private Stack<WindowSelectable> m_WindowStack;
+    private GameObject m_ConfirmPopup;
 
     private IEnumerator Start()
     {
@@ -30,13 +30,13 @@ public class UISystem : MonoBehaviour
         else
             Destroy(gameObject);
 
-        WindowStack = new Stack<WindowSelectable>();
+        m_WindowStack = new Stack<WindowSelectable>();
         ResourceRequest req = Resources.LoadAsync("ConfirmQuit");
 
         while (!req.isDone)
             yield return null;
 
-        ConfirmPopup = req.asset as GameObject;
+        m_ConfirmPopup = req.asset as GameObject;
     }
 
     public GameObject CurrentSelection
@@ -57,8 +57,13 @@ public class UISystem : MonoBehaviour
             trigg.OnPointerEnter(new PointerEventData(EventSystem.current));
     }
 
-    public void NewFocusedWindow(GameObject window, bool Stack = false)
+    public void NewFocusedWindow(GameObject windowObj, bool Stack = false)
     {
+        IUIWindows window = windowObj.GetComponent<IUIWindows>();
+
+        if (window == null)
+            return;
+
         if (Stack)
         {
             WindowSelectable WS;
@@ -66,21 +71,22 @@ public class UISystem : MonoBehaviour
             WS.Window = WindowFocused;
             WS.ObjectSelected = CurrentSelection;
 
-            WindowStack.Push(WS);
+            m_WindowStack.Push(WS);
         }
 
-        ToggleWindowInteractable(WindowFocused, false);
+        ToggleWindowInteractable(WindowFocused?.GetWindowObject(), false);
         WindowFocused = window;
-        ToggleWindowInteractable(WindowFocused, true);
+        ToggleWindowInteractable(windowObj, true);
+        window.SetDefaultItemSelected();
     }
 
     public void CloseWindow(GameObject window)
     {
         Destroy(window);
 
-        if (WindowStack != null && WindowStack.Count > 0)
+        if (m_WindowStack != null && m_WindowStack.Count > 0)
         {
-            WindowSelectable WS = WindowStack.Pop();
+            WindowSelectable WS = m_WindowStack.Pop();
 
             WindowFocused = WS.Window;
             SelectItem(WS.ObjectSelected);
@@ -106,6 +112,13 @@ public class UISystem : MonoBehaviour
 
     public void ToggleConfirmExit()
     {
-        NewFocusedWindow(GameObject.Instantiate(ConfirmPopup), true);
+        NewFocusedWindow(GameObject.Instantiate(m_ConfirmPopup), true);
     }
+}
+
+public interface IUIWindows
+{
+    void SetDefaultItemSelected();
+    void FeedButtonsWithEvents();
+    GameObject GetWindowObject();
 }

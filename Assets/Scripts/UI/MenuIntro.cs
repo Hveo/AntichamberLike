@@ -14,11 +14,9 @@ public class MenuIntro : MonoBehaviour
     public TextMeshProUGUI[] Texts;
     public MainMenuHandler MainMenu;
     
-    Canvas m_Canvas;
     // Start is called before the first frame update
     void Start()
     {
-        m_Canvas = GetComponent<Canvas>();
         StartCoroutine(FadeAndEnableMenu());
     }
 
@@ -41,17 +39,6 @@ public class MenuIntro : MonoBehaviour
         LeanTween.value(0.0f, 10.0f, 1.0f).setEaseInOutBack().setLoopPingPong(1).setOnUpdate(setIntensity);
         yield return new WaitForSeconds(0.5f);
         src.Play();
-        //while (light.intensity < 20.0f)
-        //{
-        //    light.intensity = Mathf.MoveTowards(light.intensity, 20.0f, Time.deltaTime * 20.0f);
-        //    yield return null;
-        //}
-        //src.Play();
-        //while (light.intensity > 0.0)
-        //{
-        //    light.intensity = Mathf.MoveTowards(light.intensity, 0.0f, Time.deltaTime * 30.0f);
-        //    yield return null;
-        //}
 
         GameObject cam = Camera.main.gameObject;
         LeanTween.moveX(cam, 20, 1.5f).setDelay(1.0f);
