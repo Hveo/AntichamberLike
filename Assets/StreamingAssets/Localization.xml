@@ -16,6 +16,18 @@
     <FR>À propos</FR>
     <EN>About</EN>
   </menu.about>
+  <menu.yes>
+    <FR>Oui</FR>
+    <EN>Yes</EN>
+  </menu.yes>
+  <menu.no>
+    <FR>Non</FR>
+    <EN>No</EN>
+  </menu.no>
+  <menu.confirm>
+    <FR>Voulez-vous vraiment quitter ?</FR>
+    <EN>Are you sure you want to exit?</EN>
+  </menu.confirm>
   <settings.language>
     <FR>Langue</FR>
     <EN>Language</EN>

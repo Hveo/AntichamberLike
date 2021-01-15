@@ -66,6 +66,8 @@ public class MenuIntro : MonoBehaviour
             LeanTween.moveX(rect, 0.0f, 1.0f).setFrom(100.0f);
         }
         LeanTween.value(0.0f, 1.0f, 1.0f).setOnUpdate(setAlpha).setOnComplete(MainMenu.EnableInput);
+
+        UISystem.instance.NewFocusedWindow(MainMenu.gameObject);
     }
 
     public void setIntensity(float intensity)

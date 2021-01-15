@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
 {
-    public UnityEngine.UI.Button[] Buttons;
-
     public void EnableInput()
     {
-        for (int i = 0; i < Buttons.Length; ++i)
-        {
-            Buttons[i].enabled = true;
-        }
+        UISystem.instance.ToggleWindowInteractable(gameObject, true);
     }
 
-    public void Exit()
+    public void OpenConfirmPopup()
     {
-        Debug.Log("MDR");
-        Application.Quit();
+        UISystem.instance.ToggleConfirmExit();
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }
