@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public static class AudioMgr
 {
@@ -21,6 +22,7 @@ public static class AudioMgr
     private static GameObject m_SoundHandler;
     private static AudioSource[] m_SFXSources;
     private static AudioSource m_MusicSource;
+    private static AudioMixer m_Mixer;
 
     public static IEnumerator Init()
     {
@@ -47,6 +49,8 @@ public static class AudioMgr
             m_SFXSources = sfxs.ToArray();
             GameObject.DontDestroyOnLoad(m_SoundHandler);
         }
+
+        m_Mixer = Core.instance.BuiltInResources.Mixer;
     }
 
     public static void PlaySound(AudioClip clip, bool loop = false)
@@ -97,5 +101,21 @@ public static class AudioMgr
 
         if ((type & AudioType.MUSIC) != 0)
             m_MusicSource.UnPause();
+    }
+
+    public static void SetMusicVolume(int value)
+    {
+        SetFaderVolume("MusicVolume", value);
+    }
+
+    public static void SetSFXVolume(int value)
+    {
+        SetFaderVolume("SFXVolume", value);
+    }
+
+    static void SetFaderVolume(string Param, int value)
+    {
+        float normalizedValue = (value - 80);
+        m_Mixer.SetFloat(Param, normalizedValue);
     }
 }
