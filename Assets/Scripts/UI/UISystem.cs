@@ -90,6 +90,7 @@ public class UISystem : MonoBehaviour
 
             WindowFocused = WS.Window;
             SelectItem(WS.ObjectSelected);
+            ToggleWindowInteractable(WS.Window.GetWindowObject(), true);
         }
     }
 

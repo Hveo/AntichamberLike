@@ -29,6 +29,11 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         
     }
 
+    public void ChangeLanguage(int language)
+    {
+        LocalizationSystem.ChangeLanguage((Language)language);
+    }
+
     public void Cancel()
     {
         if (!m_ValueChanged)

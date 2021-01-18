@@ -976,7 +976,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6452573415293003732}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8697224520523353983}
+        m_MethodName: ChangeLanguage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2796067867253164068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,7 +2391,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7917348397171488135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8697224520523353983}
+        m_MethodName: ChangeLanguage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7161432550759937196
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,7 +2575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LocalizedText:
-    Key: menu.back
+    Key: menu.apply
   TextComponent: {fileID: 605336846249337639}
 --- !u!1 &7845034920509002180
 GameObject:

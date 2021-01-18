@@ -7,15 +7,15 @@ using System.Xml;
 
 public enum Language
 {
-    FR,
-    EN
+    FR = 0,
+    EN = 1
 }
 
 public static class LocalizationSystem
 {
     public static Language CurrentLanguage;
     private static Dictionary<string, string> LocalizedEntries;
-    private static List<LocalizedString> DisplayedText; //CurrentObjects that are displayed and need to be updated real time when switching language
+    private static List<TextReplacer> DisplayedText; //CurrentObjects that are displayed and need to be updated real time when switching language
 
     public static void LoadLanguageEntries(Language lang)
     {
@@ -37,6 +37,16 @@ public static class LocalizationSystem
         }
     }
 
+    public static void ChangeLanguage(Language lang)
+    {
+        LoadLanguageEntries(lang);
+
+        for (int i = 0; i < DisplayedText.Count; ++i)
+        {
+            DisplayedText[i].OnLanguageChange();
+        }
+    }
+
     public static string GetEntry(string Key)
     {
         string result = "NULL";
@@ -53,20 +63,21 @@ public static class LocalizationSystem
             DisplayedText.Clear();
     }
 
-    public static void AddEntryInList(LocalizedString locaString)
+    public static void AddEntryInList(TextReplacer textReplacer)
     {
-        if (DisplayedText == null || !DisplayedText.Contains(locaString))
-            DisplayedText = new List<LocalizedString>();
+        if (DisplayedText == null)
+            DisplayedText = new List<TextReplacer>();
 
-        DisplayedText.Add(locaString);
+        if (!DisplayedText.Contains(textReplacer))
+            DisplayedText.Add(textReplacer);
     }
 
-    public static void RemoveEntryInList(LocalizedString locaString)
+    public static void RemoveEntryInList(TextReplacer textReplacer)
     {
-        if (DisplayedText == null || !DisplayedText.Contains(locaString))
+        if (DisplayedText == null || !DisplayedText.Contains(textReplacer))
             return;
 
-        DisplayedText.Remove(locaString);
+        DisplayedText.Remove(textReplacer);
     }
 }
 
