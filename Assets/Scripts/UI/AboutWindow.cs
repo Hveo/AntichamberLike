@@ -10,7 +10,7 @@ public class AboutWindow : MonoBehaviour, IUIWindows
     // Start is called before the first frame update
     void Awake()
     {
-        FeedButtonsWithEvents();
+        FeedUIElementsWithEvents();
     }
 
     public void Cancel()
@@ -28,7 +28,7 @@ public class AboutWindow : MonoBehaviour, IUIWindows
         Application.OpenURL("https://johannseys.wixsite.com/portfolio");
     }
 
-    public void FeedButtonsWithEvents()
+    public void FeedUIElementsWithEvents()
     {
         for (int i = 0; i < Selectables.Length; ++i)
         {

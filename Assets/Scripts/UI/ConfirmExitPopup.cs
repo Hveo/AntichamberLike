@@ -9,7 +9,7 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
 
     void Awake()
     {
-        FeedButtonsWithEvents();
+        FeedUIElementsWithEvents();
     }
 
     public void Cancel()
@@ -22,7 +22,7 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
         Application.Quit();
     }
 
-    public void FeedButtonsWithEvents()
+    public void FeedUIElementsWithEvents()
     {
         for (int i = 0; i < Selectables.Length; ++i)
         {

@@ -119,6 +119,6 @@ public class UISystem : MonoBehaviour
 public interface IUIWindows
 {
     void SetDefaultItemSelected();
-    void FeedButtonsWithEvents();
+    void FeedUIElementsWithEvents();
     GameObject GetWindowObject();
 }

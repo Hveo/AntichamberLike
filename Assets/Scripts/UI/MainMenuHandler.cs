@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : MonoBehaviour, IUIWindows
 {
     GameObject m_AboutWindow;
+    GameObject m_SettingsWindow;
     IEnumerator Start()
     {
         ResourceRequest req = Resources.LoadAsync("AboutWindow");
@@ -14,6 +15,13 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
             yield return null;
 
         m_AboutWindow = req.asset as GameObject;
+
+        req = Resources.LoadAsync("SettingsWindow");
+
+        while (!req.isDone)
+            yield return null;
+
+        m_SettingsWindow = req.asset as GameObject;
     }
 
     public void EnableInput()
@@ -34,6 +42,14 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
         }
     }
 
+    public void OpenSettingsWindow()
+    {
+        if (m_SettingsWindow != null)
+        {
+            UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_SettingsWindow), true);
+        }
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
@@ -44,7 +60,7 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
         UISystem.instance.SelectItem(transform.GetChild(0).gameObject);
     }
 
-    public void FeedButtonsWithEvents()
+    public void FeedUIElementsWithEvents()
     {
 
     }
