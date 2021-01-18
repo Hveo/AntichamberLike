@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuHandler : MonoBehaviour
+public class MainMenuHandler : MonoBehaviour, IUIWindows
 {
     GameObject m_AboutWindow;
     IEnumerator Start()
@@ -18,7 +18,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void EnableInput()
     {
-        UISystem.instance.ToggleWindowInteractable(gameObject, true);
+        UISystem.instance.NewFocusedWindow(gameObject);
     }
 
     public void OpenConfirmPopup()
@@ -37,5 +37,20 @@ public class MainMenuHandler : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void SetDefaultItemSelected()
+    {
+        UISystem.instance.SelectItem(transform.GetChild(0).gameObject);
+    }
+
+    public void FeedButtonsWithEvents()
+    {
+
+    }
+
+    public GameObject GetWindowObject()
+    {
+        return gameObject;
     }
 }
