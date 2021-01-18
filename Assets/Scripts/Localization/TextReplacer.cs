@@ -10,19 +10,19 @@ public class TextReplacer : MonoBehaviour
 
     private void OnEnable()
     {
-        LocalizationSystem.AddEntryInList(this);
+        LocalizationSystem.OnChangeLanguage += OnLanguageChange;
         LocalizedText.OnLanguageChange();
         SetText();
     }
 
     private void OnDisable()
     {
-        LocalizationSystem.RemoveEntryInList(this);
+        LocalizationSystem.OnChangeLanguage -= OnLanguageChange;
     }
 
     private void OnDestroy()
     {
-        LocalizationSystem.RemoveEntryInList(this);
+        LocalizationSystem.OnChangeLanguage -= OnLanguageChange;
     }
 
     void SetText()

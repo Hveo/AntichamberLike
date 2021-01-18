@@ -14,8 +14,8 @@ public enum Language
 public static class LocalizationSystem
 {
     public static Language CurrentLanguage;
+    public static Action OnChangeLanguage;
     private static Dictionary<string, string> LocalizedEntries;
-    private static List<TextReplacer> DisplayedText; //CurrentObjects that are displayed and need to be updated real time when switching language
 
     public static void LoadLanguageEntries(Language lang)
     {
@@ -41,10 +41,11 @@ public static class LocalizationSystem
     {
         LoadLanguageEntries(lang);
 
-        for (int i = 0; i < DisplayedText.Count; ++i)
+        if (OnChangeLanguage != null && OnChangeLanguage.GetInvocationList() != null)
         {
-            DisplayedText[i].OnLanguageChange();
+            OnChangeLanguage.Invoke();
         }
+            
     }
 
     public static string GetEntry(string Key)
@@ -59,25 +60,7 @@ public static class LocalizationSystem
 
     public static void ClearDisplayedTextList()
     {
-        if (DisplayedText != null)
-            DisplayedText.Clear();
-    }
-
-    public static void AddEntryInList(TextReplacer textReplacer)
-    {
-        if (DisplayedText == null)
-            DisplayedText = new List<TextReplacer>();
-
-        if (!DisplayedText.Contains(textReplacer))
-            DisplayedText.Add(textReplacer);
-    }
-
-    public static void RemoveEntryInList(TextReplacer textReplacer)
-    {
-        if (DisplayedText == null || !DisplayedText.Contains(textReplacer))
-            return;
-
-        DisplayedText.Remove(textReplacer);
+        OnChangeLanguage = null;
     }
 }
 
