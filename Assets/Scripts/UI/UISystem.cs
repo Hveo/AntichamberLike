@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
@@ -122,4 +123,27 @@ public interface IUIWindows
     void SetDefaultItemSelected();
     void FeedUIElementsWithEvents();
     GameObject GetWindowObject();
+}
+
+public static class UIGraphicUtilities
+{
+    static Color SelectedColor = new Color(1.0f, 0.5f, 0.0f);
+
+    public static void SelectButton(UnityEngine.UI.Button button)
+    {
+        LeanTween.scale(button.gameObject, new Vector3(1.4f, 1.4f, 1.4f), 0.2f);
+        TextMeshProUGUI txtMesh = button.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (txtMesh != null)
+            txtMesh.color = SelectedColor;
+    }
+
+    public static void DeselectButton(UnityEngine.UI.Button button)
+    {
+        LeanTween.scale(button.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
+        TextMeshProUGUI txtMesh = button.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (txtMesh != null)
+            txtMesh.color = Color.black;
+    }
 }
