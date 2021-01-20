@@ -115,7 +115,7 @@ public static class AudioMgr
 
     static void SetFaderVolume(string Param, int value)
     {
-        float normalizedValue = (value - 80);
+        float normalizedValue = Mathf.Clamp((value - 80), -80, 5); //In order to keep ears alive
         m_Mixer.SetFloat(Param, normalizedValue);
     }
 }

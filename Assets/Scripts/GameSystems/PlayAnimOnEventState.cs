@@ -11,7 +11,7 @@ public class PlayAnimOnEventState : EventListener
     {
         m_CurrentValue = LevelMgr.instance.GetStateValue(StateID);
 
-        if (StatesToSet.Length >= m_CurrentValue - 1 && Animators.Length >= m_CurrentValue - 1)
+        if (StatesToSet.Length > m_CurrentValue - 1 && Animators.Length > m_CurrentValue - 1)
             Animators[m_CurrentValue - 1].SetBool(StatesToSet[m_CurrentValue - 1], true);
     }
 }
