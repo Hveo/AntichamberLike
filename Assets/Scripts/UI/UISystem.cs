@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -17,7 +18,9 @@ public class UISystem : MonoBehaviour
 
     public static UISystem instance;
     public IUIWindows WindowFocused { get; private set; }
-
+    public bool MenuPresence { get; private set; }
+    public InputActionReference CloseWindowAction;
+    
     private Stack<WindowSelectable> m_WindowStack;
     private GameObject m_ConfirmPopup;
 
@@ -38,12 +41,23 @@ public class UISystem : MonoBehaviour
             yield return null;
 
         m_ConfirmPopup = req.asset as GameObject;
+
+        CloseWindowAction.action.performed += CloseWindowWithInput;
+        CloseWindowAction.action.Enable();
     }
 
     public GameObject CurrentSelection
     {
         get { return EventSystem.current.currentSelectedGameObject; }
         private set { }
+    }
+
+    public void SetMenuPresence(bool value)
+    {
+        MenuPresence = value;
+
+        if (!MenuPresence)
+            CloseWindowAction.action.performed -= CloseWindowWithInput;
     }
 
     public void SelectItem(GameObject item)
@@ -58,14 +72,14 @@ public class UISystem : MonoBehaviour
             trigg.OnPointerEnter(new PointerEventData(EventSystem.current));
     }
 
-    public void NewFocusedWindow(GameObject windowObj, bool Stack = false)
+    public void NewFocusedWindow(GameObject windowObj, bool stack = false, bool persistantWindow = false)
     {
         IUIWindows window = windowObj.GetComponent<IUIWindows>();
 
         if (window == null)
             return;
 
-        if (Stack)
+        if (stack)
         {
             WindowSelectable WS;
 
@@ -81,18 +95,33 @@ public class UISystem : MonoBehaviour
         window.SetDefaultItemSelected();
     }
 
+    public void CloseWindowWithInput(InputAction.CallbackContext ctx)
+    {
+        CloseWindow(WindowFocused?.GetWindowObject());
+    }
+
     public void CloseWindow(GameObject window)
     {
+        if (window is null)
+            return;
+
+        if (WindowFocused.IsPersistant())
+            return;
+
         Destroy(window);
 
-        if (m_WindowStack != null && m_WindowStack.Count > 0)
+        if (!(m_WindowStack is null) && m_WindowStack.Count > 0)
         {
             WindowSelectable WS = m_WindowStack.Pop();
 
             WindowFocused = WS.Window;
             SelectItem(WS.ObjectSelected);
             ToggleWindowInteractable(WS.Window.GetWindowObject(), true);
+
+            return;
         }
+
+        SetMenuPresence(false);
     }
 
 
@@ -109,7 +138,16 @@ public class UISystem : MonoBehaviour
 
     public void Update()
     {
-        Debug.Log(CurrentSelection);
+        if (!MenuPresence)
+            return;
+
+        if (!(WindowFocused is null))
+        {
+            if (CurrentSelection is null)
+                WindowFocused.SetDefaultItemSelected();
+            
+            Debug.Log(CurrentSelection);
+        }      
     }
 
     public void ToggleConfirmExit()
@@ -122,6 +160,9 @@ public interface IUIWindows
 {
     void SetDefaultItemSelected();
     void FeedUIElementsWithEvents();
+
+    bool IsPersistant();
+
     GameObject GetWindowObject();
 }
 

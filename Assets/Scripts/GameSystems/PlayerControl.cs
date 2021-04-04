@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class PlayerControl : MonoBehaviour
     { 
         get
         {
-            if (m_PlayerBody == null)
+            if (m_PlayerBody is null)
                 m_PlayerBody = GetComponent<Rigidbody>();
 
             return m_PlayerBody;
@@ -35,15 +37,28 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody m_PlayerBody;
     private float m_InitialJumpForce;
 
+    private InputAction m_Move;
+    private InputAction m_Jump;
+    private bool m_DoJump;
+
     [SerializeField] private float jumpMultiplier;
 
     private void Awake()
     {
         m_InitialJumpForce = jumpMultiplier;
         m_AudioSrc = GetComponent<AudioSource>();
+        DispatchInputEvent();
     }
 
+    void DispatchInputEvent()
+    {
+        InputActionAsset actions = InputHandler.Inputs.actions;
+        m_Move = actions["inputs.move"];
+        m_Jump = actions["inputs.jump"];
 
+        m_Jump.started += (context) => { m_DoJump = true; };
+        m_Jump.canceled += (context) => { m_DoJump = false; };
+    }
 
     private void FixedUpdate()
     {
@@ -52,7 +67,8 @@ public class PlayerControl : MonoBehaviour
 
     private void PlayerMovement()
     {
-        Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector2 inputValues = m_Move.ReadValue<Vector2>();
+        Vector3 targetVelocity = new Vector3(inputValues.x, 0, inputValues.y);
         targetVelocity = transform.TransformDirection(targetVelocity);
         targetVelocity *= m_MovementSpeed * m_JumpMovementFactor;
 
@@ -81,7 +97,7 @@ public class PlayerControl : MonoBehaviour
         m_AudioSrc.pitch = Mathf.Lerp(m_AudioSrc.pitch, 0.0f, 2.0f * Time.deltaTime);
         m_JumpMovementFactor = 1.0f;
 
-        if (Input.GetButton("Jump"))
+        if (m_DoJump)
         {
             float jumpForce = CalculateVerticalSpeed();
             m_PlayerBody.velocity = new Vector3(velocity.x, jumpForce , velocity.z);
@@ -105,7 +121,7 @@ public class PlayerControl : MonoBehaviour
 
     public void ToggleCarryObject(GameObject CarriedObj, bool value)
     {
-        if (CarriedObj == null)
+        if (CarriedObj is null)
             return;
 
         CapsuleCollider collider = GetComponent<CapsuleCollider>();

@@ -52,8 +52,11 @@ public class MenuIntro : MonoBehaviour
             RectTransform rect = Texts[i].GetComponent<RectTransform>();
             LeanTween.moveX(rect, 0.0f, 1.0f).setFrom(100.0f);
         }
-        LeanTween.value(0.0f, 1.0f, 1.0f).setOnUpdate(setAlpha).setOnComplete(MainMenu.EnableInput);
+        LeanTween.value(0.0f, 1.0f, 1.0f).setOnUpdate(setAlpha);
 
+        yield return new WaitForSeconds(1.0f);
+
+        MainMenu.EnableInput();
         UISystem.instance.NewFocusedWindow(MainMenu.gameObject);
     }
 

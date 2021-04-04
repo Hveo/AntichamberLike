@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Button : IInteracitble
+public class Button : IInteractible
 {
     public UnityEvent OnPush;
     public bool TriggerOnce;

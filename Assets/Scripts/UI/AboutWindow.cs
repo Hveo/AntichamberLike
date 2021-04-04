@@ -13,6 +13,11 @@ public class AboutWindow : MonoBehaviour, IUIWindows
         FeedUIElementsWithEvents();
     }
 
+    public bool IsPersistant()
+    {
+        return false;
+    }
+
     public void Cancel()
     {
         UISystem.instance.CloseWindow(gameObject);

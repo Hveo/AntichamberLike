@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using UnityEditor;
 using UnityEngine;
 
-public class PhysicBox : IInteracitble
+public class PhysicBox : IInteractible
 {
     public bool IsCarried { get; private set; }
     public Color HighlightColor;

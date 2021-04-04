@@ -36,12 +36,16 @@
     <FR>OK</FR>
     <EN>OK</EN>
   </menu.ok>
+  <menu.cancel>
+    <FR>Annuler</FR>
+    <EN>Cancel</EN>
+  </menu.cancel>
   <menu.apply>
     <FR>Appliquer</FR>
     <EN>Apply</EN>
   </menu.apply>
   <about.desc>
-    <FR>Cette démo a été entièrement réalisé par Johann Seys. Pour plus d'informations vous pouvez consulter la page du projet sur mon portfolio en cliquant sur le bouton internet en bas à droite. Vous pouvez également consulter mon profil ou discuter de ce projet avec moi sur LinkedIn en cliquant sur le bouton LinkedIn</FR>
+    <FR>Cette démo a été entièrement réalisée par Johann Seys. Pour plus d'informations vous pouvez consulter la page du projet sur mon portfolio en cliquant sur le bouton internet en bas à droite. Vous pouvez également consulter mon profil ou discuter de ce projet avec moi sur LinkedIn en cliquant sur le bouton LinkedIn</FR>
     <EN>This demo is integrally made by Johann Seys. You can check out the project's page for more informations on my portfolio by clicking on the Internet icon. You can also check my LinkedIn profile to talk about the project by clicking on the LinkedIn button.</EN>
   </about.desc>
   <settings.language>
@@ -56,10 +60,18 @@
     <FR>Effets</FR>
     <EN>Effects</EN>
   </settings.effects>
+  <settings.bind>
+    <FR>Configurer les touches</FR>
+    <EN>Remap Inputs</EN>
+  </settings.bind>
   <settings.audio>
     <FR>Son</FR>
     <EN>Audio</EN>
   </settings.audio>
+  <settings.reset>
+    <FR>Rétablir paramètres par défaut</FR>
+    <EN>Reset to default settings</EN>
+  </settings.reset>
   <intro.welcome>
     <FR>Bienvenue</FR>
     <EN>Welcome</EN>
@@ -136,5 +148,57 @@
     <FR>Merci d'avoir joué</FR>
     <EN>Thanks for playing</EN>
   </end.thanks>
+  <inputs.move>
+    <FR>Déplacement</FR>
+    <EN>Move</EN>
+  </inputs.move>
+  <inputs.moveup>
+    <FR>Avancer</FR>
+    <EN>Move Forward</EN>
+  </inputs.moveup>
+  <inputs.movedown>
+    <FR>Reculer</FR>
+    <EN>Move Backward</EN>
+  </inputs.movedown>
+  <inputs.moveleft>
+    <FR>Déplacement à gauche</FR>
+    <EN>Move Left</EN>
+  </inputs.moveleft>
+  <inputs.moveright>
+    <FR>Déplacement à droite</FR>
+    <EN>Move Right</EN>
+  </inputs.moveright>
+  <inputs.look>
+    <FR>Contrôle Caméra</FR>
+    <EN>Camera Look</EN>
+  </inputs.look>
+  <inputs.jump>
+    <FR>Sauter</FR>
+    <EN>Jump</EN>
+  </inputs.jump>
+  <inputs.interact>
+    <FR>Interagir</FR>
+    <EN>Interact</EN>
+  </inputs.interact>
+  <inputs.currentdevice>
+    <FR>Périphérique Détecté</FR>
+    <EN>Detected Device</EN>
+  </inputs.currentdevice>
+  <inputs.replaceinput>
+    <FR>Cette touche est déjà utilisé pour l'action suivante: %. Souhaitez-vous tout de même affecter la touche actuelle ?</FR>
+    <EN>The key is already used for the action: %. Do you still want to bind it?</EN>
+  </inputs.replaceinput>
+  <inputs.invertxaxis>
+    <FR>Inverser axe horizontal</FR>
+    <EN>Invert horizontal axis</EN>
+  </inputs.invertxaxis>
+  <inputs.invertyaxis>
+    <FR>Inverser axe vertical</FR>
+    <EN>Invert vertical axis</EN>
+  </inputs.invertyaxis>
+  <inputs.waitinginput>
+    <FR>En attente d'une touche...</FR>
+    <EN>Waiting for input...</EN>
+  </inputs.waitinginput>
 </data>
 

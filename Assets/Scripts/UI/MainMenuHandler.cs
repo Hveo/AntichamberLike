@@ -28,10 +28,16 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
         m_SettingsWindow = req.asset as GameObject;
     }
 
+    public bool IsPersistant()
+    {
+        return true;
+    }
+
     public void EnableInput()
     {
-        UISystem.instance.NewFocusedWindow(gameObject);
+        //UISystem.instance.NewFocusedWindow(gameObject);
         FeedUIElementsWithEvents();
+        UISystem.instance.SetMenuPresence(true);
     }
 
     public void OpenConfirmPopup()
@@ -57,6 +63,7 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
 
     public void StartGame()
     {
+        UISystem.instance.SetMenuPresence(false);
         SceneManager.LoadScene(1);
     }
 

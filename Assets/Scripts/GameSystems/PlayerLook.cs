@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] private string mouseXInputName, mouseYInputName;
-    [SerializeField] private float mouseSensitivity;
-
     [SerializeField] private Transform playerBody;
 
     private float xAxisClamp;
-    private IInteracitble m_CurrentSelection;
+    private IInteractible m_CurrentSelection;
+    private InputAction m_Interact;
+    private InputAction m_Look;
+    private PlayerPrefsObject m_PlayerPrefs;
 
     private void Awake()
     {
@@ -18,6 +19,18 @@ public class PlayerLook : MonoBehaviour
         xAxisClamp = 0.0f;
 
         layerMask = LayerMask.NameToLayer("Interact");
+
+        InputActionAsset actions = InputHandler.Inputs.actions;
+        m_Interact = actions["inputs.interact"];
+        m_Look = actions["inputs.look"];
+
+        m_Interact.performed += (context) =>
+        {
+            if (m_CurrentSelection)
+                m_CurrentSelection.Interact();
+        };
+
+        m_PlayerPrefs = Core.instance.PlayerPrefs;
     }
 
 
@@ -29,14 +42,6 @@ public class PlayerLook : MonoBehaviour
     private void Update()
     {
         CameraRotation();
-
-        if (m_CurrentSelection)
-        {
-            if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Interact")))
-            {
-                m_CurrentSelection.Interact();
-            }
-        }
     }
 
     private RaycastHit hit;
@@ -51,7 +56,7 @@ public class PlayerLook : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
         {
-            IInteracitble interactible = hit.transform.GetComponent<IInteracitble>();
+            IInteractible interactible = hit.transform.GetComponent<IInteractible>();
             
             if (interactible != null)
             {
@@ -76,8 +81,26 @@ public class PlayerLook : MonoBehaviour
 
     private void CameraRotation()
     {
-        float mouseX = Input.GetAxis(mouseXInputName) * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis(mouseYInputName) * mouseSensitivity * Time.deltaTime;
+        Vector2 cameraLook = m_Look.ReadValue<Vector2>();
+        float sensitivity = 0.0f;
+        float xAxis = 1.0f;
+        float yAxis = 1.0f;
+
+        if (InputHandler.PCLayout)
+            sensitivity = m_PlayerPrefs.MouseSensitivity;
+        else
+        {
+            sensitivity = m_PlayerPrefs.StickSensitivity;
+
+            if (m_PlayerPrefs.InvertXAxis)
+                xAxis = -1.0f;
+
+            if (m_PlayerPrefs.InvertYAxis)
+                yAxis = -1.0f;
+        }
+
+        float mouseX = xAxis * cameraLook.x * sensitivity * Time.smoothDeltaTime;
+        float mouseY = yAxis * cameraLook.y * sensitivity * Time.smoothDeltaTime;
 
         xAxisClamp += mouseY;
 

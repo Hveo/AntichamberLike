@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class IInteracitble : MonoBehaviour
+public abstract class IInteractible : MonoBehaviour
 {
     public bool KeepInteractability
     {

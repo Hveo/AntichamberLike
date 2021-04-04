@@ -6,10 +6,11 @@ public class Core : MonoBehaviour
 {
     public static Core instance;
     public BuiltInGameResources BuiltInResources;
+    public PlayerPrefsObject PlayerPrefs;
 
     void Awake()
     {
-        if (instance == null)
+        if (instance is null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -19,5 +20,6 @@ public class Core : MonoBehaviour
 
         LocalizationSystem.LoadLanguageEntries(Language.EN);
         StartCoroutine(AudioMgr.Init());
+        InputHandler.InitiateInput();
     }
 }
