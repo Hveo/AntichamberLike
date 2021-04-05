@@ -60,10 +60,22 @@
     <FR>Effets</FR>
     <EN>Effects</EN>
   </settings.effects>
+  <settings.control>
+    <FR>Contrôles</FR>
+    <EN>Controls</EN>
+  </settings.control>
   <settings.bind>
     <FR>Configurer les touches</FR>
-    <EN>Remap Inputs</EN>
+    <EN>Key Mapping</EN>
   </settings.bind>
+  <settings.sensitivity>
+    <FR>Sensibilité Souris</FR>
+    <EN>Mouse Sensitivity</EN>
+  </settings.sensitivity>
+  <settings.sticksensitivity>
+    <FR>Sensibilité Stick</FR>
+    <EN>Stick Sensitivity</EN>
+  </settings.sticksensitivity>
   <settings.audio>
     <FR>Son</FR>
     <EN>Audio</EN>

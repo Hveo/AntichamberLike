@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerPrefs", menuName = "Overthink/PlayerPrefs")]
+[CreateAssetMenu(fileName = "PlayerPrefs", menuName = "Overthink/PlayerPrefs"), System.Serializable]
 public class PlayerPrefsObject : ScriptableObject
 {
     public float MouseSensitivity;

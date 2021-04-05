@@ -61,6 +61,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                 {
                     if (obj.GetComponent<UnityEngine.UI.Button>() != null)
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
+                    else if (obj.GetComponent<Slider>() != null)
+                        UIGraphicUtilities.SelectSlider(obj.GetComponent<Slider>());
                 });
 
                 trigg.triggers.Add(entry2);
@@ -80,6 +82,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                 {
                     if (obj.GetComponent<UnityEngine.UI.Button>() != null)
                         UIGraphicUtilities.DeselectButton(obj.GetComponent<UnityEngine.UI.Button>());
+                    else if (obj.GetComponent<Slider>() != null)
+                        UIGraphicUtilities.DeselectSlider(obj.GetComponent<Slider>());
                 });
 
                 trigg.triggers.Add(entry4);
@@ -131,5 +135,20 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             m_SFXValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
         m_SFXValue.text = slider.value.ToString();
+    }
+
+    public void SetMouseSensitivity()
+    {
+
+    }
+
+    public void SetStickSensitivity()
+    {
+
+    }
+
+    public void InvertAxis(bool yAxis)
+    {
+
     }
 }

@@ -187,4 +187,19 @@ public static class UIGraphicUtilities
         if (txtMesh != null)
             txtMesh.color = Color.black;
     }
+
+    public static void SelectSlider(UnityEngine.UI.Slider slider)
+    {
+        slider.handleRect.GetComponent<Image>().color = Color.black;
+        LeanTween.scale(slider.handleRect.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+        slider.fillRect.GetComponent<Image>().color = SelectedColor;
+    }
+
+    public static void DeselectSlider(UnityEngine.UI.Slider slider)
+    {
+        slider.handleRect.GetComponent<Image>().color = Color.white;
+        LeanTween.scale(slider.handleRect.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
+        slider.fillRect.GetComponent<Image>().color = Color.black;
+    }
+
 }

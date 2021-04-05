@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerPrefs
   m_EditorClassIdentifier: 
   MouseSensitivity: 10
-  StickSensitivity: 50
+  StickSensitivity: 150
   InvertXAxis: 0
   InvertYAxis: 0
   MusicVolume: 100
