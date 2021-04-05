@@ -18,4 +18,4 @@ MonoBehaviour:
   InvertYAxis: 0
   MusicVolume: 100
   FXVolume: 100
-  CurrentLanguage: 1
+  CurrentLanguage: 0

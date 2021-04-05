@@ -10,6 +10,9 @@ public class TextReplacer : MonoBehaviour
 
     private void OnEnable()
     {
+        if (string.IsNullOrEmpty(LocalizedText.Key))
+            return;
+
         LocalizationSystem.OnChangeLanguage += OnLanguageChange;
         LocalizedText.OnLanguageChange();
         SetText();

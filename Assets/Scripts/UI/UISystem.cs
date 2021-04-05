@@ -35,7 +35,7 @@ public class UISystem : MonoBehaviour
             Destroy(gameObject);
 
         m_WindowStack = new Stack<WindowSelectable>();
-        ResourceRequest req = Resources.LoadAsync("ConfirmQuit");
+        ResourceRequest req = Resources.LoadAsync("UI/ConfirmPopup");
 
         while (!req.isDone)
             yield return null;
@@ -153,6 +153,7 @@ public class UISystem : MonoBehaviour
     public void ToggleConfirmExit()
     {
         NewFocusedWindow(GameObject.Instantiate(m_ConfirmPopup), true);
+        m_ConfirmPopup.GetComponent<ConfirmBoxGeneric>().BuildBox("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseWindow(m_ConfirmPopup.gameObject); });
     }
 }
 

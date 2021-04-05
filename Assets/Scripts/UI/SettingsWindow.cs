@@ -8,17 +8,39 @@ using UnityEngine.EventSystems;
 
 public class SettingsWindow : MonoBehaviour, IUIWindows
 {
-    bool m_ValueChanged;
-
     public Selectable[] Selectables;
 
     private GameObject m_RebindWindow;
     private TextMeshProUGUI m_SFXValue;
     private TextMeshProUGUI m_MusicValue;
+    private TextMeshProUGUI m_MouseSensitivity;
+    private TextMeshProUGUI m_StickSensitivity;
+    private PlayerPrefsObject m_TMPPref;
 
     void Awake()
     {
         FeedUIElementsWithEvents();
+        m_TMPPref = Core.instance.PlayerPrefs;
+        LoadPrefs();
+    }
+
+    void LoadPrefs()
+    {
+        Selectables[0].GetComponent<Slider>().value = m_TMPPref.MusicVolume;
+        Selectables[1].GetComponent<Slider>().value = m_TMPPref.FXVolume;
+        
+        Slider Mouse = Selectables[6].GetComponent<Slider>();
+        Mouse.value = m_TMPPref.MouseSensitivity;
+        m_MouseSensitivity = Mouse.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        m_MouseSensitivity.text = Mouse.value.ToString();
+
+        Slider Stick = Selectables[7].GetComponent<Slider>();
+        Stick.value = (m_TMPPref.StickSensitivity / 5.0f) - 100.0f;
+        m_StickSensitivity = Stick.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        m_StickSensitivity.text = Stick.value.ToString();
+
+        Selectables[8].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
+        Selectables[9].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
     }
 
     IEnumerator Start()
@@ -111,17 +133,34 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         LocalizationSystem.ChangeLanguage((Language)language);
     }
 
+    public void Apply()
+    {
+        Core.instance.PlayerPrefs = m_TMPPref;
+        Core.instance.PlayerPrefs.StickSensitivity = (m_TMPPref.StickSensitivity * 5.0f) + 100.0f;
+    }
+
     public void Cancel()
     {
-        if (!m_ValueChanged)
+        if (ValueChanged())
+        {
+
+        }
+        else
             UISystem.instance.CloseWindow(gameObject);
+    }
+
+    bool ValueChanged()
+    {
+        PlayerPrefsObject pp = Core.instance.PlayerPrefs;
+        return m_TMPPref.MouseSensitivity != pp.MouseSensitivity || m_TMPPref.StickSensitivity != pp.StickSensitivity || m_TMPPref.FXVolume != pp.FXVolume ||
+                m_TMPPref.MusicVolume != pp.MusicVolume || m_TMPPref.InvertXAxis != pp.InvertXAxis || m_TMPPref.InvertYAxis != pp.InvertYAxis || m_TMPPref.CurrentLanguage != pp.CurrentLanguage;
     }
 
     public void SetMusicVolume(Slider slider)
     {
         AudioMgr.SetMusicVolume((int)slider.value);
 
-        if (m_MusicValue == null)
+        if (m_MusicValue is null)
             m_MusicValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
         m_MusicValue.text = slider.value.ToString();
@@ -131,24 +170,39 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     {
         AudioMgr.SetSFXVolume((int)slider.value);
         
-        if (m_SFXValue == null)
+        if (m_SFXValue is null)
             m_SFXValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
         m_SFXValue.text = slider.value.ToString();
     }
 
-    public void SetMouseSensitivity()
+    public void SetMouseSensitivity(Slider slider)
     {
+        m_TMPPref.MouseSensitivity = slider.value;
 
+        if (m_MouseSensitivity is null)
+            m_MouseSensitivity = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        m_MouseSensitivity.text = slider.value.ToString();
     }
 
-    public void SetStickSensitivity()
+    public void SetStickSensitivity(Slider slider)
     {
+        m_TMPPref.StickSensitivity = slider.value;
 
+        if (m_StickSensitivity is null)
+            m_StickSensitivity = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        m_StickSensitivity.text = slider.value.ToString();
     }
 
-    public void InvertAxis(bool yAxis)
+    public void InvertXAxis(Toggle toggle)
     {
+        m_TMPPref.InvertXAxis = toggle.isOn;
+    }
 
+    public void InvertYAxis(Toggle toggle)
+    {
+        m_TMPPref.InvertYAxis = toggle.isOn;
     }
 }
