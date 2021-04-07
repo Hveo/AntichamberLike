@@ -52,7 +52,7 @@ public class PlayerLook : MonoBehaviour
         if (m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
             return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
         {
