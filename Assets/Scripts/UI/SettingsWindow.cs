@@ -41,6 +41,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
         Selectables[8].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
         Selectables[9].GetComponent<Toggle>().isOn = m_TMPPref.InvertYAxis;
+
+        LocalizationSystem.ChangeLanguage(m_TMPPref.CurrentLanguage);
     }
 
     IEnumerator Start()
@@ -132,6 +134,12 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     {
         m_TMPPref.CurrentLanguage = (Language)language;
         LocalizationSystem.ChangeLanguage((Language)language);
+    }
+
+    public void ResetDefaultPreset()
+    {
+        m_TMPPref.SetDefaultValue();
+        LoadPrefs();
     }
 
     public void Apply()

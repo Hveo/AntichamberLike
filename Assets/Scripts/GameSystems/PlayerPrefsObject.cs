@@ -25,4 +25,15 @@ public class PlayerPrefsObject : ScriptableObject
 
         return clone;
     }
+
+    public void SetDefaultValue()
+    {
+        this.MouseSensitivity = 10.0f;
+        this.StickSensitivity = 150.0f;
+        this.InvertXAxis = false;
+        this.InvertYAxis = false;
+        this.MusicVolume = 100.0f;
+        this.FXVolume = 100.0f;
+        this.CurrentLanguage = Language.EN;
+    }
 }
