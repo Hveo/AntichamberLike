@@ -80,6 +80,10 @@
     <FR>Son</FR>
     <EN>Audio</EN>
   </settings.audio>
+  <settings.valuechanged>
+    <FR>Certains paramètres ont été modifiés, voulez-vous appliquer ces changements ?</FR>
+    <EN>Do you want to keep your changes before leaving?</EN>
+  </settings.valuechanged>
   <settings.reset>
     <FR>Rétablir paramètres par défaut</FR>
     <EN>Reset to default settings</EN>

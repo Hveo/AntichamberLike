@@ -102,7 +102,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
 
     public void OnClickBackButton()
     {
-        UISystem.instance.CloseWindow(gameObject);
+        UISystem.instance.CloseCurrentWindow();
         Resources.UnloadUnusedAssets();
     }
 

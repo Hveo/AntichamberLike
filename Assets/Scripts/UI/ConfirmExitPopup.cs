@@ -19,7 +19,7 @@ public class ConfirmExitPopup : MonoBehaviour, IUIWindows
 
     public void Cancel()
     {
-        UISystem.instance.CloseWindow(gameObject);
+        UISystem.instance.CloseCurrentWindow();
     }
 
     public void Exit()

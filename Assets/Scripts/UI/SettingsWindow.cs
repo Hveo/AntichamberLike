@@ -20,7 +20,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     void Awake()
     {
         FeedUIElementsWithEvents();
-        m_TMPPref = Core.instance.PlayerPrefs;
+        m_TMPPref = Core.instance.PlayerPrefs.GetDeepCopy();
         LoadPrefs();
     }
 
@@ -35,12 +35,12 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         m_MouseSensitivity.text = Mouse.value.ToString();
 
         Slider Stick = Selectables[7].GetComponent<Slider>();
-        Stick.value = (m_TMPPref.StickSensitivity / 5.0f) - 100.0f;
+        Stick.value = (m_TMPPref.StickSensitivity - 100.0f) / 5.0f;
         m_StickSensitivity = Stick.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         m_StickSensitivity.text = Stick.value.ToString();
 
         Selectables[8].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
-        Selectables[9].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
+        Selectables[9].GetComponent<Toggle>().isOn = m_TMPPref.InvertYAxis;
     }
 
     IEnumerator Start()
@@ -130,23 +130,39 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void ChangeLanguage(int language)
     {
+        m_TMPPref.CurrentLanguage = (Language)language;
         LocalizationSystem.ChangeLanguage((Language)language);
     }
 
     public void Apply()
     {
         Core.instance.PlayerPrefs = m_TMPPref;
-        Core.instance.PlayerPrefs.StickSensitivity = (m_TMPPref.StickSensitivity * 5.0f) + 100.0f;
     }
 
     public void Cancel()
     {
         if (ValueChanged())
         {
+            UISystem.instance.CreatePopup("settings.valuechanged", "menu.yes", "menu.no",
+                () =>
+                {
+                    Core.instance.PlayerPrefs = m_TMPPref;
+                    UISystem.instance.CloseCurrentWindow();
+                    UISystem.instance.CloseWindow(gameObject);
+                },
+                () =>
+                {
+                    if (m_TMPPref.CurrentLanguage != Core.instance.PlayerPrefs.CurrentLanguage)
+                        LocalizationSystem.ChangeLanguage(Core.instance.PlayerPrefs.CurrentLanguage);
 
+                    UISystem.instance.CloseCurrentWindow();
+                    UISystem.instance.CloseWindow(gameObject);
+                });
         }
         else
-            UISystem.instance.CloseWindow(gameObject);
+        {
+            UISystem.instance.CloseCurrentWindow();
+        }
     }
 
     bool ValueChanged()
@@ -164,6 +180,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             m_MusicValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
         m_MusicValue.text = slider.value.ToString();
+        m_TMPPref.MusicVolume = slider.value;
     }
 
     public void SetSFXVolume(Slider slider)
@@ -174,6 +191,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             m_SFXValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         
         m_SFXValue.text = slider.value.ToString();
+        m_TMPPref.FXVolume = slider.value;
     }
 
     public void SetMouseSensitivity(Slider slider)
@@ -188,7 +206,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void SetStickSensitivity(Slider slider)
     {
-        m_TMPPref.StickSensitivity = slider.value;
+        m_TMPPref.StickSensitivity = (slider.value * 5.0f) + 100.0f;
 
         if (m_StickSensitivity is null)
             m_StickSensitivity = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();

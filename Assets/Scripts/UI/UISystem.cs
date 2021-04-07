@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -97,7 +98,7 @@ public class UISystem : MonoBehaviour
 
     public void CloseWindowWithInput(InputAction.CallbackContext ctx)
     {
-        CloseWindow(WindowFocused?.GetWindowObject());
+        CloseCurrentWindow();
     }
 
     public void CloseWindow(GameObject window)
@@ -122,6 +123,12 @@ public class UISystem : MonoBehaviour
         }
 
         SetMenuPresence(false);
+    }
+
+    public void CloseCurrentWindow()
+    {
+        GameObject window = WindowFocused.GetWindowObject();
+        CloseWindow(window);
     }
 
 
@@ -152,9 +159,14 @@ public class UISystem : MonoBehaviour
 
     public void ToggleConfirmExit()
     {
+        CreatePopup("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseCurrentWindow(); });      
+    }
+
+    public void CreatePopup(string contentKey, string buttonLeftKey, string buttonRightKey, UnityAction leftAction, UnityAction rightAction, string titleKey = "")
+    {
         GameObject ConfirmPopupObj = GameObject.Instantiate(m_ConfirmPopup);
         NewFocusedWindow(ConfirmPopupObj, true);
-        ConfirmPopupObj.GetComponent<ConfirmBoxGeneric>().BuildBox("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseWindow(ConfirmPopupObj); });
+        ConfirmPopupObj.GetComponent<ConfirmBoxGeneric>().BuildBox(contentKey, buttonLeftKey, buttonRightKey, leftAction, rightAction, titleKey);
     }
 }
 

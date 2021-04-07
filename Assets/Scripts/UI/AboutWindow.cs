@@ -20,7 +20,7 @@ public class AboutWindow : MonoBehaviour, IUIWindows
 
     public void Cancel()
     {
-        UISystem.instance.CloseWindow(gameObject);
+        UISystem.instance.CloseCurrentWindow();
     }
 
     public void OpenLinkedIn()
