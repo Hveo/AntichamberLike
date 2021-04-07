@@ -152,8 +152,9 @@ public class UISystem : MonoBehaviour
 
     public void ToggleConfirmExit()
     {
-        NewFocusedWindow(GameObject.Instantiate(m_ConfirmPopup), true);
-        m_ConfirmPopup.GetComponent<ConfirmBoxGeneric>().BuildBox("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseWindow(m_ConfirmPopup.gameObject); });
+        GameObject ConfirmPopupObj = GameObject.Instantiate(m_ConfirmPopup);
+        NewFocusedWindow(ConfirmPopupObj, true);
+        ConfirmPopupObj.GetComponent<ConfirmBoxGeneric>().BuildBox("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseWindow(ConfirmPopupObj); });
     }
 }
 
