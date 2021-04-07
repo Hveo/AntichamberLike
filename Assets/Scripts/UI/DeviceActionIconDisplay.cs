@@ -33,7 +33,7 @@ public class DeviceActionIconDisplay : MonoBehaviour
         {
             Action.action.GetBindingDisplayString(i, out var DeviceLayoutName, out var controlPath);
 
-            if (string.IsNullOrEmpty(DeviceLayoutName) || (string.CompareOrdinal(DeviceLayoutName, "Gamepad") == 0 && InputHandler.PCLayout) || (InputHandler.IsPCDevice(DeviceLayoutName) && !InputHandler.PCLayout))
+            if (string.IsNullOrEmpty(DeviceLayoutName) || (!InputHandler.IsPCDevice(DeviceLayoutName) && InputHandler.PCLayout) || (InputHandler.IsPCDevice(DeviceLayoutName) && !InputHandler.PCLayout))
                 continue;
 
             InputPath = Action.action.bindings[i].effectivePath;
