@@ -41,4 +41,11 @@ public class Core : MonoBehaviour
             JsonUtility.FromJsonOverwrite(Json, PlayerPrefs);
         }
     }
+
+    public void SavePlayerPrefs()
+    {
+        string FilePath = Application.persistentDataPath + "/PlayerPrefs.json";
+        string Json = JsonUtility.ToJson(PlayerPrefs);
+        File.WriteAllText(FilePath, Json);
+    }
 }

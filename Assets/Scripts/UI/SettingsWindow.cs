@@ -145,6 +145,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     public void Apply()
     {
         Core.instance.PlayerPrefs = m_TMPPref;
+        Core.instance.SavePlayerPrefs();
     }
 
     public void Cancel()
@@ -154,7 +155,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             UISystem.instance.CreatePopup("settings.valuechanged", "menu.yes", "menu.no",
                 () =>
                 {
-                    Core.instance.PlayerPrefs = m_TMPPref;
+                    Apply();
                     UISystem.instance.CloseCurrentWindow();
                     UISystem.instance.CloseWindow(gameObject);
                 },
