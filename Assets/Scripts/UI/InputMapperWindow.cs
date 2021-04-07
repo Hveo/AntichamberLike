@@ -294,7 +294,12 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
             m_CanvasGroup.interactable = true;
             WaitingRebindWindow.SetActive(false);
 
-        }).WithCancelingThrough("<Keyboard>/escape");
+        });
+
+        if (InputHandler.PCLayout)
+            CurrentRebindOperation.WithCancelingThrough("<Keyboard>/escape");
+        else
+            CurrentRebindOperation.WithCancelingThrough("<Gamepad>/start");
 
         CurrentRebindOperation.Start();
     }

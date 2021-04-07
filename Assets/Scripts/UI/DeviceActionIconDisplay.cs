@@ -10,7 +10,7 @@ public class DeviceActionIconDisplay : MonoBehaviour
 
     private Image m_InputImage;
 
-    private void Start()
+    private void OnEnable()
     {
         m_InputImage = GetComponent<Image>();
 
