@@ -56,8 +56,11 @@ public class LevelMgr : MonoBehaviour
     {
         if (States.ContainsKey(StateID))
         {
-            States[StateID] = value;
-            OnEventStateChange(StateID);
+            if (States[StateID] != value)
+            {
+                States[StateID] = value;
+                OnEventStateChange(StateID);
+            }
         }
     }
 
