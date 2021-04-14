@@ -4,7 +4,6 @@ using System.Resources;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.iOS;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -49,7 +48,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         {
             EventTrigger trigg = Selectables[i].GetComponent<EventTrigger>();
 
-            if (trigg != null)
+            if (!(trigg is null))
             {
                 GameObject obj = Selectables[i].gameObject;
 
@@ -66,7 +65,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
                 entry2.eventID = EventTriggerType.Select;
                 entry2.callback.AddListener((PointerEventData) =>
                 {
-                    if (obj.GetComponent<UnityEngine.UI.Button>() != null)
+                    if (!(obj.GetComponent<UnityEngine.UI.Button>() is null))
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
                 });
 
@@ -85,7 +84,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
                 entry4.eventID = EventTriggerType.Deselect;
                 entry4.callback.AddListener((PointerEventData) =>
                 {
-                    if (obj.GetComponent<UnityEngine.UI.Button>() != null)
+                    if (!(obj.GetComponent<UnityEngine.UI.Button>() is null))
                         UIGraphicUtilities.DeselectButton(obj.GetComponent<UnityEngine.UI.Button>());
                 });
 
@@ -94,10 +93,61 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         }
     }
 
+    void SetEventOnBindButton(EventTrigger butTrigg)
+    {
+        if (butTrigg is null)
+            return;
+
+        GameObject obj = butTrigg.gameObject;
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerEnter;
+        entry.callback.AddListener((PointerEventData) =>
+        {
+            butTrigg.OnSelect(PointerEventData);
+        });
+
+        butTrigg.triggers.Add(entry);
+
+        EventTrigger.Entry entry2 = new EventTrigger.Entry();
+        entry2.eventID = EventTriggerType.Select;
+        entry2.callback.AddListener((PointerEventData) =>
+        {
+            if (!(obj.GetComponent<UnityEngine.UI.Button>() is null))
+                LeanTween.scale(obj, new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+        });
+
+        butTrigg.triggers.Add(entry2);
+
+        EventTrigger.Entry entry3 = new EventTrigger.Entry();
+        entry3.eventID = EventTriggerType.PointerExit;
+        entry3.callback.AddListener((PointerEventData) =>
+        {
+            butTrigg.OnDeselect(PointerEventData);
+        });
+
+        butTrigg.triggers.Add(entry3);
+
+        EventTrigger.Entry entry4 = new EventTrigger.Entry();
+        entry4.eventID = EventTriggerType.Deselect;
+        entry4.callback.AddListener((PointerEventData) =>
+        {
+            if (!(obj.GetComponent<UnityEngine.UI.Button>() is null))
+                LeanTween.scale(obj, new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
+        });
+
+        butTrigg.triggers.Add(entry4);
+    }
+
     public void SetDefaultItemSelected()
     {
         if (m_SlotLayout.transform.childCount > 1)
-            UISystem.instance.SelectItem(m_SlotLayout.transform.GetChild(1).GetComponent<ActionRebindSlot>().ActionRebindButton.gameObject);
+        {
+            if (InputHandler.PCLayout)
+                UISystem.instance.SelectItem(m_SlotLayout.transform.GetChild(1).GetComponent<ActionRebindSlot>().ActionRebindButton.gameObject);
+            else
+                UISystem.instance.SelectItem(m_SlotLayout.transform.GetChild(3).GetComponent<ActionRebindSlot>().ActionRebindButton.gameObject);
+        }
     }
 
     public void OnClickBackButton()
@@ -146,6 +196,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
                 slot = GetSlotAt(InputSlots[actName]);
                 slot.AltPath = act.ControlPath;
                 slot.SetAltIcon();
+                SetEventOnBindButton(slot.AltRebindButton.GetComponent<EventTrigger>());
             }
             else
             {
@@ -162,6 +213,8 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
                     InputSlots.Add(actName, childcount);
                     childcount++;
                 }
+
+                SetEventOnBindButton(slot.ActionRebindButton.GetComponent<EventTrigger>());
             }
 
             slot.ID = act.Action.id.ToString();
@@ -191,7 +244,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
             prevBtn.navigation = prevNavigation;
 
             if (!InputHandler.PCLayout)
-                break;
+                continue;
 
             //Same for alt rebind
             btn = slots[i].AltRebindButton;
@@ -212,7 +265,12 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
 
         Selectable BackBtn = Selectables[2];
         nav = BackBtn.navigation;
-        nav.selectOnDown = slots[0].ActionRebindButton;
+
+        if (!InputHandler.PCLayout)
+            nav.selectOnDown = slots[2].ActionRebindButton;
+        else
+            nav.selectOnDown = slots[0].ActionRebindButton;
+        
         nav.selectOnUp = lastBtn;
         BackBtn.navigation = nav;
         
