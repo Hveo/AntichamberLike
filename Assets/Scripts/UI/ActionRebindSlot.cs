@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEditor.Rendering.LookDev;
 
 public class ActionRebindSlot : MonoBehaviour
 {
@@ -49,6 +48,15 @@ public class ActionRebindSlot : MonoBehaviour
     public void SetInputIcon()
     {
         string key = ActionPath.Substring(ActionPath.LastIndexOf("/") + 1);
+
+        if (key.Contains("Trigger"))
+        {
+            int index = key.LastIndexOf("Button");
+
+            if (index != -1)
+                key = key.Substring(0, index);
+        }
+
         string path = "Inputs/" + InputHandler.DeviceName + "/" + key;
         Sprite sprite = Resources.Load<Sprite>(path);
 

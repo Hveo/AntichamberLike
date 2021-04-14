@@ -299,7 +299,12 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         if (InputHandler.PCLayout)
             CurrentRebindOperation.WithCancelingThrough("<Keyboard>/escape");
         else
+        {
             CurrentRebindOperation.WithCancelingThrough("<Gamepad>/start");
+            CurrentRebindOperation.WithControlsExcluding("<Gamepad>/rightStick");
+            CurrentRebindOperation.WithControlsExcluding("<Gamepad>/leftStick");
+            CurrentRebindOperation.WithControlsExcluding("<DualShockGamepad>/touchpadButton");
+        }
 
         CurrentRebindOperation.Start();
     }
