@@ -89,6 +89,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
                     else if (obj.GetComponent<Slider>() != null)
                         UIGraphicUtilities.SelectSlider(obj.GetComponent<Slider>());
+                    else if (obj.GetComponent<Toggle>() != null)
+                        UIGraphicUtilities.SelectToggle(obj.GetComponent<Toggle>());
                 });
 
                 trigg.triggers.Add(entry2);
@@ -110,6 +112,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                         UIGraphicUtilities.DeselectButton(obj.GetComponent<UnityEngine.UI.Button>());
                     else if (obj.GetComponent<Slider>() != null)
                         UIGraphicUtilities.DeselectSlider(obj.GetComponent<Slider>());
+                    else if (obj.GetComponent<Toggle>() != null)
+                        UIGraphicUtilities.DeselectToggle(obj.GetComponent<Toggle>());
                 });
 
                 trigg.triggers.Add(entry4);
@@ -168,11 +172,13 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
                     UISystem.instance.CloseCurrentWindow();
                     UISystem.instance.CloseWindow(gameObject);
+                    AudioMgr.PlayUISound("Cancel");
                 });
         }
         else
         {
             UISystem.instance.CloseCurrentWindow();
+            AudioMgr.PlayUISound("Cancel");
         }
     }
 

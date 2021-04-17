@@ -110,7 +110,6 @@ public class UISystem : MonoBehaviour
             return;
 
         Destroy(window);
-        AudioMgr.PlayUISound("Cancel");
 
         if (!(m_WindowStack is null) && m_WindowStack.Count > 0)
         {
@@ -217,4 +216,15 @@ public static class UIGraphicUtilities
         slider.fillRect.GetComponent<Image>().color = Color.black;
     }
 
+    public static void SelectToggle(UnityEngine.UI.Toggle toggle)
+    {
+        toggle.targetGraphic.color = SelectedColor;
+        LeanTween.scale(toggle.targetGraphic.gameObject, new Vector3(1.2f, 1.2f, 1.2f), 0.2f);
+    }
+
+    public static void DeselectToggle(UnityEngine.UI.Toggle toggle)
+    {
+        toggle.targetGraphic.color = Color.white;
+        LeanTween.scale(toggle.targetGraphic.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
+    }
 }

@@ -658,6 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8922616380254849}
   - component: {fileID: 7153574272731670756}
+  - component: {fileID: 5358950300569736241}
   m_Layer: 5
   m_Name: InvertYAxis
   m_TagString: Untagged
@@ -744,6 +745,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &5358950300569736241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701763936175330289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &714256326774621576
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,6 +1992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5593803585471800913}
   - component: {fileID: 9132948680734060731}
+  - component: {fileID: 8157169288089202779}
   m_Layer: 5
   m_Name: InvertXAxis
   m_TagString: Untagged
@@ -2064,6 +2079,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &8157169288089202779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253140285374261985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &2333880065027538578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,7 +2184,7 @@ MonoBehaviour:
     m_Mode: 4
     m_SelectOnUp: {fileID: 3881311165506479600}
     m_SelectOnDown: {fileID: 3881311165506479600}
-    m_SelectOnLeft: {fileID: 5528052232193500959}
+    m_SelectOnLeft: {fileID: 7051982399655117494}
     m_SelectOnRight: {fileID: 8744066195831765602}
   m_Transition: 1
   m_Colors:
@@ -3641,7 +3669,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 3886980189846750184}
-    m_SelectOnDown: {fileID: 3784518165025276128}
+    m_SelectOnDown: {fileID: 7051982399655117494}
     m_SelectOnLeft: {fileID: 8744066195831765602}
     m_SelectOnRight: {fileID: 9222398508836353372}
   m_Transition: 1
@@ -3829,7 +3857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 3886980189846750184}
+    m_SelectOnUp: {fileID: 5528052232193500959}
     m_SelectOnDown: {fileID: 3784518165025276128}
     m_SelectOnLeft: {fileID: 8744066195831765602}
     m_SelectOnRight: {fileID: 9222398508836353372}
@@ -5321,7 +5349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 8744066195831765602}
+    m_SelectOnUp: {fileID: 7051982399655117494}
     m_SelectOnDown: {fileID: 3864069707239910346}
     m_SelectOnLeft: {fileID: 8744066195831765602}
     m_SelectOnRight: {fileID: 2502742700191130136}
