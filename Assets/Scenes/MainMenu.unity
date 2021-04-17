@@ -810,6 +810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeTime: 2
+  MainMenuTheme: {fileID: 8300000, guid: 4216a652c92f4554d8dcb504b0d48e6f, type: 3}
   PanelImage: {fileID: 345442078}
   ButtonLayout: {fileID: 1417600497}
   Generator: {fileID: 6979797423788023637}

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MenuIntro : MonoBehaviour
 {
     public float FadeTime;
+    public AudioClip MainMenuTheme;
     public Image PanelImage;
     public GameObject ButtonLayout;
     public GameObject Generator;
@@ -58,6 +59,9 @@ public class MenuIntro : MonoBehaviour
 
         MainMenu.EnableInput();
         UISystem.instance.NewFocusedWindow(MainMenu.gameObject);
+        
+        AudioMgr.PlayMusic(MainMenuTheme, true);
+        yield return StartCoroutine(AudioMgr.FadeIn(Time.deltaTime * 0.5f, 1.0f));
     }
 
     public void setIntensity(float intensity)

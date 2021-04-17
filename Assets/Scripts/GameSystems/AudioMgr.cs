@@ -118,4 +118,20 @@ public static class AudioMgr
         float normalizedValue = Mathf.Clamp((value - 80), -80, 5); //In order to keep ears alive
         m_Mixer.SetFloat(Param, normalizedValue);
     }
+
+    public static IEnumerator FadeIn(float step, float delay = 0.0f)
+    {
+        if (step == 0.0f)
+            yield break;
+     
+        m_MusicSource.volume = 0.0f;
+
+        yield return new WaitForSeconds(delay);
+
+        while (m_MusicSource.volume < 1.0f)
+        {
+            m_MusicSource.volume = Mathf.MoveTowards(m_MusicSource.volume, 1.0f, step);
+            yield return null;
+        }
+    }
 }
