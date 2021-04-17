@@ -96,7 +96,10 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
                 entry2.callback.AddListener((PointerEventData) =>
                 {
                     if (obj.GetComponent<UnityEngine.UI.Button>() != null)
+                    {
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
+                        AudioMgr.PlayUISound("Select");
+                    }
                 });
 
                 trigg.triggers.Add(entry2);

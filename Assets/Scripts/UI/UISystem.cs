@@ -110,6 +110,7 @@ public class UISystem : MonoBehaviour
             return;
 
         Destroy(window);
+        AudioMgr.PlayUISound("Cancel");
 
         if (!(m_WindowStack is null) && m_WindowStack.Count > 0)
         {

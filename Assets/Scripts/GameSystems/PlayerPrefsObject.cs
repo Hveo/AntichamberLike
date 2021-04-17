@@ -9,6 +9,7 @@ public class PlayerPrefsObject : ScriptableObject
     public bool InvertYAxis;
     public float MusicVolume;
     public float FXVolume;
+    public float UIVolume;
     public Language CurrentLanguage;
 
     public PlayerPrefsObject GetDeepCopy()
@@ -21,6 +22,7 @@ public class PlayerPrefsObject : ScriptableObject
         clone.InvertYAxis = this.InvertYAxis;
         clone.MusicVolume = this.MusicVolume;
         clone.FXVolume = this.FXVolume;
+        clone.UIVolume = this.UIVolume;
         clone.CurrentLanguage = this.CurrentLanguage;
 
         return clone;
@@ -34,6 +36,7 @@ public class PlayerPrefsObject : ScriptableObject
         this.InvertYAxis = false;
         this.MusicVolume = 100.0f;
         this.FXVolume = 100.0f;
+        this.UIVolume = 70.0f;
         this.CurrentLanguage = Language.EN;
     }
 }

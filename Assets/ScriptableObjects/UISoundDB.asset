@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35fbb059ffbe59458f2e725a7b7ea04, type: 3}
+  m_Name: UISoundDB
+  m_EditorClassIdentifier: 
+  SoundDB:
+  - SoundID: Select
+    Clip: {fileID: 8300000, guid: b2821a4872956114cb2b2b59f66c1226, type: 3}
+  - SoundID: Validate
+    Clip: {fileID: 8300000, guid: 13a83276b8a2d244ebb622bd20bd1a9d, type: 3}
+  - SoundID: Cancel
+    Clip: {fileID: 8300000, guid: 7a8cffca6e9465f4ea2d7d0647e43524, type: 3}

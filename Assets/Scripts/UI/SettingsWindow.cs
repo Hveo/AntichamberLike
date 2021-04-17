@@ -13,6 +13,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     private GameObject m_RebindWindow;
     private TextMeshProUGUI m_SFXValue;
     private TextMeshProUGUI m_MusicValue;
+    private TextMeshProUGUI m_UIValue;
     private TextMeshProUGUI m_MouseSensitivity;
     private TextMeshProUGUI m_StickSensitivity;
     private PlayerPrefsObject m_TMPPref;
@@ -28,7 +29,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     {
         Selectables[0].GetComponent<Slider>().value = m_TMPPref.MusicVolume;
         Selectables[1].GetComponent<Slider>().value = m_TMPPref.FXVolume;
-        
+        Selectables[12].GetComponent<Slider>().value = m_TMPPref.UIVolume;
+
         Slider Mouse = Selectables[6].GetComponent<Slider>();
         Mouse.value = m_TMPPref.MouseSensitivity;
         m_MouseSensitivity = Mouse.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -178,7 +180,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     {
         PlayerPrefsObject pp = Core.instance.PlayerPrefs;
         return m_TMPPref.MouseSensitivity != pp.MouseSensitivity || m_TMPPref.StickSensitivity != pp.StickSensitivity || m_TMPPref.FXVolume != pp.FXVolume ||
-                m_TMPPref.MusicVolume != pp.MusicVolume || m_TMPPref.InvertXAxis != pp.InvertXAxis || m_TMPPref.InvertYAxis != pp.InvertYAxis || m_TMPPref.CurrentLanguage != pp.CurrentLanguage;
+                m_TMPPref.MusicVolume != pp.MusicVolume || m_TMPPref.UIVolume != pp.UIVolume || m_TMPPref.InvertXAxis != pp.InvertXAxis || m_TMPPref.InvertYAxis != pp.InvertYAxis || 
+                m_TMPPref.CurrentLanguage != pp.CurrentLanguage;
     }
 
     public void SetMusicVolume(Slider slider)
@@ -201,6 +204,17 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         
         m_SFXValue.text = slider.value.ToString();
         m_TMPPref.FXVolume = slider.value;
+    }
+
+    public void SetUIVolume(Slider slider)
+    {
+        AudioMgr.SetUIVolume((int)slider.value);
+
+        if (m_UIValue is null)
+            m_UIValue = slider.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+        m_UIValue.text = slider.value.ToString();
+        m_TMPPref.UIVolume = slider.value;
     }
 
     public void SetMouseSensitivity(Slider slider)

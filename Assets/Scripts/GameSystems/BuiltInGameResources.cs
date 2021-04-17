@@ -9,4 +9,5 @@ public class BuiltInGameResources : ScriptableObject
     public AudioClip SolvedPuzzleClip;
     public AudioClip WrongSolutionClip;
     public AudioClip LevelMusic;
+    public UISoundDB SoundDB;
 }

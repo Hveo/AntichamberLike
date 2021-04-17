@@ -60,6 +60,10 @@
     <FR>Effets</FR>
     <EN>Effects</EN>
   </settings.effects>
+  <settings.ui>
+    <FR>Interface</FR>
+    <EN>Interface</EN>
+  </settings.ui>
   <settings.control>
     <FR>Contrôles</FR>
     <EN>Controls</EN>

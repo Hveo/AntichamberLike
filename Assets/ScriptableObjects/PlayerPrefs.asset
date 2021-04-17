@@ -15,7 +15,8 @@ MonoBehaviour:
   MouseSensitivity: 10
   StickSensitivity: 150
   InvertXAxis: 0
-  InvertYAxis: 0
+  InvertYAxis: 1
   MusicVolume: 100
   FXVolume: 100
+  UIVolume: 70
   CurrentLanguage: 0

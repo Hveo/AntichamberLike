@@ -18,11 +18,13 @@ public static class AudioMgr
         get { return m_SoundHandler; }
         private set { }
     }
-
+    
     private static GameObject m_SoundHandler;
     private static AudioSource[] m_SFXSources;
+    private static AudioSource[] m_UISources;
     private static AudioSource m_MusicSource;
     private static AudioMixer m_Mixer;
+    private static UISoundDB m_SoundDB;
 
     public static IEnumerator Init()
     {
@@ -37,20 +39,53 @@ public static class AudioMgr
 
             AudioSource[] sources = m_SoundHandler.GetComponents<AudioSource>();
             List<AudioSource> sfxs = new List<AudioSource>();
+            List<AudioSource> uis = new List<AudioSource>();
 
             for (int i = 0; i < sources.Length; ++i)
             {
                 if (string.CompareOrdinal(sources[i].outputAudioMixerGroup.name, "SFX") == 0)
                     sfxs.Add(sources[i]);
+                else if (string.CompareOrdinal(sources[i].outputAudioMixerGroup.name, "UI") == 0)
+                    uis.Add(sources[i]);
                 else
                     m_MusicSource = sources[i];
             }
 
             m_SFXSources = sfxs.ToArray();
+            m_UISources = uis.ToArray();
             GameObject.DontDestroyOnLoad(m_SoundHandler);
         }
 
         m_Mixer = Core.instance.BuiltInResources.Mixer;
+        m_SoundDB = Core.instance.BuiltInResources.SoundDB;
+
+        SetMusicVolume((int)Core.instance.PlayerPrefs.MusicVolume);
+        SetSFXVolume((int)Core.instance.PlayerPrefs.FXVolume);
+        SetUIVolume((int)Core.instance.PlayerPrefs.UIVolume);
+
+    }
+
+    public static void PlayUISound(string ID)
+    {
+        AudioClip clip = m_SoundDB.GetClip(ID);
+
+        if (clip is null)
+            return;
+
+        for (int i = 0; i < m_UISources.Length; ++i)
+        {
+            if (m_UISources[i].isPlaying && clip != m_UISources[i].clip)
+                continue;
+            else
+            {
+                m_UISources[i].clip = clip;
+                m_UISources[i].Play();
+                return;
+            }
+        }
+
+        m_UISources[0].clip = clip;
+        m_UISources[0].Play();
     }
 
     public static void PlaySound(AudioClip clip, bool loop = false)
@@ -111,6 +146,11 @@ public static class AudioMgr
     public static void SetSFXVolume(int value)
     {
         SetFaderVolume("SFXVolume", value);
+    }
+
+    public static void SetUIVolume(int value)
+    {
+        SetFaderVolume("UIVolume", value);
     }
 
     static void SetFaderVolume(string Param, int value)

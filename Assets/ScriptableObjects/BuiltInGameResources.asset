@@ -18,3 +18,4 @@ MonoBehaviour:
   SolvedPuzzleClip: {fileID: 8300000, guid: e0ed1343c8c11604cafbd2690a783660, type: 3}
   WrongSolutionClip: {fileID: 8300000, guid: eb33e2eedb35dee4984d6fca3a5d8836, type: 3}
   LevelMusic: {fileID: 8300000, guid: 22003c8d2d8921246a6288f3a5e9b6ef, type: 3}
+  SoundDB: {fileID: 11400000, guid: 6d3671b3e54acff41b2d5cd52147fa73, type: 2}
