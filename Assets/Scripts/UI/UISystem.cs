@@ -161,6 +161,7 @@ public class UISystem : MonoBehaviour
 
     public void CreatePopup(string contentKey, string buttonLeftKey, string buttonRightKey, UnityAction leftAction, UnityAction rightAction, string titleKey = "")
     {
+        AudioMgr.PlayUISound("Confirm");
         GameObject ConfirmPopupObj = GameObject.Instantiate(m_ConfirmPopup);
         NewFocusedWindow(ConfirmPopupObj, true);
         ConfirmPopupObj.GetComponent<ConfirmBoxGeneric>().BuildBox(contentKey, buttonLeftKey, buttonRightKey, leftAction, rightAction, titleKey);

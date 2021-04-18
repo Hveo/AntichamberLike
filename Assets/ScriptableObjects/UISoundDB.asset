@@ -19,3 +19,5 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 13a83276b8a2d244ebb622bd20bd1a9d, type: 3}
   - SoundID: Cancel
     Clip: {fileID: 8300000, guid: 7a8cffca6e9465f4ea2d7d0647e43524, type: 3}
+  - SoundID: Confirm
+    Clip: {fileID: 8300000, guid: 27d9e411b03c6f94bb838b9b74fafd4d, type: 3}
