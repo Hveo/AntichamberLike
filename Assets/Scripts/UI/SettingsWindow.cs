@@ -57,11 +57,6 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         m_RebindWindow = req.asset as GameObject;
     }
 
-    public bool IsPersistant()
-    {
-        return false;
-    }
-
     public void FeedUIElementsWithEvents()
     {
         for (int i = 0; i < Selectables.Length; ++i)
@@ -129,6 +124,11 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     public void SetDefaultItemSelected()
     {
         UISystem.instance.SelectItem(Selectables[0].gameObject);
+    }
+
+    public void OnCancelInputPressed()
+    {
+        Cancel();
     }
 
     public void OpenRebindWindow()

@@ -28,11 +28,6 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
         m_SettingsWindow = req.asset as GameObject;
     }
 
-    public bool IsPersistant()
-    {
-        return true;
-    }
-
     public void EnableInput()
     {
         //UISystem.instance.NewFocusedWindow(gameObject);
@@ -49,6 +44,7 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
     {
         if (m_AboutWindow != null)
         {
+            AudioMgr.PlayUISound("Validate");
             UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_AboutWindow), true);
         }
     }
@@ -57,12 +53,14 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
     {
         if (m_SettingsWindow != null)
         {
+            AudioMgr.PlayUISound("Validate");
             UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_SettingsWindow), true);
         }
     }
 
     public void StartGame()
     {
+        AudioMgr.PlayUISound("Validate");
         UISystem.instance.SetMenuPresence(false);
         SceneManager.LoadScene(1);
     }
@@ -70,6 +68,11 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
     public void SetDefaultItemSelected()
     {
         UISystem.instance.SelectItem(transform.GetChild(0).gameObject);
+    }
+
+    public void OnCancelInputPressed()
+    {
+        OpenConfirmPopup();
     }
 
     public void FeedUIElementsWithEvents()

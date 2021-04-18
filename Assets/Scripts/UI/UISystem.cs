@@ -43,7 +43,7 @@ public class UISystem : MonoBehaviour
 
         m_ConfirmPopup = req.asset as GameObject;
 
-        CloseWindowAction.action.performed += CloseWindowWithInput;
+        CloseWindowAction.action.performed += CancelInputPressed;
         CloseWindowAction.action.Enable();
     }
 
@@ -58,7 +58,7 @@ public class UISystem : MonoBehaviour
         MenuPresence = value;
 
         if (!MenuPresence)
-            CloseWindowAction.action.performed -= CloseWindowWithInput;
+            CloseWindowAction.action.performed -= CancelInputPressed;
     }
 
     public void SelectItem(GameObject item)
@@ -96,17 +96,14 @@ public class UISystem : MonoBehaviour
         window.SetDefaultItemSelected();
     }
 
-    public void CloseWindowWithInput(InputAction.CallbackContext ctx)
+    public void CancelInputPressed(InputAction.CallbackContext ctx)
     {
-        CloseCurrentWindow();
+        WindowFocused.OnCancelInputPressed();
     }
 
     public void CloseWindow(GameObject window)
     {
         if (window is null)
-            return;
-
-        if (WindowFocused.IsPersistant())
             return;
 
         Destroy(window);
@@ -159,7 +156,7 @@ public class UISystem : MonoBehaviour
 
     public void ToggleConfirmExit()
     {
-        CreatePopup("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { CloseCurrentWindow(); });      
+        CreatePopup("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { AudioMgr.PlayUISound("Cancel");  CloseCurrentWindow(); });      
     }
 
     public void CreatePopup(string contentKey, string buttonLeftKey, string buttonRightKey, UnityAction leftAction, UnityAction rightAction, string titleKey = "")
@@ -173,9 +170,8 @@ public class UISystem : MonoBehaviour
 public interface IUIWindows
 {
     void SetDefaultItemSelected();
+    void OnCancelInputPressed();
     void FeedUIElementsWithEvents();
-
-    bool IsPersistant();
 
     GameObject GetWindowObject();
 }

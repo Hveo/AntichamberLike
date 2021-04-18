@@ -37,11 +37,6 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         InputHandler.onInputDeviceChangedDelegate += OnDeviceChanged;
     }
 
-    public bool IsPersistant()
-    {
-        return false;
-    }
-
     public void FeedUIElementsWithEvents()
     {
         for (int i = 0; i < Selectables.Length; ++i)
@@ -148,6 +143,11 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
             else
                 UISystem.instance.SelectItem(m_SlotLayout.transform.GetChild(3).GetComponent<ActionRebindSlot>().ActionRebindButton.gameObject);
         }
+    }
+
+    public void OnCancelInputPressed()
+    {
+        OnClickBackButton();
     }
 
     public void OnClickBackButton()

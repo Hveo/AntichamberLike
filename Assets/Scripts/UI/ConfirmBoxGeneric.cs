@@ -97,13 +97,13 @@ public class ConfirmBoxGeneric : MonoBehaviour, IUIWindows
         return gameObject;
     }
 
-    public bool IsPersistant()
-    {
-        return false;
-    }
-
     public void SetDefaultItemSelected()
     {
         UISystem.instance.SelectItem(Selectables[1].gameObject);
+    }
+
+    public void OnCancelInputPressed()
+    {
+
     }
 }

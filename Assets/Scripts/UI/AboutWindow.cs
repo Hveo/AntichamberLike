@@ -13,23 +13,21 @@ public class AboutWindow : MonoBehaviour, IUIWindows
         FeedUIElementsWithEvents();
     }
 
-    public bool IsPersistant()
-    {
-        return false;
-    }
-
     public void Cancel()
     {
+        AudioMgr.PlayUISound("Cancel");
         UISystem.instance.CloseCurrentWindow();
     }
 
     public void OpenLinkedIn()
     {
+        AudioMgr.PlayUISound("Validate");
         Application.OpenURL("https://linkedin.com/in/johann-seys-727a3b84");
     }
 
     public void OpenPortfolio()
     {
+        AudioMgr.PlayUISound("Validate");
         Application.OpenURL("https://johannseys.wixsite.com/portfolio");
     }
 
@@ -50,7 +48,10 @@ public class AboutWindow : MonoBehaviour, IUIWindows
                     UISystem.instance.SelectItem(obj);
 
                     if (obj.GetComponent<UnityEngine.UI.Button>() != null)
+                    {
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
+                        AudioMgr.PlayUISound("Select");
+                    }
                 });
 
                 trigg.triggers.Add(entry);
@@ -89,6 +90,11 @@ public class AboutWindow : MonoBehaviour, IUIWindows
     public void SetDefaultItemSelected()
     {
         UISystem.instance.SelectItem(Selectables[0].gameObject);
+    }
+
+    public void OnCancelInputPressed()
+    {
+        Cancel();
     }
 
     public GameObject GetWindowObject()
