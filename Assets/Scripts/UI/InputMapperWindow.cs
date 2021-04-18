@@ -152,6 +152,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
 
     public void OnClickBackButton()
     {
+        AudioMgr.PlayUISound("Cancel");
         UISystem.instance.CloseCurrentWindow();
         Resources.UnloadUnusedAssets();
     }

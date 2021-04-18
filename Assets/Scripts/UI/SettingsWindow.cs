@@ -81,11 +81,17 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                 entry2.callback.AddListener((PointerEventData) =>
                 {
                     if (obj.GetComponent<UnityEngine.UI.Button>() != null)
+                    {
+                        AudioMgr.PlayUISound("Select");
                         UIGraphicUtilities.SelectButton(obj.GetComponent<UnityEngine.UI.Button>());
+                    }
                     else if (obj.GetComponent<Slider>() != null)
                         UIGraphicUtilities.SelectSlider(obj.GetComponent<Slider>());
                     else if (obj.GetComponent<Toggle>() != null)
+                    {
+                        AudioMgr.PlayUISound("Select");
                         UIGraphicUtilities.SelectToggle(obj.GetComponent<Toggle>());
+                    }
                 });
 
                 trigg.triggers.Add(entry2);
@@ -133,6 +139,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void OpenRebindWindow()
     {
+        AudioMgr.PlayUISound("Validate");
         UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_RebindWindow), true);
     }
 
