@@ -44,9 +44,13 @@ public class DeviceActionIconDisplay : MonoBehaviour
         Sprite inputIcon = Resources.Load<Sprite>("Inputs/" + InputHandler.DeviceName + "/" + InputPath);
 
         if (inputIcon is null)
+        {
+            m_InputImage.color = Color.clear;
             return;
+        }
 
         m_InputImage.sprite = inputIcon;
+        m_InputImage.color = Color.white;
     }
 
     private void OnDisable()

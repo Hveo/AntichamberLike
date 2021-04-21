@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class SettingsWindow : MonoBehaviour, IUIWindows
 {
@@ -17,12 +18,37 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     private TextMeshProUGUI m_MouseSensitivity;
     private TextMeshProUGUI m_StickSensitivity;
     private PlayerPrefsObject m_TMPPref;
+    private InputAction m_MoveSliderAction;
+    private Slider m_CurrentSlider;
+    private bool m_IsSliderSelected;
 
     void Awake()
     {
+        m_MoveSliderAction = InputHandler.Inputs.actions["MoveSlider"];
+        UISystem.instance.onSelectionChangeEvent += SetNewSelection;
+
         FeedUIElementsWithEvents();
         m_TMPPref = Core.instance.PlayerPrefs.GetDeepCopy();
         LoadPrefs();
+    }
+
+    void SetNewSelection(GameObject obj)
+    {
+        if (!(m_CurrentSlider is null))
+            m_CurrentSlider.transform.GetChild(2).gameObject.SetActive(false);
+
+        m_CurrentSlider = obj.GetComponent<Slider>();
+
+        if (m_CurrentSlider is null)
+        {
+            m_IsSliderSelected = false;
+            m_MoveSliderAction.Disable();
+            return;
+        }
+
+        m_MoveSliderAction.Enable();
+        m_IsSliderSelected = true;
+        m_CurrentSlider.transform.GetChild(2).gameObject.SetActive(true);
     }
 
     void LoadPrefs()
@@ -125,6 +151,15 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     public GameObject GetWindowObject()
     {
         return gameObject;
+    }
+
+    void FixedUpdate()
+    {
+        if (m_IsSliderSelected)
+        {
+            Vector2 moveValue = m_MoveSliderAction.ReadValue<Vector2>();
+            m_CurrentSlider.value += moveValue.x;
+        }
     }
 
     public void SetDefaultItemSelected()
@@ -258,5 +293,10 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     public void InvertYAxis(Toggle toggle)
     {
         m_TMPPref.InvertYAxis = toggle.isOn;
+    }
+
+    public void OnDestroy()
+    {
+        UISystem.instance.onSelectionChangeEvent -= SetNewSelection;
     }
 }

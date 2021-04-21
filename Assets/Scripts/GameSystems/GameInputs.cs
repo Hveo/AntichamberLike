@@ -332,6 +332,14 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MoveSlider"",
+                    ""type"": ""Value"",
+                    ""id"": ""aa221307-8bb1-4175-9233-37c1723f1c4b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -741,6 +749,17 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""action"": ""CancelInput"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4cd5bbb-2b19-42ea-baab-95e94d309aac"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MoveSlider"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -827,6 +846,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_CancelInput = m_UI.FindAction("CancelInput", throwIfNotFound: true);
+        m_UI_MoveSlider = m_UI.FindAction("MoveSlider", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -944,6 +964,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_CancelInput;
+    private readonly InputAction m_UI_MoveSlider;
     public struct UIActions
     {
         private @GameInputs m_Wrapper;
@@ -959,6 +980,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @CancelInput => m_Wrapper.m_UI_CancelInput;
+        public InputAction @MoveSlider => m_Wrapper.m_UI_MoveSlider;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1001,6 +1023,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @CancelInput.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelInput;
                 @CancelInput.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelInput;
                 @CancelInput.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancelInput;
+                @MoveSlider.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
+                @MoveSlider.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
+                @MoveSlider.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1038,6 +1063,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @CancelInput.started += instance.OnCancelInput;
                 @CancelInput.performed += instance.OnCancelInput;
                 @CancelInput.canceled += instance.OnCancelInput;
+                @MoveSlider.started += instance.OnMoveSlider;
+                @MoveSlider.performed += instance.OnMoveSlider;
+                @MoveSlider.canceled += instance.OnMoveSlider;
             }
         }
     }
@@ -1107,5 +1135,6 @@ public class @GameInputs : IInputActionCollection, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnCancelInput(InputAction.CallbackContext context);
+        void OnMoveSlider(InputAction.CallbackContext context);
     }
 }

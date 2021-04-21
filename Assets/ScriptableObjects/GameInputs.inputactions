@@ -319,6 +319,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MoveSlider",
+                    "type": "Value",
+                    "id": "aa221307-8bb1-4175-9233-37c1723f1c4b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -726,6 +734,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CancelInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e4cd5bbb-2b19-42ea-baab-95e94d309aac",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MoveSlider",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

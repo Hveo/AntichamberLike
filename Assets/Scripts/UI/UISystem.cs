@@ -21,9 +21,13 @@ public class UISystem : MonoBehaviour
     public IUIWindows WindowFocused { get; private set; }
     public bool MenuPresence { get; private set; }
     public InputActionReference CloseWindowAction;
-    
+
+    public delegate void onSelectionChange(GameObject obj);
+    public onSelectionChange onSelectionChangeEvent;
+
     private Stack<WindowSelectable> m_WindowStack;
     private GameObject m_ConfirmPopup;
+    private GameObject m_PrevSelection;
 
     private IEnumerator Start()
     {
@@ -69,7 +73,7 @@ public class UISystem : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(item);
         EventTrigger trigg = item.GetComponent<EventTrigger>();
 
-        if (trigg != null)
+        if (!(trigg is null))
             trigg.OnPointerEnter(new PointerEventData(EventSystem.current));
     }
 
@@ -149,8 +153,11 @@ public class UISystem : MonoBehaviour
         {
             if (CurrentSelection is null)
                 WindowFocused.SetDefaultItemSelected();
-            
-            Debug.Log(CurrentSelection);
+
+            if (m_PrevSelection != CurrentSelection)
+                onSelectionChangeEvent?.Invoke(CurrentSelection);
+
+            m_PrevSelection = CurrentSelection;
         }      
     }
 
