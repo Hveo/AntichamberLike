@@ -12,6 +12,7 @@ public class PlayerLook : MonoBehaviour
     private InputAction m_Interact;
     private InputAction m_Look;
     private PlayerPrefsObject m_PlayerPrefs;
+    private Vector3 m_PlayerCenter;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class PlayerLook : MonoBehaviour
         };
 
         m_PlayerPrefs = Core.instance.PlayerPrefs;
+        m_PlayerCenter = playerBody.GetComponent<PlayerControl>().Center;
     }
 
 
@@ -52,7 +54,11 @@ public class PlayerLook : MonoBehaviour
         if (m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
             return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray;
+        if (InputHandler.PCLayout)
+            ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        else
+            ray = new Ray(transform.position + m_PlayerCenter, transform.forward);
 
         if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
         {
