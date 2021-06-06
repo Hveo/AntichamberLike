@@ -58,11 +58,14 @@ public class PlayerControl : MonoBehaviour
 
         m_Jump.started += (context) => { m_DoJump = true; };
         m_Jump.canceled += (context) => { m_DoJump = false; };
+
+        UISystem.instance.LockUnlockPauseAction(true);
     }
 
     private void FixedUpdate()
     {
-        PlayerMovement();
+        if (!UISystem.MenuPresence)
+            PlayerMovement();
     }
 
     private void PlayerMovement()

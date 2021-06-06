@@ -24,9 +24,13 @@
     <FR>Non</FR>
     <EN>No</EN>
   </menu.no>
+  <menu.confirmmain>
+    <FR>Voulez-vous revenir au menu principal ?</FR>
+    <EN>Go back to main menu?</EN>
+  </menu.confirmmain>
   <menu.confirm>
-    <FR>Voulez-vous vraiment quitter ?</FR>
-    <EN>Are you sure you want to exit?</EN>
+    <FR>Voulez-vous vraiment quitter le jeu ?</FR>
+    <EN>Are you sure you want to exit the game?</EN>
   </menu.confirm>
   <menu.back>
     <FR>Retour</FR>
@@ -44,6 +48,18 @@
     <FR>Appliquer</FR>
     <EN>Apply</EN>
   </menu.apply>
+  <menu.pause>
+    <FR>Pause</FR>
+    <EN>Pause</EN>
+  </menu.pause>
+  <menu.backmain>
+    <FR>Retour au menu principal</FR>
+    <EN>Back to main menu</EN>
+  </menu.backmain>
+  <menu.resume>
+    <FR>Reprendre</FR>
+    <EN>Resume</EN>
+  </menu.resume>
   <about.desc>
     <FR>Cette démo a été entièrement réalisée par Johann Seys. Pour plus d'informations vous pouvez consulter la page du projet sur mon portfolio en cliquant sur le bouton internet en bas à droite. Vous pouvez également consulter mon profil ou discuter de ce projet avec moi sur LinkedIn en cliquant sur le bouton LinkedIn</FR>
     <EN>This demo is integrally made by Johann Seys. You can check out the project's page for more informations on my portfolio by clicking on the Internet icon. You can also check my LinkedIn profile to talk about the project by clicking on the LinkedIn button.</EN>

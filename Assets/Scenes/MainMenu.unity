@@ -1339,6 +1339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CloseWindowAction: {fileID: 5675343830555365641, guid: 4d595ac3eabb5f34b9d05fe52d2c5f25,
     type: 3}
+  TogglePauseAction: {fileID: -4819925092529348032, guid: 4d595ac3eabb5f34b9d05fe52d2c5f25,
+    type: 3}
 --- !u!4 &478609591
 Transform:
   m_ObjectHideFlags: 0

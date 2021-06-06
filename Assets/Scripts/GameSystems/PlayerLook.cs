@@ -43,7 +43,8 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        CameraRotation();
+        if (!UISystem.MenuPresence)
+            CameraRotation();
     }
 
     private RaycastHit hit;
@@ -51,7 +52,7 @@ public class PlayerLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
+        if (UISystem.MenuPresence || m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
             return;
 
         Ray ray;

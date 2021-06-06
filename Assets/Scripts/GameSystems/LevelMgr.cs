@@ -33,7 +33,7 @@ public class LevelMgr : MonoBehaviour
 
         States = new Dictionary<string, int>();
         StatesSubscriber = new Dictionary<string, List<EventListener>>();
-        AudioMgr.PlayMusic(LevelMusic, true);
+        AudioMgr.PlayMusic(LevelMusic, true, true);
     }
 
     void CreateNewState(string StateID, int value)
@@ -106,5 +106,10 @@ public class LevelMgr : MonoBehaviour
         {
             Listeners[i].OnEventChange();
         }
+    }
+
+    private void OnDestroy()
+    {
+        AudioMgr.StopMusic();
     }
 }

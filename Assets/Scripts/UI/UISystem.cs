@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -19,14 +20,16 @@ public class UISystem : MonoBehaviour
 
     public static UISystem instance;
     public IUIWindows WindowFocused { get; private set; }
-    public bool MenuPresence { get; private set; }
+    public static bool MenuPresence { get; private set; }
     public InputActionReference CloseWindowAction;
+    public InputActionReference TogglePauseAction;
 
     public delegate void onSelectionChange(GameObject obj);
     public onSelectionChange onSelectionChangeEvent;
 
     private Stack<WindowSelectable> m_WindowStack;
     private GameObject m_ConfirmPopup;
+    private GameObject m_PauseWindow;
     private GameObject m_PrevSelection;
 
     private IEnumerator Start()
@@ -47,8 +50,15 @@ public class UISystem : MonoBehaviour
 
         m_ConfirmPopup = req.asset as GameObject;
 
+        req = Resources.LoadAsync("UI/PauseMenu");
+
+        while (!req.isDone)
+            yield return null;
+
+        m_PauseWindow = req.asset as GameObject;
+
         CloseWindowAction.action.performed += CancelInputPressed;
-        CloseWindowAction.action.Enable();
+        TogglePauseAction.action.performed += PauseInputPressed;
     }
 
     public GameObject CurrentSelection
@@ -57,12 +67,28 @@ public class UISystem : MonoBehaviour
         private set { }
     }
 
+    public void LockUnlockPauseAction(bool activate)
+    {
+        if (activate)
+            TogglePauseAction.action.Enable();
+        else
+            TogglePauseAction.action.Disable();
+    }
+
     public void SetMenuPresence(bool value)
     {
         MenuPresence = value;
 
         if (!MenuPresence)
-            CloseWindowAction.action.performed -= CancelInputPressed;
+        {
+            CloseWindowAction.action.Disable();
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            CloseWindowAction.action.Enable();
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void SelectItem(GameObject item)
@@ -100,9 +126,27 @@ public class UISystem : MonoBehaviour
         window.SetDefaultItemSelected();
     }
 
+    public void ClearAll()
+    {
+        m_WindowStack.Clear();
+        WindowFocused = null;
+        CurrentSelection = null;
+    }
+
     public void CancelInputPressed(InputAction.CallbackContext ctx)
     {
         WindowFocused.OnCancelInputPressed();
+    }
+
+    void PauseInputPressed(InputAction.CallbackContext ctx)
+    {
+        if (MenuPresence)
+        {
+            if (WindowFocused is PauseMenuWindow)
+                (WindowFocused as PauseMenuWindow).Resume();
+        }
+        else
+            NewFocusedWindow(GameObject.Instantiate(m_PauseWindow), true);
     }
 
     public void CloseWindow(GameObject window)
@@ -116,11 +160,13 @@ public class UISystem : MonoBehaviour
         {
             WindowSelectable WS = m_WindowStack.Pop();
 
-            WindowFocused = WS.Window;
-            SelectItem(WS.ObjectSelected);
-            ToggleWindowInteractable(WS.Window.GetWindowObject(), true);
-
-            return;
+            if (WS.Window != null)
+            {
+                WindowFocused = WS.Window;
+                SelectItem(WS.ObjectSelected);
+                ToggleWindowInteractable(WS.Window.GetWindowObject(), true);
+                return;
+            }
         }
 
         SetMenuPresence(false);
@@ -148,10 +194,10 @@ public class UISystem : MonoBehaviour
     {
         if (!MenuPresence)
             return;
-
-        if (!(WindowFocused is null))
+        
+        if (WindowFocused != null)
         {
-            if (CurrentSelection is null)
+            if (CurrentSelection == null)
                 WindowFocused.SetDefaultItemSelected();
 
             if (m_PrevSelection != CurrentSelection)

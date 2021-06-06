@@ -340,6 +340,14 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c860ba0-fbcd-4d9a-a0dc-a848c17656ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -760,6 +768,28 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""action"": ""MoveSlider"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a362f38-ca6b-44d0-a721-ac4d92e57dcc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77b9040c-8d23-4987-b490-66f60b74a6a8"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -847,6 +877,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_CancelInput = m_UI.FindAction("CancelInput", throwIfNotFound: true);
         m_UI_MoveSlider = m_UI.FindAction("MoveSlider", throwIfNotFound: true);
+        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -965,6 +996,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_CancelInput;
     private readonly InputAction m_UI_MoveSlider;
+    private readonly InputAction m_UI_Pause;
     public struct UIActions
     {
         private @GameInputs m_Wrapper;
@@ -981,6 +1013,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @CancelInput => m_Wrapper.m_UI_CancelInput;
         public InputAction @MoveSlider => m_Wrapper.m_UI_MoveSlider;
+        public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1026,6 +1059,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @MoveSlider.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
                 @MoveSlider.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
                 @MoveSlider.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMoveSlider;
+                @Pause.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1066,6 +1102,9 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @MoveSlider.started += instance.OnMoveSlider;
                 @MoveSlider.performed += instance.OnMoveSlider;
                 @MoveSlider.canceled += instance.OnMoveSlider;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1136,5 +1175,6 @@ public class @GameInputs : IInputActionCollection, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnCancelInput(InputAction.CallbackContext context);
         void OnMoveSlider(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

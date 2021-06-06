@@ -103,11 +103,21 @@ public static class AudioMgr
         }
     }
 
-    public static void PlayMusic(AudioClip clip, bool loop = false)
+    public static void PlayMusic(AudioClip clip, bool loop = false, bool ensureVolume = false)
     {
         m_MusicSource.clip = clip;
         m_MusicSource.loop = loop;
+
+        if (ensureVolume)
+            m_MusicSource.volume = 1.0f;
+
         m_MusicSource.Play();
+    }
+
+    public static void StopMusic()
+    {
+        if (m_MusicSource != null) //Just to prevent Unplay error
+            m_MusicSource.Stop();
     }
 
     public static void Pause(AudioType type)
@@ -151,6 +161,11 @@ public static class AudioMgr
     public static void SetUIVolume(int value)
     {
         SetFaderVolume("UIVolume", value);
+    }
+
+    public static void SetLowpassValue(int value)
+    {
+        m_Mixer.SetFloat("MusicLowpass", value);
     }
 
     static void SetFaderVolume(string Param, int value)

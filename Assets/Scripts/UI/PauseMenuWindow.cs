@@ -1,79 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class MainMenuHandler : MonoBehaviour, IUIWindows
+public class PauseMenuWindow : MonoBehaviour, IUIWindows
 {
     public Selectable[] Selectables;
-
-    GameObject m_AboutWindow;
     GameObject m_SettingsWindow;
+
+    void Awake()
+    {
+        UISystem.instance.SetMenuPresence(true);
+        AudioMgr.SetLowpassValue(500);
+        FeedUIElementsWithEvents();
+    }
+
     IEnumerator Start()
     {
-        ResourceRequest req = Resources.LoadAsync("AboutWindow");
-
-        while (!req.isDone)
-            yield return null;
-
-        m_AboutWindow = req.asset as GameObject;
-
-        req = Resources.LoadAsync("SettingsWindow");
-
+        ResourceRequest req = Resources.LoadAsync("SettingsWindow");
+        
         while (!req.isDone)
             yield return null;
 
         m_SettingsWindow = req.asset as GameObject;
-    }
-
-    public void EnableInput()
-    {
-        //UISystem.instance.NewFocusedWindow(gameObject);
-        FeedUIElementsWithEvents();
-        UISystem.instance.SetMenuPresence(true);
-    }
-
-    public void OpenConfirmPopup()
-    {
-        UISystem.instance.ToggleConfirmExit();
-    }
-
-    public void OpenAboutPage()
-    {
-        if (m_AboutWindow != null)
-        {
-            AudioMgr.PlayUISound("Validate");
-            UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_AboutWindow), true);
-        }
-    }
-
-    public void OpenSettingsWindow()
-    {
-        if (m_SettingsWindow != null)
-        {
-            AudioMgr.PlayUISound("Validate");
-            UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_SettingsWindow), true);
-        }
-    }
-
-    public void StartGame()
-    {
-        AudioMgr.PlayUISound("Validate");
-        UISystem.instance.SetMenuPresence(false);
-        UISystem.instance.ClearAll();
-        SceneManager.LoadScene(1);
-    }
-
-    public void SetDefaultItemSelected()
-    {
-        UISystem.instance.SelectItem(transform.GetChild(0).gameObject);
-    }
-
-    public void OnCancelInputPressed()
-    {
-        OpenConfirmPopup();
     }
 
     public void FeedUIElementsWithEvents()
@@ -130,8 +81,62 @@ public class MainMenuHandler : MonoBehaviour, IUIWindows
         }
     }
 
-    public GameObject GetWindowObject()
+    public void Resume()
+    {
+        CloseWindow();
+    }
+
+    public void OpenOptionWindow()
+    {
+        if (m_SettingsWindow != null)
+        {
+            AudioMgr.PlayUISound("Validate");
+            UISystem.instance.NewFocusedWindow(GameObject.Instantiate(m_SettingsWindow), true);
+        }
+    }
+
+    public void BackToMainMenu()
+    {
+        UISystem.instance.CreatePopup("menu.confirmmain", "menu.yes", "menu.no",
+            () =>
+            {
+                UISystem.instance.ClearAll();
+                UISystem.instance.LockUnlockPauseAction(false);
+                SceneManager.LoadScene(0);
+            },
+            () =>
+            {
+                UISystem.instance.CloseCurrentWindow();
+            });
+
+    }
+
+    public void ExitGame()
+    {
+        UISystem.instance.ToggleConfirmExit();
+    }
+
+    GameObject IUIWindows.GetWindowObject()
     {
         return gameObject;
+    }
+
+    void IUIWindows.OnCancelInputPressed()
+    {
+        
+    }
+
+    private void CloseWindow()
+    {
+        AudioMgr.PlayUISound("Cancel");
+        AudioMgr.SetLowpassValue(5000);
+        UISystem.instance.CloseCurrentWindow();
+        UISystem.instance.ClearAll();
+        Resources.UnloadUnusedAssets();
+    }
+
+    void IUIWindows.SetDefaultItemSelected()
+    {
+        UISystem.instance.SelectItem(Selectables[0].gameObject);
     }
 }
