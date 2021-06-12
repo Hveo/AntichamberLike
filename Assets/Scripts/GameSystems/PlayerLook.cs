@@ -27,7 +27,7 @@ public class PlayerLook : MonoBehaviour
 
         m_Interact.performed += (context) =>
         {
-            if (m_CurrentSelection)
+            if (m_CurrentSelection && !UISystem.MenuPresence)
                 m_CurrentSelection.Interact();
         };
 
