@@ -166,6 +166,7 @@ public static class AudioMgr
     public static void SetLowpassValue(int value)
     {
         m_Mixer.SetFloat("MusicLowpass", value);
+        m_Mixer.SetFloat("SFXLowpass", value);
     }
 
     static void SetFaderVolume(string Param, int value)

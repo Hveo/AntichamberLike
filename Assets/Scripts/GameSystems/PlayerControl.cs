@@ -66,6 +66,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (!UISystem.MenuPresence)
             PlayerMovement();
+        else
+            m_PlayerBody.AddForce(-m_PlayerBody.velocity, ForceMode.VelocityChange);
     }
 
     private void PlayerMovement()

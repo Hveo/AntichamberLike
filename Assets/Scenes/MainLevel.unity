@@ -32491,6 +32491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1235384677}
   - component: {fileID: 1235384678}
+  - component: {fileID: 1235384679}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -32533,6 +32534,18 @@ MonoBehaviour:
   Events: []
   Comparator: 2
   ValueToCompare: 3
+--- !u!114 &1235384679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235384676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99289f6f3cafcc4fb0bfa0218861a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1248161170
 GameObject:
   m_ObjectHideFlags: 0
@@ -36372,6 +36385,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1235384677}
     m_Modifications:
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1235384679}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPushEndButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1192116868042967902, guid: 71b34f853be9fac499e58eb1fd85f079,
         type: 3}
       propertyPath: m_LocalPosition.x

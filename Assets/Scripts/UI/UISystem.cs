@@ -42,6 +42,8 @@ public class UISystem : MonoBehaviour
         else
             Destroy(gameObject);
 
+        StartCoroutine(InterfaceUtilities.InitResources());
+
         m_WindowStack = new Stack<WindowSelectable>();
         ResourceRequest req = Resources.LoadAsync("UI/ConfirmPopup");
 
