@@ -192,6 +192,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void Apply()
     {
+        AudioMgr.PlayUISound("Apply");
         Core.instance.PlayerPrefs = m_TMPPref;
         Core.instance.SavePlayerPrefs();
     }
