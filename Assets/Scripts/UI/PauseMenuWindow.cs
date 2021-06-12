@@ -14,6 +14,7 @@ public class PauseMenuWindow : MonoBehaviour, IUIWindows
     {
         UISystem.instance.SetMenuPresence(true);
         AudioMgr.SetLowpassValue(500);
+        AudioMgr.SetSFXVolume((int)(Core.instance.PlayerPrefs.FXVolume / 2));
         FeedUIElementsWithEvents();
     }
 
@@ -130,6 +131,7 @@ public class PauseMenuWindow : MonoBehaviour, IUIWindows
     {
         AudioMgr.PlayUISound("Cancel");
         AudioMgr.SetLowpassValue(5000);
+        AudioMgr.SetSFXVolume((int)Core.instance.PlayerPrefs.FXVolume);
         UISystem.instance.CloseCurrentWindow();
         UISystem.instance.ClearAll();
         Resources.UnloadUnusedAssets();
