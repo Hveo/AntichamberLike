@@ -29,7 +29,6 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -7249686584349018943}
-  - {fileID: 4911682548930542401}
   m_UserColorIndex: 1
   m_Mute: 0
   m_Solo: 0
@@ -45,6 +44,34 @@ AudioMixerEffectController:
   m_EffectName: Attenuation
   m_MixLevel: 6083d03294146b74eb1c66ab563c7f11
   m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-7073263247148015287
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 928de9c80ea770246975971d7295e1cf
+  m_EffectName: Duck Volume
+  m_MixLevel: d7ce2f31bb39b724ca48fd040f67f2b4
+  m_Parameters:
+  - m_ParameterName: Threshold
+    m_GUID: 079bb8f48ffd799468294b92dc227cdb
+  - m_ParameterName: Ratio
+    m_GUID: c6837d0165a204b47adf7ddd10684b7a
+  - m_ParameterName: Attack Time
+    m_GUID: e6ec07cfa4e45304caa3dac3aa4e1e0a
+  - m_ParameterName: Release Time
+    m_GUID: a7f4c3514c1b1204b85afa0dc43e91c7
+  - m_ParameterName: Make-up Gain
+    m_GUID: d4b937bec85192049abe4488c08dcc52
+  - m_ParameterName: Knee
+    m_GUID: 55cf15236035135418db0c56f276c5dc
+  - m_ParameterName: Sidechain Mix
+    m_GUID: 7902b870a292a0043901139438358c9b
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
@@ -107,8 +134,6 @@ AudioMixerController:
     name: MusicLowpass
   - guid: 0dd763dac18dbf247af7920837bde9b8
     name: SFXVolume
-  - guid: 19ad63220f8199f428f07433ea40e3f3
-    name: SFXLowpass
   - guid: f313257649b262f469476efa5b0b0fa3
     name: UIVolume
   m_AudioMixerGroupViews:
@@ -167,6 +192,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 8c44de0bdbc245441ac325395425b3be
   m_FloatValues:
     a6f4c9914f4e4374baf1511bcadf8110: 1
+    19ad63220f8199f428f07433ea40e3f3: 13355
     d2d907a22cfb388429cff05ef7d5072f: 5000
     d5b2df5955751fc4f9cf0cead237542a: 0.10800299
     0dd763dac18dbf247af7920837bde9b8: 0.025578514
@@ -202,24 +228,6 @@ AudioMixerEffectController:
   m_EffectName: Attenuation
   m_MixLevel: 0859545cb52b6214c92fdd0b7a133adb
   m_Parameters: []
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
---- !u!244 &4911682548930542401
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: 77271ea940f3f9146a3ab3d838c5195e
-  m_EffectName: Lowpass
-  m_MixLevel: e111d8971287629449ec21a0573bf6ce
-  m_Parameters:
-  - m_ParameterName: Cutoff freq
-    m_GUID: 19ad63220f8199f428f07433ea40e3f3
-  - m_ParameterName: Resonance
-    m_GUID: 46d7dd6e851d8ae458c6c41589a2e198
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
