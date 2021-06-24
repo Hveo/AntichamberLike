@@ -1,18 +1,27 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.iOS;
+
+/// <summary>
+/// A classe used for serialization purpose because JSON won't serialize a local list
+/// </summary>
+[Serializable]
+public class InputWrapper
+{
+    public List<InputHandler.InputOverrides> Overrides;
+}
 
 public static class InputHandler
 {
     //public Dictionary<string, InputAction> Inputs;
     public static PlayerInput Inputs;
     public static bool PCLayout;
-
+    
     public static string DeviceName { get; private set; }
 
     public delegate void onInputDeviceChanged();
@@ -32,6 +41,13 @@ public static class InputHandler
             ControlPath = path;
             IsComposite = isComposite;
         }
+    }
+
+    [System.Serializable]
+    public struct InputOverrides
+    {
+        public string guid;
+        public string overridePath;
     }
 
     public static void InitiateInput()
@@ -81,31 +97,53 @@ public static class InputHandler
 
     static void LoadInputPrefs()
     {
-        /*Read file and map controls*/
-        var overrides = new Dictionary<Guid, string>();
-        
+        string inputPath = Core.instance.DataPath + "/InputPrefs.json";
+        InputWrapper wrapper = new InputWrapper(); 
+
+        if (File.Exists(inputPath))
+        {
+            string Json = File.ReadAllText(inputPath);
+            JsonUtility.FromJsonOverwrite(Json, wrapper);
+        }
+        else
+            return;
+
+        /*Read file and map controls*/      
         foreach (var map in Inputs.actions.actionMaps)
         {
             var bindings = map.bindings;
             for (var i = 0; i < bindings.Count; ++i)
             {
-                if (overrides.TryGetValue(bindings[i].id, out var overridePath))
-                    map.ApplyBindingOverride(i, new InputBinding { overridePath = overridePath });
+                for (int j = 0; j < wrapper.Overrides.Count; ++j)
+                {
+                    if (string.CompareOrdinal(wrapper.Overrides[j].guid, bindings[i].id.ToString()) == 0)
+                    {
+                        map.ApplyBindingOverride(i, new InputBinding { overridePath = wrapper.Overrides[j].overridePath });
+                        break;
+                    }
+                }
             }
         }
     }
 
     public static void SaveInputPrefs()
     {
-        var overrides = new Dictionary<Guid, string>();
+        InputWrapper inputClass = new InputWrapper();
+        inputClass.Overrides = new List<InputOverrides>();
+
         foreach (var map in Inputs.actions.actionMaps)
         {
             foreach (var binding in map.bindings)
             {
                 if (!string.IsNullOrEmpty(binding.overridePath))
-                    overrides[binding.id] = binding.overridePath;
+                {
+                    inputClass.Overrides.Add(new InputOverrides { guid = binding.id.ToString(), overridePath = binding.overridePath });
+                }
             }
         }
+     
+        string Json = JsonUtility.ToJson(inputClass);
+        File.WriteAllText(Core.instance.DataPath + "/InputPrefs.json", Json);
     }
 
     public static void EnableInputs()

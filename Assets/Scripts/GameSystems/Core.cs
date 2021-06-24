@@ -9,6 +9,7 @@ public class Core : MonoBehaviour
     public static Core instance;
     public BuiltInGameResources BuiltInResources;
     public PlayerPrefsObject PlayerPrefs;
+    public string DataPath { get; private set; }
 
     string m_PlayerPrefsPath;
 
@@ -41,6 +42,7 @@ public class Core : MonoBehaviour
         if (!Directory.Exists(m_PlayerPrefsPath))
             Directory.CreateDirectory(m_PlayerPrefsPath);
 
+        DataPath = m_PlayerPrefsPath;
         m_PlayerPrefsPath += "/PlayerPrefs.json";
 
         if (!File.Exists(m_PlayerPrefsPath))
