@@ -28,8 +28,8 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         m_CanvasGroup = GetComponent<CanvasGroup>();
         m_ChangingLayout = false;
         DeviceName.text = InputHandler.DeviceName;
-        UISystem.instance.StickPressInput.action.performed += SwitchSticksInput;
         UISystem.instance.StickPressInput.action.Enable();
+        UISystem.instance.StickPressInput.action.performed += SwitchSticksInput;
         SwitchStickLayout.SetActive(!InputHandler.PCLayout);
     }
 
@@ -160,6 +160,10 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         AudioMgr.PlayUISound("Cancel");
         UISystem.instance.CloseCurrentWindow();
         Resources.UnloadUnusedAssets();
+        InputHandler.EnableInputs();
+        InputHandler.onInputDeviceChangedDelegate -= OnDeviceChanged;
+        UISystem.instance.StickPressInput.action.performed -= SwitchSticksInput;
+        InputHandler.SaveInputPrefs();
     }
 
     public GameObject GetWindowObject()
@@ -294,6 +298,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         if (InputHandler.PCLayout)
             return;
 
+        AudioMgr.PlayUISound("Swap");
         ActionRebindSlot slot1 = GetSlotAt(1);
         ActionRebindSlot slot2 = GetSlotAt(2);
 
@@ -418,11 +423,6 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         if (WaitingRebindWindow.activeSelf || m_ChangingLayout)
             return;
 
-        if (InputHandler.PCLayout)
-            UISystem.instance.StickPressInput.action.Disable();
-        else
-            UISystem.instance.StickPressInput.action.Enable();
-
         m_ChangingLayout = true;
         ClearInputTable();
         StartCoroutine(DelayFeedTable());
@@ -448,13 +448,4 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
     }
 
     #endregion
-
-    void OnDestroy()
-    {
-        InputHandler.EnableInputs();
-        InputHandler.onInputDeviceChangedDelegate -= OnDeviceChanged;
-        UISystem.instance.StickPressInput.action.performed -= SwitchSticksInput;
-        UISystem.instance.StickPressInput.action.Disable();
-        InputHandler.SaveInputPrefs();
-    }
 }
