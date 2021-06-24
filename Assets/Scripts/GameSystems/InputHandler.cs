@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
@@ -81,7 +82,30 @@ public static class InputHandler
     static void LoadInputPrefs()
     {
         /*Read file and map controls*/
+        var overrides = new Dictionary<Guid, string>();
+        
+        foreach (var map in Inputs.actions.actionMaps)
+        {
+            var bindings = map.bindings;
+            for (var i = 0; i < bindings.Count; ++i)
+            {
+                if (overrides.TryGetValue(bindings[i].id, out var overridePath))
+                    map.ApplyBindingOverride(i, new InputBinding { overridePath = overridePath });
+            }
+        }
+    }
 
+    public static void SaveInputPrefs()
+    {
+        var overrides = new Dictionary<Guid, string>();
+        foreach (var map in Inputs.actions.actionMaps)
+        {
+            foreach (var binding in map.bindings)
+            {
+                if (!string.IsNullOrEmpty(binding.overridePath))
+                    overrides[binding.id] = binding.overridePath;
+            }
+        }
     }
 
     public static void EnableInputs()

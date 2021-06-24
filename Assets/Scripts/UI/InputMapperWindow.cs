@@ -6,11 +6,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Security.AccessControl;
 
 public class InputMapperWindow : MonoBehaviour, IUIWindows
 {
     public ActionRebindSlot ActionRebindTemplate;
     public GameObject WaitingRebindWindow;
+    public GameObject SwitchStickLayout;
     public InputActionRebindingExtensions.RebindingOperation CurrentRebindOperation;
     public TextMeshProUGUI DeviceName;
     public Selectable[] Selectables;
@@ -26,6 +28,9 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         m_CanvasGroup = GetComponent<CanvasGroup>();
         m_ChangingLayout = false;
         DeviceName.text = InputHandler.DeviceName;
+        UISystem.instance.StickPressInput.action.performed += SwitchSticksInput;
+        UISystem.instance.StickPressInput.action.Enable();
+        SwitchStickLayout.SetActive(!InputHandler.PCLayout);
     }
 
     // Start is called before the first frame update
@@ -284,6 +289,45 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         }
     }
 
+    void SwitchSticksInput(InputAction.CallbackContext ctx)
+    {
+        if (InputHandler.PCLayout)
+            return;
+
+        ActionRebindSlot slot1 = GetSlotAt(1);
+        ActionRebindSlot slot2 = GetSlotAt(2);
+
+        InputActionMap map = InputHandler.Inputs.actions.actionMaps[0]; //The PlayerInput map 
+
+        int index1 = FindRealBinding(slot1.ActionPath);
+        int index2 = FindRealBinding(slot2.ActionPath);
+
+        string path1 = slot1.ActionPath;
+        string path2 = slot2.ActionPath;
+        map.ApplyBindingOverride(index1, new InputBinding { overridePath = path2 });
+        map.ApplyBindingOverride(index2, new InputBinding { overridePath = path1 });
+
+        slot1.ActionPath = path2;
+        slot2.ActionPath = path1;
+        slot1.SetInputIcon();
+        slot2.SetInputIcon();
+    }
+
+    /// <summary>
+    /// Since we have stored bindIndex using the New input system hashmap, we don't have the real binding index in the map binding set
+    /// </summary>
+    /// <param name="path"></param>
+    int FindRealBinding(string path)
+    {
+        for (int i = 0; i < InputHandler.Inputs.actions.actionMaps[0].bindings.Count; ++i)
+        {
+            if (InputHandler.Inputs.actions.actionMaps[0].bindings[i].effectivePath == path)
+                return i;
+        }
+
+        return -1;
+    }
+
     string TryDisassembleCompositeAction(InputAction act, int index)
     {
         return act.name + act.bindings[index].name;
@@ -374,6 +418,11 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         if (WaitingRebindWindow.activeSelf || m_ChangingLayout)
             return;
 
+        if (InputHandler.PCLayout)
+            UISystem.instance.StickPressInput.action.Disable();
+        else
+            UISystem.instance.StickPressInput.action.Enable();
+
         m_ChangingLayout = true;
         ClearInputTable();
         StartCoroutine(DelayFeedTable());
@@ -386,6 +435,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         FeedInputTable();
         DeviceName.text = InputHandler.DeviceName;
         m_ChangingLayout = false;
+        SwitchStickLayout.SetActive(!InputHandler.PCLayout);
     }
 
     void ClearInputTable()
@@ -403,5 +453,8 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
     {
         InputHandler.EnableInputs();
         InputHandler.onInputDeviceChangedDelegate -= OnDeviceChanged;
+        UISystem.instance.StickPressInput.action.performed -= SwitchSticksInput;
+        UISystem.instance.StickPressInput.action.Disable();
+        InputHandler.SaveInputPrefs();
     }
 }

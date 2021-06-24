@@ -236,5 +236,9 @@
     <FR>En attente d'une touche...</FR>
     <EN>Waiting for input...</EN>
   </inputs.waitinginput>
+  <inputs.switchstick>
+    <FR>Appuyer pour inverser les sticks</FR>
+    <EN>Press to invert sticks</EN>
+  </inputs.switchstick>
 </data>
 

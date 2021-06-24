@@ -35,7 +35,6 @@ public class PlayerLook : MonoBehaviour
         m_PlayerCenter = playerBody.GetComponent<PlayerControl>().Center;
     }
 
-
     private void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;

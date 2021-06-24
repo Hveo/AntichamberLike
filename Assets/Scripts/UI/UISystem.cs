@@ -23,6 +23,7 @@ public class UISystem : MonoBehaviour
     public static bool MenuPresence { get; private set; }
     public InputActionReference CloseWindowAction;
     public InputActionReference TogglePauseAction;
+    public InputActionReference StickPressInput;
 
     public delegate void onSelectionChange(GameObject obj);
     public onSelectionChange onSelectionChangeEvent;

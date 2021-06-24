@@ -335,6 +335,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SwitchSticks",
+                    "type": "Button",
+                    "id": "ce074c36-9c95-42d2-bc3b-dde36fa680f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -775,6 +783,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27147ee9-972b-47ce-b37e-7b844323350a",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SwitchSticks",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
