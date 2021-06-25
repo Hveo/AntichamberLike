@@ -790,7 +790,7 @@
                     "name": "",
                     "id": "27147ee9-972b-47ce-b37e-7b844323350a",
                     "path": "<Gamepad>/rightStickPress",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SwitchSticks",
