@@ -10,19 +10,19 @@ public class ConfirmBoxGeneric : MonoBehaviour, IUIWindows
 {
     public UnityEngine.UI.Button[] Selectables;
     public TextReplacer Title;
-    public TextReplacer Content;
+    public TextMeshProUGUI Content;
 
     private void Awake()
     {
         FeedUIElementsWithEvents();
     }
 
-    public void BuildBox(string contentKey, string LeftButtonKey, string RightButtonKey, UnityAction leftButtonClickEvent, UnityAction rightButtonClickEvent,  string TitleKey = "")
+    public void BuildBox(string content, string LeftButtonKey, string RightButtonKey, UnityAction leftButtonClickEvent, UnityAction rightButtonClickEvent,  string TitleKey = "")
     {
         Title.enabled = false;
         Content.enabled = false;
         Title.LocalizedText.Key = TitleKey;
-        Content.LocalizedText.Key = contentKey;
+        Content.text = content;
 
         TextReplacer tmp1 = Selectables[0].GetComponentInChildren<TextReplacer>();
         tmp1.LocalizedText.Key = LeftButtonKey;

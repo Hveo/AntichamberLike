@@ -21,7 +21,8 @@ public static class InputHandler
     //public Dictionary<string, InputAction> Inputs;
     public static PlayerInput Inputs;
     public static bool PCLayout;
-    
+    public static bool LockDeviceSwap;
+
     public static string DeviceName { get; private set; }
 
     public delegate void onInputDeviceChanged();
@@ -52,10 +53,13 @@ public static class InputHandler
 
     public static void InitiateInput()
     {
-        Inputs = GameObject.FindObjectOfType<PlayerInput>();
+        GameObject obj = Resources.Load("InputHandler") as GameObject;
+
+        Inputs = GameObject.Instantiate(obj).GetComponent<PlayerInput>();
         GameObject.DontDestroyOnLoad(Inputs.gameObject);
 
         LoadInputPrefs();
+        LockDeviceSwap = false;
         InputUser.onChange += OnInputDeviceChange;
     }
 
@@ -158,7 +162,7 @@ public static class InputHandler
 
     static void OnInputDeviceChange(InputUser user, InputUserChange change, InputDevice device)
     {
-        if (device is null || change != InputUserChange.DevicePaired)
+        if (device is null || change != InputUserChange.DevicePaired || LockDeviceSwap)
             return;
 
         SetDeviceName(device.name);

@@ -212,7 +212,7 @@ public class UISystem : MonoBehaviour
 
     public void ToggleConfirmExit()
     {
-        CreatePopup("menu.confirm", "menu.yes", "menu.no", () => { Application.Quit(); }, () => { AudioMgr.PlayUISound("Cancel");  CloseCurrentWindow(); });      
+        CreatePopup(LocalizationSystem.GetEntry("menu.confirm"), "menu.yes", "menu.no", () => { Application.Quit(); }, () => { AudioMgr.PlayUISound("Cancel");  CloseCurrentWindow(); });      
     }
 
     public void CreatePopup(string contentKey, string buttonLeftKey, string buttonRightKey, UnityAction leftAction, UnityAction rightAction, string titleKey = "")

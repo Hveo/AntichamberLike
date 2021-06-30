@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Security.AccessControl;
+using System.Reflection;
 
 public class InputMapperWindow : MonoBehaviour, IUIWindows
 {
@@ -211,6 +212,7 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
             else
             {
                 slot = GameObject.Instantiate(ActionRebindTemplate.gameObject, m_SlotLayout.transform).GetComponent<ActionRebindSlot>();
+                slot.SlotIndex = i;
                 slot.ActionLabel.text = LocalizationSystem.GetEntry(actName.ToLower());
                 slot.ActionPath = act.ControlPath;
                 slot.SetInputIcon();
@@ -349,25 +351,26 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
     public void RemapInput(ActionRebindSlot slot)
     {
         m_CurrentSlot = slot;
-        MapControl(InputHandler.Inputs.actions.FindAction(slot.ID), slot.BindIndex, false);
+        MapControl(InputHandler.Inputs.actions.FindAction(slot.ID), slot.BindIndex, false, slot.SlotIndex);
     }
 
     public void RemapAltInput(ActionRebindSlot slot)
     {
         m_CurrentSlot = slot;
-        MapControl(InputHandler.Inputs.actions.FindAction(slot.ID), slot.AltIndex, true);
+        MapControl(InputHandler.Inputs.actions.FindAction(slot.ID), slot.AltIndex, true, slot.SlotIndex);
     }
 
-    public void MapControl(InputAction action, int bindingIndex, bool altAction)
+    public void MapControl(InputAction action, int bindingIndex, bool altAction, int slotIdx)
     {
         if (bindingIndex == -1 || action is null || m_CurrentSlot is null)
             return;
 
-        PerformInteractiveRebind(action, bindingIndex, altAction);
+        PerformInteractiveRebind(action, bindingIndex, altAction, slotIdx);
     }
 
-    private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool altAction, bool allCompositeParts = false)
+    private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool altAction, int slotIdx, bool allCompositeParts = false)
     {
+        InputHandler.LockDeviceSwap = true;
         CurrentRebindOperation?.Cancel();
         m_CanvasGroup.interactable = false;
         WaitingRebindWindow.SetActive(true);
@@ -381,27 +384,63 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
             m_CurrentSlot = null;
             m_CanvasGroup.interactable = true;
             WaitingRebindWindow.SetActive(false);
+            InputHandler.LockDeviceSwap = false;
 
         }).OnComplete((operation) =>
         {
-            CurrentRebindOperation?.Dispose();
-            CurrentRebindOperation = null;
 
-
-            if (altAction)
+            if (ActionAlreadyMap(action.bindings[bindingIndex].effectivePath, slotIdx, out string actionName))
             {
-                m_CurrentSlot.AltPath = action.bindings[bindingIndex].effectivePath;
-                m_CurrentSlot.SetAltIcon();
+                string content = LocalizationSystem.GetEntry("inputs.replaceinput").Replace("%", actionName);
+                UISystem.instance.CreatePopup(content, "menu.yes", "menu.no",
+                () =>
+                {
+                    if (altAction)
+                    {
+                        m_CurrentSlot.AltPath = action.bindings[bindingIndex].effectivePath;
+                        m_CurrentSlot.SetAltIcon();
+                    }
+                    else
+                    {
+                        m_CurrentSlot.ActionPath = action.bindings[bindingIndex].effectivePath;
+                        m_CurrentSlot.SetInputIcon();
+                    }
+
+                    UISystem.instance.CloseCurrentWindow();
+                    AudioMgr.PlayUISound("Swap");
+                    InputHandler.LockDeviceSwap = false;
+                },
+                () =>
+                {
+                    InputActionMap map = InputHandler.Inputs.actions.actionMaps[0]; //The PlayerInput map 
+                    int idx = FindRealBinding(action.bindings[bindingIndex].effectivePath);
+                    map.ApplyBindingOverride(idx, new InputBinding { overridePath = altAction ? m_CurrentSlot.AltPath : m_CurrentSlot.ActionPath });
+                    UISystem.instance.CloseCurrentWindow();
+                    AudioMgr.PlayUISound("Cancel");
+                    InputHandler.LockDeviceSwap = false;
+                });
             }
             else
             {
-                m_CurrentSlot.ActionPath = action.bindings[bindingIndex].effectivePath;
-                m_CurrentSlot.SetInputIcon();
+                if (altAction)
+                {
+                    m_CurrentSlot.AltPath = action.bindings[bindingIndex].effectivePath;
+                    m_CurrentSlot.SetAltIcon();
+                }
+                else
+                {
+                    m_CurrentSlot.ActionPath = action.bindings[bindingIndex].effectivePath;
+                    m_CurrentSlot.SetInputIcon();
+                }
+
+                AudioMgr.PlayUISound("Swap");
+                InputHandler.LockDeviceSwap = false;
             }
 
             m_CanvasGroup.interactable = true;
             WaitingRebindWindow.SetActive(false);
-
+            CurrentRebindOperation?.Dispose();
+            CurrentRebindOperation = null;
         });
 
         if (InputHandler.PCLayout)
@@ -417,6 +456,26 @@ public class InputMapperWindow : MonoBehaviour, IUIWindows
         CurrentRebindOperation.Start();
     }
     
+    bool ActionAlreadyMap(string path, int slotIdx, out string ActionName)
+    {
+        ActionRebindSlot[] slots = m_SlotLayout.GetComponentsInChildren<ActionRebindSlot>(false);
+        
+        for (int i = 0; i < slots.Length; ++i)
+        {
+            if (slots[i].SlotIndex == slotIdx)
+                continue;
+
+            if (string.CompareOrdinal(path, slots[i].ActionPath) == 0 || (InputHandler.PCLayout && string.CompareOrdinal(path, slots[i].AltPath) == 0))
+            {
+                ActionName = slots[i].ActionLabel.text;
+                return true;
+            }
+        }
+
+        ActionName = "";
+        return false;
+    }
+
 
     void OnDeviceChanged()
     {

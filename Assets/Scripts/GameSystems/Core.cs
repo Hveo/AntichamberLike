@@ -19,14 +19,14 @@ public class Core : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            LoadPlayerPrefs();
+            LocalizationSystem.LoadLanguageEntries(PlayerPrefs.CurrentLanguage);
+            StartCoroutine(AudioMgr.Init());
+            InputHandler.InitiateInput();
         }
         else
             Destroy(gameObject);
 
-        LoadPlayerPrefs();
-        LocalizationSystem.LoadLanguageEntries(PlayerPrefs.CurrentLanguage);
-        StartCoroutine(AudioMgr.Init());
-        InputHandler.InitiateInput();
     }
 
     void LoadPlayerPrefs()

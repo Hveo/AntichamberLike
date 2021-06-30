@@ -98,7 +98,7 @@ public class PauseMenuWindow : MonoBehaviour, IUIWindows
 
     public void BackToMainMenu()
     {
-        UISystem.instance.CreatePopup("menu.confirmmain", "menu.yes", "menu.no",
+        UISystem.instance.CreatePopup(LocalizationSystem.GetEntry("menu.confirmmain"), "menu.yes", "menu.no",
             () =>
             {
                 UISystem.instance.ClearAll();

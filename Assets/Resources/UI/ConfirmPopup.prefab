@@ -587,7 +587,7 @@ MonoBehaviour:
   - {fileID: 6514587395805488169}
   - {fileID: 2294982256237288967}
   Title: {fileID: 4371538041351577304}
-  Content: {fileID: 4811580135222392315}
+  Content: {fileID: 1519997441233336782}
 --- !u!114 &4321444818693167574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +1032,6 @@ GameObject:
   - component: {fileID: 4067275957667704039}
   - component: {fileID: 6012634531984581298}
   - component: {fileID: 1519997441233336782}
-  - component: {fileID: 4811580135222392315}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1178,18 +1177,3 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4811580135222392315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8538886944265093806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60f084f674034ab468a3643521d7bfa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LocalizedText:
-    Key: menu.confirm
-  TextComponent: {fileID: 1519997441233336782}

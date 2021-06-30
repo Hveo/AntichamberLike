@@ -201,7 +201,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     {
         if (ValueChanged())
         {
-            UISystem.instance.CreatePopup("settings.valuechanged", "menu.yes", "menu.no",
+            UISystem.instance.CreatePopup(LocalizationSystem.GetEntry("settings.valuechanged"), "menu.yes", "menu.no",
                 () =>
                 {
                     Apply();

@@ -9,6 +9,7 @@ public class ActionRebindSlot : MonoBehaviour
 {
     public TextMeshProUGUI ActionLabel;
     public string ID;
+    public int SlotIndex;
 
     public string ActionPath;
     public UnityEngine.UI.Button ActionRebindButton;
