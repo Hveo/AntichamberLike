@@ -34,6 +34,12 @@ public static class InterfaceUtilities
         m_CanvasResource = res.asset as GameObject;
     }
 
+    public static void Clear()
+    {
+        GameObject.Destroy(CanvasInstance);
+        m_Canvas = null;
+    }
+
     static void EnsureInterfacePresence()
     {
         if (CanvasInstance == null)
