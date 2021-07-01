@@ -27,7 +27,7 @@ public class TextPuzzle : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        if (!m_IsSwitch)
+        if (enabled && !m_IsSwitch)
         {
             m_IsSwitch = true;
             m_TextMesh.text = m_RealText;
@@ -36,7 +36,7 @@ public class TextPuzzle : MonoBehaviour
 
     private void OnBecameVisible()
     {
-        if (m_IsSwitch && !m_Toggled)
+        if (enabled && m_IsSwitch && !m_Toggled)
             StartCoroutine(SwapColor());
     }
 
@@ -67,5 +67,7 @@ public class TextPuzzle : MonoBehaviour
 
             LevelMgr.instance.SetStateValue("TextPuzzle", 1);
         }
+
+        enabled = false;
     }
 }

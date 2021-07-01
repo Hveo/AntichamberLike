@@ -48,6 +48,10 @@ public class StencilConsole : MonoBehaviour
                 AudioMgr.PlaySound(Core.instance.BuiltInResources.SolvedPuzzleClip);
 
             StartCoroutine(OpenDoor());
+            ScaleSequencer[] sequencers = FindObjectsOfType<ScaleSequencer>();
+
+            for (int i = 0; i < sequencers.Length; ++i)
+                sequencers[i].StopSequence();
         }
         else if (Core.instance.BuiltInResources != null)
             AudioMgr.PlaySound(Core.instance.BuiltInResources.WrongSolutionClip);

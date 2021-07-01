@@ -61,6 +61,7 @@ public static class InputHandler
         LoadInputPrefs();
         LockDeviceSwap = false;
         InputUser.onChange += OnInputDeviceChange;
+        PCLayout = true;
     }
 
     public static InputBindingInfo[] GetInputsForCurrentDevice()
@@ -83,6 +84,22 @@ public static class InputHandler
         }
 
         return InputBindInfos.ToArray();
+    }
+
+    public static Sprite GetIconForAction(string actionName)
+    {
+        InputBindingInfo[] inputs = GetInputsForCurrentDevice();
+        
+        for (int i = 0; i < inputs.Length; ++i)
+        {
+            if (string.CompareOrdinal(inputs[i].Action.name, actionName) ==0)
+            {
+                string key = inputs[i].ControlPath.Substring(inputs[i].ControlPath.LastIndexOf("/"));
+                return Resources.Load<Sprite>("Inputs/" + InputHandler.DeviceName + key);
+            }
+        }
+
+        return null;
     }
 
     static void SetDeviceName(string Layout)
