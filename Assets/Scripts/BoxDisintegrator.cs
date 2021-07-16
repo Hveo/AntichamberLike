@@ -6,7 +6,7 @@ public class BoxDisintegrator : MonoBehaviour
 {
     public Transform RespawnPoint;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {

@@ -19,7 +19,7 @@ public class PlayerLook : MonoBehaviour
         LockCursor();
         xAxisClamp = 0.0f;
 
-        layerMask = LayerMask.NameToLayer("Interact");
+        layerMask = LayerMask.GetMask("Interact", "BlockInteract");
 
         InputActionAsset actions = InputHandler.Inputs.actions;
         m_Interact = actions["inputs.interact"];
@@ -60,7 +60,7 @@ public class PlayerLook : MonoBehaviour
         else
             ray = new Ray(transform.position + m_PlayerCenter, transform.forward);
 
-        if (Physics.Raycast(ray, out hit, 3.0f, 1 << layerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out hit, 3.0f, layerMask, QueryTriggerInteraction.Collide))
         {
             IInteractible interactible = hit.transform.GetComponent<IInteractible>();
             
