@@ -6,6 +6,7 @@ public class PlaySoundEvent : MonoBehaviour
 {
     public AudioClip SoundToPlay;
     public AudioSource AudioSrc;
+    public float Delay;
 
     public void Start()
     {
@@ -19,8 +20,20 @@ public class PlaySoundEvent : MonoBehaviour
     {
         if (AudioSrc != null)
         {
-            AudioSrc.clip = SoundToPlay;
-            AudioSrc.Play();
+            if (Delay > 0.0f)
+                StartCoroutine(DelayPlaySound());
+            else
+            {
+                AudioSrc.clip = SoundToPlay;
+                AudioSrc.Play();
+            }
         }
+    }
+
+    IEnumerator DelayPlaySound()
+    {
+        yield return new WaitForSeconds(Delay);
+        AudioSrc.clip = SoundToPlay;
+        AudioSrc.Play();
     }
 }

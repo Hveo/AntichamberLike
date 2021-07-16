@@ -121,7 +121,7 @@ public class PlayerControl : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, GetComponent<Collider>().bounds.extents.y + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, GetComponent<Collider>().bounds.extents.y + 0.1f, 1 << 0 | 1 << 11, QueryTriggerInteraction.Ignore);
     }
 
     public void ToggleCarryObject(GameObject CarriedObj, bool value)
