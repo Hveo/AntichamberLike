@@ -2,9 +2,22 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public static class GameUtilities
 {
+    private static GameObject BoxHelpRes;
+    private static GameObject BoxHelper;
+
+
+    public static bool HelperPresence { get; private set; }
+    public static Transform HelperTransform { get { return BoxHelper.transform; } private set { } }
+
+    public static void Init()
+    {
+        BoxHelpRes = Resources.Load<GameObject>("BoxHelper");
+    }
+
     public static bool IsPositionBetweenAB(Vector3 A, Vector3 B, Vector3 PosToTest)
     {
         Vector2 A2D = new Vector2(A.x, A.z);
@@ -34,5 +47,27 @@ public static class GameUtilities
     {
         LevelMgr.instance.Player.transform.position = Position;
         LevelMgr.instance.Player.transform.rotation = Quaternion.LookRotation(forward);
+    }
+
+    public static void DisplayBoxHelper(Vector3 Pos, Quaternion Rot)
+    {
+        if (BoxHelper == null)
+            BoxHelper = GameObject.Instantiate(BoxHelpRes, Pos, Rot);
+        else
+        {
+            BoxHelper.SetActive(true);
+            BoxHelper.transform.position = Pos;
+            BoxHelper.transform.rotation = Rot;
+        }
+
+        HelperPresence = true;
+    }
+
+    public static void HideBoxHelper()
+    {
+        if (BoxHelper != null)
+            BoxHelper.SetActive(false);
+
+        HelperPresence = false;
     }
 }

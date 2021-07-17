@@ -134,15 +134,22 @@ public class PlayerControl : MonoBehaviour
         if (!value)
         {
             CarriedObj.transform.parent = null;
+            
+            if (GameUtilities.HelperPresence)
+            {
+                CarriedObj.transform.position = GameUtilities.HelperTransform.position;
+                CarriedObj.transform.rotation = GameUtilities.HelperTransform.rotation;
+            }
+
             collider.radius = 0.5f;
             collider.center = Vector3.zero;
         }
         else
         {
             CarriedObj.transform.parent = transform;
-            CarriedObj.transform.position = transform.position + Center + PlayerBody.transform.forward;
+            CarriedObj.transform.position = transform.position + Center + (PlayerBody.transform.forward * 0.5f);
             Vector3 newCenter = CarriedObj.transform.localPosition / 2.0f;
-            newCenter.y = 0.0f;
+            newCenter.y = -0.2f;
             collider.center = newCenter;
             collider.radius = Vector3.Distance(CarriedObj.transform.position, transform.position);
         }

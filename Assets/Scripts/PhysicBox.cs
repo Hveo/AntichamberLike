@@ -49,6 +49,7 @@ public class PhysicBox : IInteractible
             KeepInteractability = false;
             m_Body.isKinematic = false;
             m_Collider.enabled = true;
+            GameUtilities.HideBoxHelper();
         }
         else
         {

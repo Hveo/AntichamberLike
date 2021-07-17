@@ -33,6 +33,7 @@ public class PlayerLook : MonoBehaviour
 
         m_PlayerPrefs = Core.instance.PlayerPrefs;
         m_PlayerCenter = playerBody.GetComponent<PlayerControl>().Center;
+
     }
 
     private void LockCursor()
@@ -51,8 +52,10 @@ public class PlayerLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (UISystem.MenuPresence || m_CurrentSelection != null && m_CurrentSelection.KeepInteractability)
+        if (UISystem.MenuPresence)
             return;
+     
+        bool isCarryingObject = m_CurrentSelection != null && m_CurrentSelection.KeepInteractability;
 
         Ray ray;
         if (InputHandler.PCLayout)
@@ -64,7 +67,12 @@ public class PlayerLook : MonoBehaviour
         {
             IInteractible interactible = hit.transform.GetComponent<IInteractible>();
             
-            if (interactible != null)
+            if (isCarryingObject)
+            {
+                if (interactible is PhysicBox && hit.normal == Vector3.up)
+                    GameUtilities.DisplayBoxHelper(interactible.transform.position + Vector3.up, interactible.transform.rotation);
+            }
+            else if (interactible != null)
             {
                 if (interactible != m_CurrentSelection)
                 {
@@ -73,7 +81,9 @@ public class PlayerLook : MonoBehaviour
 
                     m_CurrentSelection = interactible;
                     interactible.OnBeingInteractible();
+                    InterfaceUtilities.DisplayAction(LocalizationSystem.GetEntry("inputs.interact"));
                 }
+                GameUtilities.HideBoxHelper();
             }
         }
         else if (m_CurrentSelection != null && !m_CurrentSelection.KeepInteractability)
@@ -82,7 +92,10 @@ public class PlayerLook : MonoBehaviour
                 m_CurrentSelection.OnStopBeingInteractible();
 
             m_CurrentSelection = null;
+            InterfaceUtilities.Clear();
         }
+        else
+            GameUtilities.HideBoxHelper();
     }
 
     private void CameraRotation()

@@ -139,6 +139,16 @@ public static class InterfaceUtilities
             Core.instance.StartCoroutine(InitiateFade(tmp, revertFade, fadeTime));
     }
 
+    public static void DisplaySprite()
+    {
+
+    }
+
+    public static void DisplayAction(string locaEntry)
+    {
+        AddCaption(locaEntry, new Vector2(300.0f, 40.0f), 15.0f, Color.white, false, false, -1.0f, AnchorPreset.BOTTOM);
+    }
+
     public static void FadeToBlack(bool Revert, float time)
     {
         EnsureInterfacePresence();

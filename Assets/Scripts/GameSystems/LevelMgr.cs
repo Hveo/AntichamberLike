@@ -34,6 +34,7 @@ public class LevelMgr : MonoBehaviour
         States = new Dictionary<string, int>();
         StatesSubscriber = new Dictionary<string, List<EventListener>>();
         AudioMgr.PlayMusic(LevelMusic, true, true);
+        GameUtilities.Init();
     }
 
     void CreateNewState(string StateID, int value)
