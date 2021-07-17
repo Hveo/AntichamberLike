@@ -62,6 +62,7 @@ public static class InputHandler
         LockDeviceSwap = false;
         InputUser.onChange += OnInputDeviceChange;
         PCLayout = true;
+        SetDeviceName("Mouse");
     }
 
     public static InputBindingInfo[] GetInputsForCurrentDevice()

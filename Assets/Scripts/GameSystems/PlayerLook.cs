@@ -81,7 +81,7 @@ public class PlayerLook : MonoBehaviour
 
                     m_CurrentSelection = interactible;
                     interactible.OnBeingInteractible();
-                    InterfaceUtilities.DisplayAction(LocalizationSystem.GetEntry("inputs.interact"));
+                    InterfaceUtilities.DisplayAction("inputs.interact");
                 }
                 GameUtilities.HideBoxHelper();
             }

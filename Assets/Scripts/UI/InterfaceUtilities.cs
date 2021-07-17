@@ -48,22 +48,8 @@ public static class InterfaceUtilities
         m_Canvas = CanvasInstance.GetComponent<Canvas>();
     }
 
-    public static void AddCaption(string content, Vector2 size, float fontSize, Color txtColor, bool fade, bool revertFade, float fadeTime, AnchorPreset preset = AnchorPreset.CENTER)
+    static Vector2 AdaptUIElementToAnchor(AnchorPreset preset, RectTransform rect)
     {
-        EnsureInterfacePresence();
-
-        GameObject TxtObject = new GameObject("Caption");
-        TxtObject.transform.SetParent(CanvasInstance.transform);
-        RectTransform rect = TxtObject.AddComponent<RectTransform>();
-        Vector2 Placement = new Vector2(0.0f, 0.0f);
-        
-        TextMeshProUGUI tmp = TxtObject.AddComponent<TextMeshProUGUI>();
-        tmp.text = content;
-        tmp.fontSize = fontSize;
-        tmp.enableAutoSizing = true;
-        tmp.color = txtColor;
-        rect.sizeDelta = size;
-        
         //Adapt anchor for the given preset
         switch (preset)
         {
@@ -71,82 +57,104 @@ public static class InterfaceUtilities
             {
                 rect.anchorMin = new Vector2(0.0f, 1.0f);
                 rect.anchorMax = new Vector2(0.0f, 1.0f);
-                Placement = new Vector2(rect.sizeDelta.x * 0.55f, -(rect.sizeDelta.y * 1.05f)); 
-                break;
+                return new Vector2(rect.sizeDelta.x * 0.55f, -(rect.sizeDelta.y * 1.05f));
             }
             case AnchorPreset.TOP:
             {
                 rect.anchorMin = new Vector2(0.5f, 1.0f);
                 rect.anchorMax = new Vector2(0.5f, 1.0f);
-                Placement = new Vector2(0.0f, -(rect.sizeDelta.y * 1.05f));
-                break;
+                return new Vector2(0.0f, -(rect.sizeDelta.y * 1.05f));
             }
             case AnchorPreset.TOPRIGHT:
             {
                 rect.anchorMin = new Vector2(1.0f, 1.0f);
                 rect.anchorMax = new Vector2(1.0f, 1.0f);
-                Placement = new Vector2(-(rect.sizeDelta.x * 0.55f), -(rect.sizeDelta.y * 1.05f));
-                break;
+                return new Vector2(-(rect.sizeDelta.x * 0.55f), -(rect.sizeDelta.y * 1.05f));
             }
             case AnchorPreset.LEFT:
             {
                 rect.anchorMin = new Vector2(0.0f, 0.5f);
                 rect.anchorMax = new Vector2(0.0f, 0.5f);
-                Placement = new Vector2(rect.sizeDelta.x * 0.55f, 0.0f);
-                break;
+                return new Vector2(rect.sizeDelta.x * 0.55f, 0.0f);
             }
             case AnchorPreset.CENTER:
             {
                 rect.anchorMin = new Vector2(0.5f, 0.5f);
                 rect.anchorMax = new Vector2(0.5f, 0.5f);
-                Placement = new Vector2(0.0f, 0.0f);
-                break;
+                return new Vector2(0.0f, 0.0f);
             }
             case AnchorPreset.RIGHT:
             {
                 rect.anchorMin = new Vector2(1.0f, 0.5f);
                 rect.anchorMax = new Vector2(1.0f, 0.5f);
-                Placement = new Vector2(-(rect.sizeDelta.x * 0.55f), 0.0f);
-                break;
+                return new Vector2(-(rect.sizeDelta.x * 0.55f), 0.0f);
             }
             case AnchorPreset.BOTTOMLEFT:
             {
                 rect.anchorMin = new Vector2(0.0f, 0.0f);
                 rect.anchorMax = new Vector2(0.0f, 0.0f);
-                Placement = new Vector2(rect.sizeDelta.x * 0.55f, rect.sizeDelta.y * 0.55f);
-                break;
+                return new Vector2(rect.sizeDelta.x * 0.55f, rect.sizeDelta.y * 0.55f);
             }
             case AnchorPreset.BOTTOM:
             {
                 rect.anchorMin = new Vector2(0.5f, 0.0f);
                 rect.anchorMax = new Vector2(0.5f, 0.0f);
-                Placement = new Vector2(0.0f, rect.sizeDelta.y * 0.55f);
-                break;
+                return new Vector2(0.0f, rect.sizeDelta.y * 0.55f);
             }
             case AnchorPreset.BOTTOMRIGHT:
             {
                 rect.anchorMin = new Vector2(1.0f, 0.0f);
                 rect.anchorMax = new Vector2(1.0f, 0.0f);
-                Placement = new Vector2(-(rect.sizeDelta.x * 0.55f), rect.sizeDelta.y * 0.55f);
-                break;
+                return new Vector2(-(rect.sizeDelta.x * 0.55f), rect.sizeDelta.y * 0.55f);
             }
-            default: break;
+            default: return Vector2.zero;
         }
+    }
 
-        rect.anchoredPosition = Placement;
+    public static void AddCaption(string content, Vector2 size, float fontSize, Color txtColor, bool fade, bool revertFade, float fadeTime, AnchorPreset preset = AnchorPreset.CENTER)
+    {
+        EnsureInterfacePresence();
+
+        GameObject TxtObject = new GameObject("Caption");
+        TxtObject.transform.SetParent(CanvasInstance.transform);
+        RectTransform rect = TxtObject.AddComponent<RectTransform>();
+        
+        TextMeshProUGUI tmp = TxtObject.AddComponent<TextMeshProUGUI>();
+        tmp.text = content;
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.fontSize = fontSize;
+        tmp.enableAutoSizing = true;
+        tmp.color = txtColor;
+        rect.sizeDelta = size;
+        
+        rect.anchoredPosition = AdaptUIElementToAnchor(preset, rect);
 
         if (fade)
             Core.instance.StartCoroutine(InitiateFade(tmp, revertFade, fadeTime));
     }
 
-    public static void DisplaySprite()
+    public static Image AddSprite(Sprite spr, Vector2 size, float xOffset = 0.0f, float yOffset = 0.0f, AnchorPreset preset = AnchorPreset.CENTER)
     {
+        EnsureInterfacePresence();
 
+        GameObject ImgObj = new GameObject("Sprite");
+        ImgObj.transform.SetParent(CanvasInstance.transform);
+        RectTransform rect = ImgObj.AddComponent<RectTransform>();
+        rect.anchoredPosition = AdaptUIElementToAnchor(preset, rect);
+        rect.sizeDelta = size;
+        rect.position += new Vector3(xOffset, yOffset, 0.0f);
+        Image img = ImgObj.AddComponent<Image>();
+        img.sprite = spr;
+        return img; 
     }
 
     public static void DisplayAction(string locaEntry)
     {
-        AddCaption(locaEntry, new Vector2(300.0f, 40.0f), 15.0f, Color.white, false, false, -1.0f, AnchorPreset.BOTTOM);
+        AddCaption(LocalizationSystem.GetEntry(locaEntry), new Vector2(300.0f, 40.0f), 15.0f, Color.white, false, false, -1.0f, AnchorPreset.BOTTOM);
+        Image img = AddSprite(InputHandler.GetIconForAction(locaEntry), new Vector2(70.0f, 70.0f), 0.0f, 20.0f, AnchorPreset.BOTTOM);
+
+        InputActionDisplay actionDisplay = img.gameObject.AddComponent<InputActionDisplay>();
+        actionDisplay.ActionName = locaEntry;
     }
 
     public static void FadeToBlack(bool Revert, float time)
