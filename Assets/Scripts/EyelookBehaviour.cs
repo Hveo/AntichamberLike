@@ -8,7 +8,7 @@ public class EyelookBehaviour : MonoBehaviour
     Transform m_PlayerCamTransform;
     Material m_EyeMat;
     float m_Timer;
-
+    AudioSource m_audioSrc;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,10 @@ public class EyelookBehaviour : MonoBehaviour
         
         if (m_EyeMat == null)
             m_EyeMat = GetComponent<Renderer>().material;
-        
+
+        if (m_audioSrc == null)
+            m_audioSrc = GetComponent<AudioSource>();
+
         m_PlayerCamTransform = Camera.main.transform;
         Reset();
     }
@@ -47,6 +50,7 @@ public class EyelookBehaviour : MonoBehaviour
 
     IEnumerator EyeActivate()
     {
+        m_audioSrc.Play();
         yield return StartCoroutine(CloseEye());
         yield return StartCoroutine(OpenEye());
 

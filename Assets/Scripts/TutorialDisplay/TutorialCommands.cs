@@ -6,13 +6,12 @@ public class TutorialCommands : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GetComponent<BoxCollider>().enabled = false;
         StartCoroutine(DisplayTutorial());
     }
 
     IEnumerator DisplayTutorial()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         InterfaceUtilities.DisplayAction("inputs.look");
         yield return new WaitForSeconds(5.0f);
         InterfaceUtilities.Clear();
@@ -27,6 +26,13 @@ public class TutorialCommands : MonoBehaviour
             yield return null;
 
         yield return new WaitForSeconds(2.0f);
+        InterfaceUtilities.Clear();
+        Destroy(this);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        StopCoroutine(DisplayTutorial());
         InterfaceUtilities.Clear();
         Destroy(this);
     }
