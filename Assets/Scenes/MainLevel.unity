@@ -27070,6 +27070,11 @@ PrefabInstance:
       propertyPath: OnPush.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1005780770389839506, guid: 71b34f853be9fac499e58eb1fd85f079,
+        type: 3}
+      propertyPath: TriggerOnce
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1192116868042967902, guid: 71b34f853be9fac499e58eb1fd85f079,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40715,6 +40720,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 2525960330484830547, guid: c1c51a4d4fc98b4488a8ccc01cbc523f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1c51a4d4fc98b4488a8ccc01cbc523f, type: 3}
 --- !u!4 &1655450165 stripped
@@ -40733,6 +40743,37 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a36299ff8932cc4d9b8c4f80108d5f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1655450167 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2525960330484830547, guid: c1c51a4d4fc98b4488a8ccc01cbc523f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1655450164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1655450168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655450167}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 0.5, z: 3}
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &1655450169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655450167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ffc22deeb29c2469b0190e25f0ea7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1672061847

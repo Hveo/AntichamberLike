@@ -148,13 +148,37 @@ public static class InterfaceUtilities
         return img; 
     }
 
-    public static void DisplayAction(string locaEntry)
+    public static void DisplayAction(string locaEntry, bool isComposite = false)
     {
         AddCaption(LocalizationSystem.GetEntry(locaEntry), new Vector2(300.0f, 40.0f), 15.0f, Color.white, false, false, -1.0f, AnchorPreset.BOTTOM);
-        Image img = AddSprite(InputHandler.GetIconForAction(locaEntry), new Vector2(70.0f, 70.0f), 0.0f, 20.0f, AnchorPreset.BOTTOM);
 
-        InputActionDisplay actionDisplay = img.gameObject.AddComponent<InputActionDisplay>();
-        actionDisplay.ActionName = locaEntry;
+        if (isComposite)
+        {         
+            Sprite[] sprites = InputHandler.GetIconsForComposite(locaEntry, true);
+            GameObject Holder = new GameObject("SpritesGroup");
+            RectTransform rect = Holder.AddComponent<RectTransform>();
+            rect.anchoredPosition = AdaptUIElementToAnchor(AnchorPreset.BOTTOM, rect);
+            rect.sizeDelta = new Vector2(70.0f * sprites.Length, 70.0f);
+            rect.position = new Vector3(Screen.width / 2.0f, 70.0f, 0.0f);
+
+            for (int i = 0; i < sprites.Length; ++i)
+            {
+                Image img = AddSprite(sprites[i], new Vector2(70.0f, 70.0f), 0.0f, 0.0f, AnchorPreset.BOTTOM);
+                Holder.transform.parent = img.transform.parent;
+                img.transform.parent = Holder.transform;
+            }
+
+            Holder.AddComponent<HorizontalLayoutGroup>();
+            InputActionCompositeDisplay display = Holder.AddComponent<InputActionCompositeDisplay>();
+            display.ActionName = locaEntry;
+        }
+        else
+        {
+            Image img = AddSprite(InputHandler.GetIconForAction(locaEntry), new Vector2(70.0f, 70.0f), 0.0f, 20.0f, AnchorPreset.BOTTOM);
+            InputActionDisplay actionDisplay = img.gameObject.AddComponent<InputActionDisplay>();
+            actionDisplay.ActionName = locaEntry;
+        }
+
     }
 
     public static void FadeToBlack(bool Revert, float time)

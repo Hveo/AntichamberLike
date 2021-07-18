@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class TutorialCommands : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        GetComponent<BoxCollider>().enabled = false;
+        StartCoroutine(DisplayTutorial());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator DisplayTutorial()
     {
+        yield return new WaitForSeconds(1.0f);
+        InterfaceUtilities.DisplayAction("inputs.look");
+        yield return new WaitForSeconds(5.0f);
+        InterfaceUtilities.Clear();
+        yield return null;
         
+        Transform player = LevelMgr.instance.Player.transform;
+        Vector3 pos = player.position;
+
+        InterfaceUtilities.DisplayAction("inputs.move", true);       
+
+        while (pos == player.position)
+            yield return null;
+
+        yield return new WaitForSeconds(2.0f);
+        InterfaceUtilities.Clear();
+        Destroy(this);
     }
 }

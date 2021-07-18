@@ -93,7 +93,7 @@ public static class InputHandler
         
         for (int i = 0; i < inputs.Length; ++i)
         {
-            if (string.CompareOrdinal(inputs[i].Action.name, actionName) ==0)
+            if (string.CompareOrdinal(inputs[i].Action.name, actionName) == 0)
             {
                 string key = inputs[i].ControlPath.Substring(inputs[i].ControlPath.LastIndexOf("/"));
                 return Resources.Load<Sprite>("Inputs/" + InputHandler.DeviceName + key);
@@ -101,6 +101,26 @@ public static class InputHandler
         }
 
         return null;
+    }
+
+    public static Sprite[] GetIconsForComposite(string actionName, bool ignoreAltAction = false)
+    {
+        InputBindingInfo[] inputs = GetInputsForCurrentDevice();
+        List<Sprite> sprites = new List<Sprite>();
+        
+        for (int i = 0; i < inputs.Length; ++i)
+        {
+            if (string.CompareOrdinal(inputs[i].Action.name, actionName) == 0)
+            {
+                string key = inputs[i].ControlPath.Substring(inputs[i].ControlPath.LastIndexOf("/"));
+                sprites.Add(Resources.Load<Sprite>("Inputs/" + DeviceName + key));
+            }
+
+            if (ignoreAltAction)
+                ++i;
+        }
+
+        return sprites.ToArray();
     }
 
     static void SetDeviceName(string Layout)
