@@ -20,7 +20,7 @@ public class GravityModifier : MonoBehaviour
             Boxes[i].Body.AddForce(gravity);
 
             if (Boxes[i].IsCarried)
-                LevelMgr.instance.Player.PlayerBody.AddForce(gravity * 10.0f, ForceMode.Force);
+                LevelMgr.instance.Player.PlayerBody.AddForce(gravity * 15.0f, ForceMode.Force);
         }
     }
 

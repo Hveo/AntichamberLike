@@ -10,6 +10,7 @@ public class DissolvePlatform : MonoBehaviour
     float m_Timer;
     float m_Amount;
     bool m_Toggled;
+    bool m_SoundPlayed;
 
     private void Start()
     {
@@ -45,6 +46,12 @@ public class DissolvePlatform : MonoBehaviour
     {
         if (m_Toggled)
         {
+            if (!m_SoundPlayed)
+            {
+                m_SoundPlayed = true;
+                GetComponent<AudioSource>().Play();
+            }
+
             m_Amount = Mathf.MoveTowards(m_Amount, 1.0f, Time.deltaTime * 0.75f);
             m_Mat.SetFloat("_Amount", m_Amount);
 

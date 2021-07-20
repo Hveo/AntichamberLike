@@ -102,6 +102,8 @@ public class PauseMenuWindow : MonoBehaviour, IUIWindows
             () =>
             {
                 UISystem.instance.ClearAll();
+                AudioMgr.SetLowpassValue(5000);
+                AudioMgr.SetSFXVolume((int)Core.instance.PlayerPrefs.FXVolume);
                 UISystem.instance.LockUnlockPauseAction(false);
                 SceneManager.LoadScene(0);
             },
