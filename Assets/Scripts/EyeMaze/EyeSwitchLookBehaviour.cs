@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EyeSwitchLookBehaviour : MonoBehaviour
 {
+    public AudioClip EyeSwitchSound;
     Transform m_PlayerCamTransform;
     Material m_EyeMat;
     float m_Timer;
@@ -48,6 +49,7 @@ public class EyeSwitchLookBehaviour : MonoBehaviour
             
                 m_Switching = true;
                 StartCoroutine(EyeSwitch());
+                AudioMgr.PlaySound(EyeSwitchSound);
             }            
         }
         else if (!m_Switching)
