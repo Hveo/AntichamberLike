@@ -147,7 +147,8 @@ public class UISystem : MonoBehaviour
 
     public void CancelInputPressed(InputAction.CallbackContext ctx)
     {
-        WindowFocused.OnCancelInputPressed();
+        if (WindowFocused != null)
+            WindowFocused.OnCancelInputPressed();
     }
 
     void PauseInputPressed(InputAction.CallbackContext ctx)
