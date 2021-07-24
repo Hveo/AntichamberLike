@@ -5,8 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+#if UNITY_IOS
 using UnityEngine.iOS;
-
+#endif
 /// <summary>
 /// A classe used for serialization purpose because JSON won't serialize a local list
 /// </summary>

@@ -170,7 +170,7 @@
   </helper.fail>
   <end.congrats>
     <FR>Félicitations vous avez trouvé un moyen de sortir</FR>
-    <EN>Congratulations you find a way out</EN>
+    <EN>Congratulations you have found a way out</EN>
   </end.congrats>
   <end.secretsolved>
     <FR>Vous avez également résolu les énigmes secrètes. Mettez fin à votre expérience en appuyant sur le bouton</FR>
