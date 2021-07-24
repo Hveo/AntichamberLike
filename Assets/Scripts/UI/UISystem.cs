@@ -32,6 +32,7 @@ public class UISystem : MonoBehaviour
     private GameObject m_ConfirmPopup;
     private GameObject m_PauseWindow;
     private GameObject m_PrevSelection;
+    private Texture2D m_NoCursorRes;
 
     private IEnumerator Start()
     {
@@ -59,9 +60,15 @@ public class UISystem : MonoBehaviour
             yield return null;
 
         m_PauseWindow = req.asset as GameObject;
-
         CloseWindowAction.action.performed += CancelInputPressed;
         TogglePauseAction.action.performed += PauseInputPressed;
+        
+        req = Resources.LoadAsync("Inputs/NoCursorTex");
+
+        while (!req.isDone)
+            yield return null;
+
+        m_NoCursorRes = req.asset as Texture2D;
     }
 
     public GameObject CurrentSelection
@@ -85,11 +92,13 @@ public class UISystem : MonoBehaviour
         if (!MenuPresence)
         {
             CloseWindowAction.action.Disable();
+            Cursor.SetCursor(m_NoCursorRes, Vector2.zero, CursorMode.Auto);
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
             CloseWindowAction.action.Enable();
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             Cursor.lockState = CursorLockMode.None;
         }
     }

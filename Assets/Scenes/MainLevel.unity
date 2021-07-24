@@ -4538,6 +4538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimatorValueModifier: {fileID: 313709459}
+  ToDisable: {fileID: 284643540}
 --- !u!82 &284643544
 AudioSource:
   m_ObjectHideFlags: 0
