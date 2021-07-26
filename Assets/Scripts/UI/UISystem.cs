@@ -92,13 +92,13 @@ public class UISystem : MonoBehaviour
         if (!MenuPresence)
         {
             CloseWindowAction.action.Disable();
-            Cursor.SetCursor(m_NoCursorRes, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(m_NoCursorRes, Vector2.zero, CursorMode.ForceSoftware);
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
             CloseWindowAction.action.Enable();
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
             Cursor.lockState = CursorLockMode.None;
         }
     }
