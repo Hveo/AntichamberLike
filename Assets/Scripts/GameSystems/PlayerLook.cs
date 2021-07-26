@@ -111,7 +111,7 @@ public class PlayerLook : MonoBehaviour
     private void CameraRotation()
     {
         Vector2 cameraLook = m_Look.ReadValue<Vector2>();
-        float sensitivity = 0.0f;
+        float sensitivity = 1.0f;
         float xAxis = 1.0f;
         float yAxis = 1.0f;
 
