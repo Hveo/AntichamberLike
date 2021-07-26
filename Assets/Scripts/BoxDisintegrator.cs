@@ -23,7 +23,10 @@ public class BoxDisintegrator : MonoBehaviour
                 PhysicBox box = other.transform.GetChild(i).GetComponent<PhysicBox>();
                 
                 if (box != null)
+                {
                     box.Interact();
+                    box.SetInteractibilityState(false);
+                }
             }
         }
         else
@@ -43,6 +46,7 @@ public class BoxDisintegrator : MonoBehaviour
         obj.transform.position = RespawnPoint.position;
         yield return GameUtilities.DissolveMesh(obj.GetComponent<Renderer>(), false, 0.75f);
         IgnoreList.Remove(obj);
+        obj.GetComponent<IInteractible>().SetInteractibilityState(true);
     }
 
     public void DestroyAndRespawn_Utility(GameObject obj)

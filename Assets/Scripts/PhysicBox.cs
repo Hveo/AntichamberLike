@@ -28,6 +28,8 @@ public class PhysicBox : IInteractible
         m_Collider = GetComponent<BoxCollider>();
         m_AudioSrc = GetComponent<AudioSource>();
         m_OriginalColor = m_BoxRenderer.material.GetColor("_Color");
+
+        IsInteractible = true;
     }
 
     public override void OnBeingInteractible()

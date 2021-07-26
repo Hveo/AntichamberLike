@@ -13,7 +13,6 @@ public class Button : IInteractible
     public Color HighlightBaseColor;
     public AudioClip ButtonClickSound;
 
-    bool m_AlreadyToggled;
     bool m_InteractDelayOver;
     Color m_OriginalButtonEmission;
     Color m_OriginalBaseEmission;
@@ -22,8 +21,8 @@ public class Button : IInteractible
 
     public void Start()
     {
+        IsInteractible = true;
         m_InteractDelayOver = true;
-        m_AlreadyToggled = false;
         m_Animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
         m_OriginalButtonEmission = ButtonRenderer.material.GetColor("_EmissionColor");
@@ -44,10 +43,11 @@ public class Button : IInteractible
             m_AudioSource.Play();
         }
 
-        if (TriggerOnce && m_AlreadyToggled)
-            return;
-
-        m_AlreadyToggled = true;
+        if (TriggerOnce)
+        {
+            SetInteractibilityState(false);
+            OnStopBeingInteractible();
+        }
 
         if (OnPush != null)
             OnPush.Invoke();

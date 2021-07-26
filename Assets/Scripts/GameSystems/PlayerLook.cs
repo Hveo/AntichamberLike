@@ -66,23 +66,33 @@ public class PlayerLook : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 3.0f, layerMask, QueryTriggerInteraction.Collide))
         {
             IInteractible interactible = hit.transform.GetComponent<IInteractible>();
-            
+
             if (isCarryingObject)
             {
                 if (interactible is PhysicBox && hit.normal == Vector3.up)
                     GameUtilities.DisplayBoxHelper(interactible.transform.position + Vector3.up, interactible.transform.rotation);
             }
-            else if (interactible != null)
+            else if (interactible == null)
             {
-                if (interactible != m_CurrentSelection)
-                {
-                    if (m_CurrentSelection != null)
-                        m_CurrentSelection.OnStopBeingInteractible();
+                if (m_CurrentSelection != null)
+                    m_CurrentSelection.OnStopBeingInteractible();
 
-                    m_CurrentSelection = interactible;
-                    interactible.OnBeingInteractible();
-                    InterfaceUtilities.DisplayAction("inputs.interact");
-                }
+                m_CurrentSelection = null;
+                InterfaceUtilities.Clear();
+                return;
+            }
+
+            if (!interactible.IsInteractible)
+                return;
+            else if (interactible != m_CurrentSelection)
+            {
+                if (m_CurrentSelection != null)
+                    m_CurrentSelection.OnStopBeingInteractible();
+
+                m_CurrentSelection = interactible;
+                interactible.OnBeingInteractible();
+                InterfaceUtilities.DisplayAction("inputs.interact");
+
                 GameUtilities.HideBoxHelper();
             }
         }

@@ -108,10 +108,15 @@ public class UISystem : MonoBehaviour
         if (CurrentSelection == item)
             return;
 
-        EventSystem.current.SetSelectedGameObject(item);
         EventTrigger trigg = item.GetComponent<EventTrigger>();
 
-        if (!(trigg is null))
+        if (trigg != null)
+            trigg.OnDeselect(new PointerEventData(EventSystem.current));
+
+        EventSystem.current.SetSelectedGameObject(item);
+        trigg = item.GetComponent<EventTrigger>();
+
+        if (trigg != null)
             trigg.OnPointerEnter(new PointerEventData(EventSystem.current));
     }
 
@@ -214,7 +219,9 @@ public class UISystem : MonoBehaviour
                 WindowFocused.SetDefaultItemSelected();
 
             if (m_PrevSelection != CurrentSelection)
+            {
                 onSelectionChangeEvent?.Invoke(CurrentSelection);
+            }
 
             m_PrevSelection = CurrentSelection;
         }      
