@@ -24,6 +24,10 @@
     <FR>Non</FR>
     <EN>No</EN>
   </menu.no>
+  <menu.none>
+    <FR>Aucune</FR>
+    <EN>None</EN>
+  </menu.none>
   <menu.confirmmain>
     <FR>Voulez-vous revenir au menu principal ?</FR>
     <EN>Go back to main menu?</EN>
@@ -68,6 +72,10 @@
     <FR>Affichage</FR>
     <EN>Display</EN>
   </settings.display>
+  <settings.framelimit>
+    <FR>Limitation Framerate</FR>
+    <EN>Framerate Limit</EN>
+  </settings.framelimit>
   <settings.language>
     <FR>Langue</FR>
     <EN>Language</EN>

@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class DeviceActionIconDisplay : MonoBehaviour
 {
     public InputActionReference Action;
+    public bool KeepCurrentImageForPC;
 
     private Image m_InputImage;
+    private Sprite m_PCSprite;
 
     private void OnEnable()
     {
@@ -20,6 +22,9 @@ public class DeviceActionIconDisplay : MonoBehaviour
             return;
         }
 
+        if (KeepCurrentImageForPC)
+            m_PCSprite = m_InputImage.sprite;
+
         InputHandler.onInputDeviceChangedDelegate += ChangeLayout;
         ChangeLayout();
     }
@@ -27,6 +32,12 @@ public class DeviceActionIconDisplay : MonoBehaviour
 
     void ChangeLayout()
     {
+        if (InputHandler.PCLayout && KeepCurrentImageForPC)
+        {
+            m_InputImage.sprite = m_PCSprite;
+            return;
+        }
+
         string InputPath = string.Empty;
 
         for (int i = 0; i < Action.action.bindings.Count; ++i)

@@ -297,4 +297,22 @@ public static class UIGraphicUtilities
         toggle.targetGraphic.color = Color.white;
         LeanTween.scale(toggle.targetGraphic.gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
     }
+
+    public static void SelectMultipleChoiceSelectable(MultipleChoiceSelectable mcs)
+    {
+        LeanTween.scale(mcs.targetGraphic.gameObject, new Vector3(1.1f, 1.1f, 1.1f), 0.2f);
+        TextMeshProUGUI txtMesh = mcs.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (txtMesh != null)
+            txtMesh.color = SelectedColor;
+    }
+
+    public static void DeselectMultipleChoiceSelectable(MultipleChoiceSelectable mcs)
+    {
+        LeanTween.scale(mcs.targetGraphic.gameObject, new Vector3(1.1f, 1.1f, 1.1f), 0.2f);
+        TextMeshProUGUI txtMesh = mcs.GetComponentInChildren<TextMeshProUGUI>();
+
+        if (txtMesh != null)
+            txtMesh.color = Color.black;
+    }
 }

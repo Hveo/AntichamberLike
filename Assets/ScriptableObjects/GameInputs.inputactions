@@ -343,6 +343,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PreviousCategory",
+                    "type": "Button",
+                    "id": "33568311-0b8b-48d0-9e74-6bd856c7d240",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "NextCategory",
+                    "type": "Button",
+                    "id": "4fbf69e6-2645-4f39-bde2-17b1ad660ac7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -794,6 +810,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "SwitchSticks",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e29ecad5-d7d4-4bf8-b417-956385fd022f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PreviousCategory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46ce3550-4e6f-4cb3-916e-cc755f2286c9",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextCategory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

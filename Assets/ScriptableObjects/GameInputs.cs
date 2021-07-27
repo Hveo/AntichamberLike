@@ -356,6 +356,22 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreviousCategory"",
+                    ""type"": ""Button"",
+                    ""id"": ""33568311-0b8b-48d0-9e74-6bd856c7d240"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""NextCategory"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fbf69e6-2645-4f39-bde2-17b1ad660ac7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -809,6 +825,28 @@ public class @GameInputs : IInputActionCollection, IDisposable
                     ""action"": ""SwitchSticks"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e29ecad5-d7d4-4bf8-b417-956385fd022f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""PreviousCategory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46ce3550-4e6f-4cb3-916e-cc755f2286c9"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextCategory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -898,6 +936,8 @@ public class @GameInputs : IInputActionCollection, IDisposable
         m_UI_MoveSlider = m_UI.FindAction("MoveSlider", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         m_UI_SwitchSticks = m_UI.FindAction("SwitchSticks", throwIfNotFound: true);
+        m_UI_PreviousCategory = m_UI.FindAction("PreviousCategory", throwIfNotFound: true);
+        m_UI_NextCategory = m_UI.FindAction("NextCategory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1018,6 +1058,8 @@ public class @GameInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_UI_MoveSlider;
     private readonly InputAction m_UI_Pause;
     private readonly InputAction m_UI_SwitchSticks;
+    private readonly InputAction m_UI_PreviousCategory;
+    private readonly InputAction m_UI_NextCategory;
     public struct UIActions
     {
         private @GameInputs m_Wrapper;
@@ -1036,6 +1078,8 @@ public class @GameInputs : IInputActionCollection, IDisposable
         public InputAction @MoveSlider => m_Wrapper.m_UI_MoveSlider;
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputAction @SwitchSticks => m_Wrapper.m_UI_SwitchSticks;
+        public InputAction @PreviousCategory => m_Wrapper.m_UI_PreviousCategory;
+        public InputAction @NextCategory => m_Wrapper.m_UI_NextCategory;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1087,6 +1131,12 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @SwitchSticks.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchSticks;
                 @SwitchSticks.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchSticks;
                 @SwitchSticks.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchSticks;
+                @PreviousCategory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousCategory;
+                @PreviousCategory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousCategory;
+                @PreviousCategory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPreviousCategory;
+                @NextCategory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNextCategory;
+                @NextCategory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNextCategory;
+                @NextCategory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNextCategory;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1133,6 +1183,12 @@ public class @GameInputs : IInputActionCollection, IDisposable
                 @SwitchSticks.started += instance.OnSwitchSticks;
                 @SwitchSticks.performed += instance.OnSwitchSticks;
                 @SwitchSticks.canceled += instance.OnSwitchSticks;
+                @PreviousCategory.started += instance.OnPreviousCategory;
+                @PreviousCategory.performed += instance.OnPreviousCategory;
+                @PreviousCategory.canceled += instance.OnPreviousCategory;
+                @NextCategory.started += instance.OnNextCategory;
+                @NextCategory.performed += instance.OnNextCategory;
+                @NextCategory.canceled += instance.OnNextCategory;
             }
         }
     }
@@ -1205,5 +1261,7 @@ public class @GameInputs : IInputActionCollection, IDisposable
         void OnMoveSlider(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnSwitchSticks(InputAction.CallbackContext context);
+        void OnPreviousCategory(InputAction.CallbackContext context);
+        void OnNextCategory(InputAction.CallbackContext context);
     }
 }
