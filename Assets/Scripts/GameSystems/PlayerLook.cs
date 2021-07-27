@@ -67,18 +67,24 @@ public class PlayerLook : MonoBehaviour
         {
             IInteractible interactible = hit.transform.GetComponent<IInteractible>();
 
+            if (interactible == null)
+            {
+                if (!isCarryingObject)
+                {
+                    if (m_CurrentSelection != null)
+                        m_CurrentSelection.OnStopBeingInteractible();
+
+                    m_CurrentSelection = null;
+                    InterfaceUtilities.Clear();
+                }
+                return;
+            }
+
             if (isCarryingObject)
             {
                 if (interactible is PhysicBox && hit.normal == Vector3.up)
                     GameUtilities.DisplayBoxHelper(interactible.transform.position + Vector3.up, interactible.transform.rotation);
-            }
-            else if (interactible == null)
-            {
-                if (m_CurrentSelection != null)
-                    m_CurrentSelection.OnStopBeingInteractible();
 
-                m_CurrentSelection = null;
-                InterfaceUtilities.Clear();
                 return;
             }
 
