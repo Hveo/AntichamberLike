@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac40f8f5a01dd24f8b2686df647be4c, type: 3}
   m_Name: PlayerPrefs
   m_EditorClassIdentifier: 
+  Resolution: 1920x1080
+  FrameLimit: 60
   MouseSensitivity: 10
   StickSensitivity: 150
   InvertXAxis: 0
   InvertYAxis: 1
-  MusicVolume: 100
-  FXVolume: 100
-  UIVolume: 70
+  MusicVolume: 83
+  FXVolume: 80
+  UIVolume: 76
   CurrentLanguage: 0

@@ -12,14 +12,25 @@ public class Core : MonoBehaviour
     public string DataPath { get; private set; }
 
     string m_PlayerPrefsPath;
+    bool m_FileIsGenerated;
 
     void Awake()
     {
+        m_FileIsGenerated = false;
         if (instance is null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
             LoadPlayerPrefs();
+
+            if (!m_FileIsGenerated)
+            {
+                int[] Res = PlayerPrefs.ParseResolution();
+                Screen.SetResolution(Res[0], Res[1], true);
+            }
+
+            ApplyFrameLimit(PlayerPrefs.FrameLimit);
+
             LocalizationSystem.LoadLanguageEntries(PlayerPrefs.CurrentLanguage);
             StartCoroutine(AudioMgr.Init());
             InputHandler.InitiateInput();
@@ -49,6 +60,7 @@ public class Core : MonoBehaviour
         {
             string Json = JsonUtility.ToJson(PlayerPrefs);
             File.WriteAllText(m_PlayerPrefsPath, Json);
+            m_FileIsGenerated = true;
         }
         else
         {
@@ -61,5 +73,29 @@ public class Core : MonoBehaviour
     {
         string Json = JsonUtility.ToJson(PlayerPrefs);
         File.WriteAllText(m_PlayerPrefsPath, Json);
+    }
+
+    public void ApplyFrameLimit(string Limit)
+    {
+        if (string.CompareOrdinal(Limit, "30") == 0)
+        {
+            QualitySettings.vSyncCount = 2;
+            Application.targetFrameRate = 30;
+        }
+        else if (string.CompareOrdinal(Limit, "60") == 0)
+        {
+            QualitySettings.vSyncCount = 1;
+            Application.targetFrameRate = 60;
+        }
+        else if (string.CompareOrdinal(Limit, "120") == 0)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 120;
+        }
+        else if (string.CompareOrdinal(Limit, "menu.none") == 0)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = -1;
+        }
     }
 }

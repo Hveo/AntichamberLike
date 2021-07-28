@@ -120,6 +120,10 @@
     <FR>Certains paramètres ont été modifiés, voulez-vous appliquer ces changements ?</FR>
     <EN>Do you want to keep your changes before leaving?</EN>
   </settings.valuechanged>
+  <settings.keepchange>
+    <FR>Souhaitez-vous appliquer ces modifications d'affichages ?</FR>
+    <EN>Do you want to keep these display changes?</EN>
+  </settings.keepchange>
   <settings.reset>
     <FR>Rétablir paramètres par défaut</FR>
     <EN>Reset to default settings</EN>

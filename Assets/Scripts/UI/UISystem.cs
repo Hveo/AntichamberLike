@@ -30,6 +30,7 @@ public class UISystem : MonoBehaviour
 
     private Stack<WindowSelectable> m_WindowStack;
     private GameObject m_ConfirmPopup;
+    private GameObject m_ConfirmPopupTimed;
     private GameObject m_PauseWindow;
     private GameObject m_PrevSelection;
     private Texture2D m_NoCursorRes;
@@ -53,6 +54,13 @@ public class UISystem : MonoBehaviour
             yield return null;
 
         m_ConfirmPopup = req.asset as GameObject;
+
+        req = Resources.LoadAsync("UI/ConfirmPopupTimed");
+
+        while (!req.isDone)
+            yield return null;
+
+        m_ConfirmPopupTimed = req.asset as GameObject;
 
         req = Resources.LoadAsync("UI/PauseMenu");
 
@@ -238,6 +246,16 @@ public class UISystem : MonoBehaviour
         GameObject ConfirmPopupObj = GameObject.Instantiate(m_ConfirmPopup);
         NewFocusedWindow(ConfirmPopupObj, true);
         ConfirmPopupObj.GetComponent<ConfirmBoxGeneric>().BuildBox(contentKey, buttonLeftKey, buttonRightKey, leftAction, rightAction, titleKey);
+    }
+
+    public void CreateTimedPopup(string contentKey, string buttonLeftKey, string buttonRightKey, UnityAction leftAction, UnityAction rightAction, float Timer, string titleKey = "")
+    {
+        AudioMgr.PlayUISound("Confirm");
+        GameObject ConfirmPopupObj = GameObject.Instantiate(m_ConfirmPopupTimed);
+        NewFocusedWindow(ConfirmPopupObj, true);
+        ConfirmBoxTimed box = ConfirmPopupObj.GetComponent<ConfirmBoxTimed>();
+        box.BuildBox(contentKey, buttonLeftKey, buttonRightKey, leftAction, rightAction, titleKey);
+        box.StartTimer(Timer);
     }
 }
 

@@ -35,8 +35,8 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
         FeedUIElementsWithEvents();
         m_TMPPref = Core.instance.PlayerPrefs.GetDeepCopy();
-        LoadPrefs();
         m_FrameLimiter = new string[] { "30", "60", "120", "menu.none" };
+        LoadPrefs();
     }
 
     void SetNewSelection(GameObject obj)
@@ -77,6 +77,30 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         Selectables[8].GetComponent<Toggle>().isOn = m_TMPPref.InvertXAxis;
         Selectables[9].GetComponent<Toggle>().isOn = m_TMPPref.InvertYAxis;
 
+        m_ResIndex = 0;
+        m_AvailableResolutions = Screen.resolutions;
+        ResolutionText.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
+
+        for (int i = 0; i < m_AvailableResolutions.Length; ++i)
+        {
+            if (m_AvailableResolutions[i].width == Screen.currentResolution.width && m_AvailableResolutions[i].height == Screen.currentResolution.height)
+            {
+                m_ResIndex = i;
+                ResolutionText.text = m_AvailableResolutions[i].width + "x" + m_AvailableResolutions[i].height;
+                break;
+            }
+        }
+
+        for (int i = 0; i < m_FrameLimiter.Length; ++i)
+        {
+            if (string.CompareOrdinal(m_FrameLimiter[i], m_TMPPref.FrameLimit) == 0)
+            {
+                m_FrameIndex = i;
+                FrameText.text = i == m_FrameLimiter.Length - 1 ? LocalizationSystem.GetEntry(m_FrameLimiter[i]) : m_FrameLimiter[i];
+                break;
+            }
+        }
+
         LocalizationSystem.ChangeLanguage(m_TMPPref.CurrentLanguage);
     }
 
@@ -88,20 +112,6 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             yield return null;
 
         m_RebindWindow = req.asset as GameObject;
-
-        m_AvailableResolutions = Screen.resolutions;
-        m_ResIndex = 0;
-
-        //Transférer dans les loadprefs
-        for (int i = 0; i < m_AvailableResolutions.Length; ++i)
-        {
-            if (m_AvailableResolutions[i].width == Screen.currentResolution.width && m_AvailableResolutions[i].height == Screen.currentResolution.height)
-            {
-                m_ResIndex = i;
-                ResolutionText.text = m_AvailableResolutions[i].width + "x" + m_AvailableResolutions[i].height;
-                break;
-            }
-        }
     }
 
     public void FeedUIElementsWithEvents()
@@ -219,42 +229,50 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void NextResolution()
     {
+        AudioMgr.PlayUISound("Browse");
         m_ResIndex++;
 
         if (m_ResIndex >= m_AvailableResolutions.Length)
             m_ResIndex = 0;
 
         ResolutionText.text = m_AvailableResolutions[m_ResIndex].width + "x" + m_AvailableResolutions[m_ResIndex].height;
+        m_TMPPref.Resolution = ResolutionText.text;
     }
 
     public void PreviousResolution()
     {
+        AudioMgr.PlayUISound("Browse");
         m_ResIndex--;
 
         if (m_ResIndex < 0)
             m_ResIndex = m_AvailableResolutions.Length - 1;
 
         ResolutionText.text = m_AvailableResolutions[m_ResIndex].width + "x" + m_AvailableResolutions[m_ResIndex].height;
+        m_TMPPref.Resolution = ResolutionText.text;
     }
 
     public void NextFrameLimit()
     {
+        AudioMgr.PlayUISound("Browse");
         m_FrameIndex++;
 
         if (m_FrameIndex >= m_FrameLimiter.Length)
             m_FrameIndex = 0;
 
         FrameText.text = m_FrameIndex == m_FrameLimiter.Length - 1 ? LocalizationSystem.GetEntry(m_FrameLimiter[m_FrameIndex]) : m_FrameLimiter[m_FrameIndex];
+        m_TMPPref.FrameLimit = m_FrameLimiter[m_FrameIndex];
     }
 
     public void PreviousFrameLimit()
     {
+        AudioMgr.PlayUISound("Browse");
         m_FrameIndex--;
 
         if (m_FrameIndex < 0)
             m_FrameIndex = m_FrameLimiter.Length - 1;
 
         FrameText.text = m_FrameIndex == m_FrameLimiter.Length - 1 ? LocalizationSystem.GetEntry(m_FrameLimiter[m_FrameIndex]) : m_FrameLimiter[m_FrameIndex];
+        m_TMPPref.FrameLimit = m_FrameLimiter[m_FrameIndex];
     }
 
     public void OpenRebindWindow()
@@ -275,11 +293,48 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         LoadPrefs();
     }
 
-    public void Apply()
+    public void OnClickApply()
+    {
+        if (!Apply())
+        {
+            AskConfirmationForResolution();
+        }
+    }
+
+    public bool Apply()
     {
         AudioMgr.PlayUISound("Apply");
+
+        if (m_TMPPref.Resolution != Core.instance.PlayerPrefs.Resolution)
+        {
+            int[] Res = m_TMPPref.ParseResolution();
+            Screen.SetResolution(Res[0], Res[1], true);
+            return false;
+        }
+
+        Core.instance.ApplyFrameLimit(m_TMPPref.FrameLimit);
         Core.instance.PlayerPrefs = m_TMPPref;
         Core.instance.SavePlayerPrefs();
+        return true;
+    }
+
+    void AskConfirmationForResolution()
+    {
+        UISystem.instance.CreateTimedPopup(LocalizationSystem.GetEntry("settings.keepchange"), "menu.yes", "menu.no",
+        () =>
+        {
+            Core.instance.PlayerPrefs = m_TMPPref;
+            Core.instance.ApplyFrameLimit(m_TMPPref.FrameLimit);
+            Core.instance.SavePlayerPrefs();
+            UISystem.instance.CloseCurrentWindow();
+            UISystem.instance.CloseWindow(gameObject);
+        },
+        () =>
+        {
+            int[] Res = Core.instance.PlayerPrefs.ParseResolution();
+            Screen.SetResolution(Res[0], Res[1], true);
+            UISystem.instance.CloseCurrentWindow();
+        }, 5.0f);
     }
 
     public void Cancel()
@@ -289,9 +344,15 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             UISystem.instance.CreatePopup(LocalizationSystem.GetEntry("settings.valuechanged"), "menu.yes", "menu.no",
                 () =>
                 {
-                    Apply();
                     UISystem.instance.CloseCurrentWindow();
-                    UISystem.instance.CloseWindow(gameObject);
+                    if (Apply())
+                    {
+                        UISystem.instance.CloseWindow(gameObject);
+                    }
+                    else
+                    {
+                        AskConfirmationForResolution();
+                    }
                 },
                 () =>
                 {
@@ -315,7 +376,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         PlayerPrefsObject pp = Core.instance.PlayerPrefs;
         return m_TMPPref.MouseSensitivity != pp.MouseSensitivity || m_TMPPref.StickSensitivity != pp.StickSensitivity || m_TMPPref.FXVolume != pp.FXVolume ||
                 m_TMPPref.MusicVolume != pp.MusicVolume || m_TMPPref.UIVolume != pp.UIVolume || m_TMPPref.InvertXAxis != pp.InvertXAxis || m_TMPPref.InvertYAxis != pp.InvertYAxis || 
-                m_TMPPref.CurrentLanguage != pp.CurrentLanguage;
+                m_TMPPref.CurrentLanguage != pp.CurrentLanguage || m_TMPPref.Resolution != pp.Resolution || m_TMPPref.FrameLimit != pp.FrameLimit;
     }
 
     public void SetMusicVolume(Slider slider)
