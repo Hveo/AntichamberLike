@@ -13,6 +13,9 @@ public class MultipleChoiceSelectable : UnityEngine.UI.Selectable
     public InputActionReference PreviousInput;
     public InputActionReference NextInput;
 
+    System.Action<InputAction.CallbackContext> m_PrevAction;
+    System.Action<InputAction.CallbackContext> m_NextAction;
+
     public bool IsSelected { get; private set; }
     // Start is called before the first frame update
     protected override void Start()
@@ -26,15 +29,14 @@ public class MultipleChoiceSelectable : UnityEngine.UI.Selectable
 
     public void FeedPreviousPressed(System.Action<InputAction.CallbackContext> action)
     {
-        PreviousInput = new InputActionReference();
+        m_PrevAction = action;
         PreviousInput.action.performed += action;
         PreviousInput.action.Enable();
     }
 
     public void FeedNextPressed(System.Action<InputAction.CallbackContext> action)
     {
-        NextInput = new InputActionReference();
-        //Find Input Action to create a new entry
+        m_NextAction = action;
         NextInput.action.performed += action;
         NextInput.action.Enable();
     }
@@ -101,6 +103,8 @@ public class MultipleChoiceSelectable : UnityEngine.UI.Selectable
 
     protected override void OnDestroy()
     {
+        PreviousInput.action.performed -= m_PrevAction;
+        NextInput.action.performed -= m_NextAction;
         InputHandler.onInputDeviceChangedDelegate -= SetLayoutDisplay;
         base.OnDestroy();
     }

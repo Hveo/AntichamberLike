@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 public class SettingsWindow : MonoBehaviour, IUIWindows
 {
     public Selectable[] Selectables;
+    public TextMeshProUGUI ResolutionText;
+    public TextMeshProUGUI FrameText;
 
     private GameObject m_RebindWindow;
     private TextMeshProUGUI m_SFXValue;
@@ -21,6 +23,10 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
     private InputAction m_MoveSliderAction;
     private Slider m_CurrentSlider;
     private bool m_IsSliderSelected;
+    private Resolution[] m_AvailableResolutions;
+    private int m_ResIndex;
+    private string[] m_FrameLimiter;
+    private int m_FrameIndex;
 
     void Awake()
     {
@@ -30,6 +36,7 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
         FeedUIElementsWithEvents();
         m_TMPPref = Core.instance.PlayerPrefs.GetDeepCopy();
         LoadPrefs();
+        m_FrameLimiter = new string[] { "30", "60", "120", "menu.none" };
     }
 
     void SetNewSelection(GameObject obj)
@@ -81,6 +88,20 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
             yield return null;
 
         m_RebindWindow = req.asset as GameObject;
+
+        m_AvailableResolutions = Screen.resolutions;
+        m_ResIndex = 0;
+
+        //Transférer dans les loadprefs
+        for (int i = 0; i < m_AvailableResolutions.Length; ++i)
+        {
+            if (m_AvailableResolutions[i].width == Screen.currentResolution.width && m_AvailableResolutions[i].height == Screen.currentResolution.height)
+            {
+                m_ResIndex = i;
+                ResolutionText.text = m_AvailableResolutions[i].width + "x" + m_AvailableResolutions[i].height;
+                break;
+            }
+        }
     }
 
     public void FeedUIElementsWithEvents()
@@ -146,6 +167,30 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
                 trigg.triggers.Add(entry4);
             }
         }
+
+        GameObject mcs = Selectables[13].gameObject;
+        (Selectables[13] as MultipleChoiceSelectable).FeedNextPressed((InputAction.CallbackContext ctx) => 
+        { 
+            if (mcs.GetComponent<MultipleChoiceSelectable>().IsSelected) 
+                NextResolution(); 
+        });
+        (Selectables[13] as MultipleChoiceSelectable).FeedPreviousPressed((InputAction.CallbackContext ctx) => 
+        {
+            if (mcs.GetComponent<MultipleChoiceSelectable>().IsSelected)
+                PreviousResolution(); 
+        });
+
+        GameObject mcs1 = Selectables[14].gameObject;
+        (Selectables[14] as MultipleChoiceSelectable).FeedNextPressed((InputAction.CallbackContext ctx) => 
+        {
+            if (mcs1.GetComponent<MultipleChoiceSelectable>().IsSelected)
+                NextFrameLimit(); 
+        });
+        (Selectables[14] as MultipleChoiceSelectable).FeedPreviousPressed((InputAction.CallbackContext ctx) => 
+        {
+            if (mcs1.GetComponent<MultipleChoiceSelectable>().IsSelected)
+                PreviousFrameLimit(); 
+        });
     }
 
     public GameObject GetWindowObject()
@@ -164,12 +209,52 @@ public class SettingsWindow : MonoBehaviour, IUIWindows
 
     public void SetDefaultItemSelected()
     {
-        UISystem.instance.SelectItem(Selectables[0].gameObject);
+        UISystem.instance.SelectItem(Selectables[13].gameObject);
     }
 
     public void OnCancelInputPressed()
     {
         Cancel();
+    }
+
+    public void NextResolution()
+    {
+        m_ResIndex++;
+
+        if (m_ResIndex >= m_AvailableResolutions.Length)
+            m_ResIndex = 0;
+
+        ResolutionText.text = m_AvailableResolutions[m_ResIndex].width + "x" + m_AvailableResolutions[m_ResIndex].height;
+    }
+
+    public void PreviousResolution()
+    {
+        m_ResIndex--;
+
+        if (m_ResIndex < 0)
+            m_ResIndex = m_AvailableResolutions.Length - 1;
+
+        ResolutionText.text = m_AvailableResolutions[m_ResIndex].width + "x" + m_AvailableResolutions[m_ResIndex].height;
+    }
+
+    public void NextFrameLimit()
+    {
+        m_FrameIndex++;
+
+        if (m_FrameIndex >= m_FrameLimiter.Length)
+            m_FrameIndex = 0;
+
+        FrameText.text = m_FrameIndex == m_FrameLimiter.Length - 1 ? LocalizationSystem.GetEntry(m_FrameLimiter[m_FrameIndex]) : m_FrameLimiter[m_FrameIndex];
+    }
+
+    public void PreviousFrameLimit()
+    {
+        m_FrameIndex--;
+
+        if (m_FrameIndex < 0)
+            m_FrameIndex = m_FrameLimiter.Length - 1;
+
+        FrameText.text = m_FrameIndex == m_FrameLimiter.Length - 1 ? LocalizationSystem.GetEntry(m_FrameLimiter[m_FrameIndex]) : m_FrameLimiter[m_FrameIndex];
     }
 
     public void OpenRebindWindow()
