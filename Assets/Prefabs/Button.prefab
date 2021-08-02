@@ -232,7 +232,7 @@ MonoBehaviour:
   ButtonRenderer: {fileID: 3980270230662465351}
   BaseRenderer: {fileID: 5489087436744088889}
   HighlightButtonColor: {r: 0, g: 1, b: 1, a: 0}
-  HighlightBaseColor: {r: 0, g: 1, b: 1, a: 0}
+  HighlightBaseColor: {r: 0, g: 0.65162754, b: 1, a: 0}
   ButtonClickSound: {fileID: 8300000, guid: 8a0f7073ecd847e45805584c75372798, type: 3}
 --- !u!65 &7196793578817046800
 BoxCollider:

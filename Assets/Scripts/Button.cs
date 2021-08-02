@@ -9,12 +9,10 @@ public class Button : IInteractible
     public bool TriggerOnce;
     public Renderer ButtonRenderer;
     public Renderer BaseRenderer;
-    public Color HighlightButtonColor;
     public Color HighlightBaseColor;
     public AudioClip ButtonClickSound;
 
     bool m_InteractDelayOver;
-    Color m_OriginalButtonEmission;
     Color m_OriginalBaseEmission;
     Animator m_Animator;
     AudioSource m_AudioSource;
@@ -25,7 +23,6 @@ public class Button : IInteractible
         m_InteractDelayOver = true;
         m_Animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
-        m_OriginalButtonEmission = ButtonRenderer.material.GetColor("_EmissionColor");
         m_OriginalBaseEmission = BaseRenderer.material.GetColor("_EmissionColor");
     }
 
@@ -46,7 +43,8 @@ public class Button : IInteractible
         if (TriggerOnce)
         {
             SetInteractibilityState(false);
-            OnStopBeingInteractible();
+            //OnStopBeingInteractible();
+            BecomeUnusable();
         }
 
         if (OnPush != null)
@@ -65,13 +63,32 @@ public class Button : IInteractible
 
     public override void OnBeingInteractible()
     {
-        ButtonRenderer.material.SetColor("_EmissionColor", HighlightButtonColor);
+        BaseRenderer.material.SetColor("_Color", HighlightBaseColor);
         BaseRenderer.material.SetColor("_EmissionColor", HighlightBaseColor);
     }
 
     public override void OnStopBeingInteractible()
     {
-        ButtonRenderer.material.SetColor("_EmissionColor", m_OriginalButtonEmission);
+        BaseRenderer.material.SetColor("_Color", m_OriginalBaseEmission);
         BaseRenderer.material.SetColor("_EmissionColor", m_OriginalBaseEmission);
+    }
+
+    public void BecomeUnusable()
+    {
+        ButtonRenderer.material.SetColor("_EmissionColor", Color.grey);
+        BaseRenderer.material.SetColor("_EmissionColor", Color.grey);
+        StartCoroutine(SmoothFadeColor());
+    }
+
+    IEnumerator SmoothFadeColor()
+    {
+        Color col = BaseRenderer.material.GetColor("_Color"); 
+        while (col != Color.grey)
+        {
+            col = Color.Lerp(col, Color.grey, Time.deltaTime * 2f);
+            ButtonRenderer.material.SetColor("_Color", col);
+            BaseRenderer.material.SetColor("_Color", col);
+            yield return null;
+        }
     }
 }
