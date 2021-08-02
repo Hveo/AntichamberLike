@@ -11,7 +11,6 @@ public class PlayerLook : MonoBehaviour
     private IInteractible m_CurrentSelection;
     private InputAction m_Interact;
     private InputAction m_Look;
-    private PlayerPrefsObject m_PlayerPrefs;
     private Vector3 m_PlayerCenter;
 
     private void Awake()
@@ -31,9 +30,7 @@ public class PlayerLook : MonoBehaviour
                 m_CurrentSelection.Interact();
         };
 
-        m_PlayerPrefs = Core.instance.PlayerPrefs;
         m_PlayerCenter = playerBody.GetComponent<PlayerControl>().Center;
-
     }
 
     private void LockCursor()
@@ -116,21 +113,22 @@ public class PlayerLook : MonoBehaviour
 
     private void CameraRotation()
     {
+        PlayerPrefsObject playerPrefs = Core.instance.PlayerPrefs;
         Vector2 cameraLook = m_Look.ReadValue<Vector2>();
         float sensitivity = 1.0f;
         float xAxis = 1.0f;
         float yAxis = 1.0f;
 
         if (InputHandler.PCLayout)
-            sensitivity = m_PlayerPrefs.MouseSensitivity;
+            sensitivity = playerPrefs.MouseSensitivity;
         else
         {
-            sensitivity = m_PlayerPrefs.StickSensitivity;
+            sensitivity = playerPrefs.StickSensitivity;
 
-            if (m_PlayerPrefs.InvertXAxis)
+            if (playerPrefs.InvertXAxis)
                 xAxis = -1.0f;
 
-            if (m_PlayerPrefs.InvertYAxis)
+            if (playerPrefs.InvertYAxis)
                 yAxis = -1.0f;
         }
 

@@ -164,6 +164,14 @@
     <FR>Toutes les solutions ne se présentent pas à nous comme on le voudrait</FR>
     <EN>Every solutions don't come to us as we would like to</EN>
   </helper.stairs>
+  <helper.eyemaze>
+    <FR>Donnez-leur ce qu'ils veulent</FR>
+    <EN>Give them what they want</EN>
+  </helper.eyemaze>
+  <helper.lookbutton>
+    <FR>Choisir son sauveur est un luxe, les appréhensions sont un frein</FR>
+    <EN>You can't always choose your savior, apprehensions are an obstacle</EN>
+  </helper.lookbutton>
   <helper.lightmaze>
     <FR>Tous les feux doivent être au vert</FR>
     <EN>All the lights shall be green</EN>

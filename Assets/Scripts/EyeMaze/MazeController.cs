@@ -5,7 +5,7 @@ using UnityEngine;
 public class MazeController : MonoBehaviour
 {
     public GameObject[] ToEnable;
-
+    public AudioClip WallDisableSound;
     private void Start()
     {
         SetRoomActive(false);
@@ -21,11 +21,17 @@ public class MazeController : MonoBehaviour
 
     public void BreakWall(GameObject obj)
     {
-        StartCoroutine(GameUtilities.DissolveMesh(obj.GetComponent<Renderer>(), true, 1.0f));
+        AudioMgr.PlaySound(WallDisableSound);
+        StartCoroutine(GameUtilities.DissolveMesh(obj.GetComponent<Renderer>(), true, 0.5f));
         Collider coll = obj.GetComponent<Collider>();
 
         if (coll != null)
             coll.enabled = false;
+    }
+
+    public void ForceEyeState(int value)
+    {
+        LevelMgr.instance.SetStateValue("MazeWallState", value);
     }
 
     private void OnTriggerEnter(Collider other)
