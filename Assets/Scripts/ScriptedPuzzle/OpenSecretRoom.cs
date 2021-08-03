@@ -65,6 +65,11 @@ public class OpenSecretRoom : MonoBehaviour
         m_DoorState++;
 
         if (m_DoorState == 2)
+        {
             m_Animator.SetTrigger("OpenDoor");
+            
+            if (Core.instance.BuiltInResources)
+                AudioMgr.PlaySound(Core.instance.BuiltInResources.SolvedPuzzleClip);
+        }
     }
 }

@@ -28,6 +28,8 @@ public class PlaySoundEvent : MonoBehaviour
                 AudioSrc.Play();
             }
         }
+        else
+            AudioMgr.PlaySound(SoundToPlay);
     }
 
     IEnumerator DelayPlaySound()
