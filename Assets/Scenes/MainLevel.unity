@@ -33869,6 +33869,7 @@ GameObject:
   - component: {fileID: 1086650839}
   - component: {fileID: 1086650838}
   - component: {fileID: 1086650837}
+  - component: {fileID: 1086650843}
   - component: {fileID: 1086650842}
   m_Layer: 9
   m_Name: EyeDownWall (1)
@@ -34018,9 +34019,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 1086650835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb33300e64296bc40b1a655d6dd7d8b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a6244c9b8e41784dbdc3408afdccefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventStates:
+  - StateID: RemoveEyeWall
+    Value: 1
+    Action: 1
+    StateValueModif: 2
+--- !u!114 &1086650843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086650835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa6da1ac0215ad64eb7e0c0033fb0f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IgnoreStates: 0
+  StateID: RemoveEyeWall
+  Events:
+  - StateValueToTrigger: 1
+    EventToTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1086650835}
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1089852568
 PrefabInstance:
   m_ObjectHideFlags: 0

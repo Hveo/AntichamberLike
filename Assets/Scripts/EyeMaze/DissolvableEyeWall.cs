@@ -11,6 +11,9 @@ public class DissolvableEyeWall : MonoBehaviour
         if (runningCrt != null)
             StopCoroutine(runningCrt);
 
+        if (!gameObject.activeSelf)
+            return;
+
         runningCrt = StartCoroutine(DissolveRoutine(Disappear));  
     }
 
