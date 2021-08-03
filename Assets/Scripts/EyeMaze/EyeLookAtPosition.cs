@@ -15,9 +15,35 @@ public class EyeLookAtPosition : MonoBehaviour
     public void LookAtObject(GameObject obj)
     {
         Vector3 dir = (obj.transform.position - transform.position).normalized;
-        Vector3 lookAt = (0.20f * dir); //calculating position for eye shader iris
+        Vector2 lookPoint;
 
-        StartCoroutine(SmoothLookAtObject(lookAt.x, lookAt.y));
+        if (transform.forward == Vector3.forward)
+        {
+            lookPoint = new Vector2(dir.x, -dir.z);
+        }
+        else if (transform.right == Vector3.left)
+        {
+            if (dir.z < -0.9f || dir.z > 0.9f)
+                dir.x = 0.0f;
+
+            lookPoint = new Vector2(dir.x, dir.y);
+        }
+        else if (transform.right == Vector3.forward)
+        {
+            if (dir.x < -0.9f || dir.x > 0.9f)
+                dir.x = 0.0f;
+
+            lookPoint = new Vector2(-dir.z, dir.y);
+        }
+        else
+        {
+            if (dir.x < -0.9f || dir.x > 0.9f)
+                dir.x = 0.0f;
+
+            lookPoint = new Vector2(dir.z, dir.x);
+        }
+
+        StartCoroutine(SmoothLookAtObject(Mathf.Clamp(lookPoint.x, -0.17f, 0.17f), Mathf.Clamp(lookPoint.y, -0.17f, 0.17f)));
     }
 
     IEnumerator SmoothLookAtObject(float xVal, float yVal)

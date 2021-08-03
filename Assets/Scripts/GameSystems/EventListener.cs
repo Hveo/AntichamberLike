@@ -53,4 +53,9 @@ public class EventListener : MonoBehaviour
             Events[i].EventToTrigger.Invoke();
         }
     }
+
+    public void Destroy()
+    {
+        LevelMgr.instance.UnsubscribeToEvent(StateID, this);
+    }
 }

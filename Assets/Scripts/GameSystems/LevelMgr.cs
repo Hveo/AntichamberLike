@@ -96,6 +96,15 @@ public class LevelMgr : MonoBehaviour
         }
     }
 
+    public void UnsubscribeToEvent(string StateID, EventListener ev)
+    {
+        if (!StatesSubscriber.ContainsKey(StateID))
+        {
+            if (ev != null)
+                StatesSubscriber[StateID].Remove(ev);
+        }
+    }
+
     public void OnEventStateChange(string StateID)
     {
         List<EventListener> Listeners = new List<EventListener>();
